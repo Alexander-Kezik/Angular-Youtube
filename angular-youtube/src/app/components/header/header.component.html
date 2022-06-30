@@ -1,0 +1,25 @@
+<div class="header">
+    <div class="header__left">
+        <mat-icon class="header__sidebar-icon">menu</mat-icon>
+        <img
+            [routerLink]="['/']"
+            class="header__logo"
+            src="/assets/logo.svg"
+            alt="youtube logo"
+        />
+    </div>
+
+    <form class="header__middle">
+        <input
+            name="search"
+            id="search"
+            class="header__search"
+            type="search"
+            placeholder="Enter query"
+            required
+        />
+        <button class="header__search-button" type="submit">
+            <mat-icon class="header__icon">search</mat-icon>
+        </button>
+    </form>
+</div>
