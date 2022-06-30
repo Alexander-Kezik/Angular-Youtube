@@ -6,7 +6,7 @@ const routes: Routes = [
     //     path: '/search-page',
     // },
     {
-        path: '/channel-page',
+        path: 'channel-page',
         component: ChannelComponent,
         pathMatch: 'full'
     },
