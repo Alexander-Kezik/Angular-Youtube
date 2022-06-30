@@ -6,9 +6,7 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -18,4 +16,4 @@ import { RouterModule } from '@angular/router';
     bootstrap: [AppComponent]
 })
 
-export class AppModule { }
+export class AppModule {}
