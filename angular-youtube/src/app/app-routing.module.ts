@@ -1,22 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
+    {
+        path: 'search-page',
+        component: SearchComponent,
+        pathMatch: 'full',
+    },
     /*
-  {
-    path: "/search-page"
-  },
-  {
-    path: "/channel-page"
-  },
-  {
-    path: "/video-page"
-  },
-  {
-    path: "**",
-    redirectTo: "/"
-  }
-  */
+    {
+        path: '/channel-page',
+    },
+    {
+        path: '/video-page',
+    },
+    {
+        path: '**',
+        redirectTo: '/',
+    },
+    */
 ];
 
 @NgModule({

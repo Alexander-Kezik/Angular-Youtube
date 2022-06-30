@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SearchModule } from './search/search.module';
 
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
-    imports: [BrowserModule, AppRoutingModule, RouterModule, MatIconModule],
+    imports: [BrowserModule, AppRoutingModule, RouterModule, MatIconModule, SearchModule],
     providers: [],
     bootstrap: [AppComponent],
 })

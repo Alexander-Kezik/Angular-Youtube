@@ -1,0 +1,27 @@
+<section class="search-page">
+    <mat-card
+        class="search-page__item"
+        *ngFor="let videoItem of video.videoList"
+    >
+        <iframe
+            class="search-page__iframe"
+            [src]="sanitizer.bypassSecurityTrustResourceUrl(videoItem.videoURL)"
+        >
+        </iframe>
+        <div class="search-page__container">
+            <img class="search-page__img" [src]="videoItem.authorUrl" />
+            <div class="search-page__container-right">
+                <h2 class="search-page__title">{{ videoItem.title }}</h2>
+                <h3 class="search-page__author-name">{{ videoItem.author }}</h3>
+                <div class="search-page__container-bottom">
+                    <span class="search-page__view">
+                        {{ videoItem.view }} просмотров
+                    </span>
+                    <span class="search-page__date">
+                        {{ videoItem.date }} дней назад
+                    </span>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</section>
