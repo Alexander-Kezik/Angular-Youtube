@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { VideoComponent } from './video/video.component';
 
 const routes: Routes = [
     // {
-    //     path: '/search-page',
+    //     path: 'search-page',
     // },
     // {
-    //     path: '/channel-page',
+    //     path: 'channel-page',
     // },
-    // {
-    //     path: '/video-page',
-    // },
-    // {
-    //     path: '**',
-    //     redirectTo: '',
-    // },
+    {
+        path: 'video-page',
+        component: VideoComponent,
+    },
+    {
+        path: '**',
+        redirectTo: '',
+    },
 ];
 
 @NgModule({
