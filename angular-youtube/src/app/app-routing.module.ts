@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { VideoComponent } from './video/video.component';
 
 const routes: Routes = [
     // {
@@ -11,7 +10,8 @@ const routes: Routes = [
     // },
     {
         path: 'video-page',
-        component: VideoComponent,
+        loadChildren: () =>
+            import('./video/video.module').then((m) => m.VideoModule),
     },
     {
         path: '**',
@@ -23,5 +23,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
 })
-
 export class AppRoutingModule {}

@@ -1,0 +1,38 @@
+<section class="video-page">
+    <div class="current-video">
+        <div class="current-video__screen">
+            <iframe
+                class="iframe"
+                width="920"
+                height="520"
+                [src]="createSafeUrl(currentVideo.id)"
+            >
+            </iframe>
+        </div>
+        <div class="current-video__info">
+            <h1 class="current-video__title">
+                {{ currentVideo.snippet.title }}
+            </h1>
+            <p class="current-video__description">
+                {{ currentVideo.snippet.description }}
+            </p>
+        </div>
+    </div>
+    <div class="related-videos-collection">
+        <div
+            class="related-videos-item"
+            *ngFor="let relatedVideo of relatedVideos$"
+        >
+            <iframe
+                class="iframe"
+                width="168"
+                height="90"
+                [src]="createSafeUrl(relatedVideo.id)"
+            >
+            </iframe>
+            <h2 class="related-video__title">
+                {{ relatedVideo.snippet.title }}
+            </h2>
+        </div>
+    </div>
+</section>

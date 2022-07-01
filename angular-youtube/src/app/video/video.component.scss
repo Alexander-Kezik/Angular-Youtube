@@ -1,0 +1,33 @@
+.video-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1320px;
+    margin: 20px auto;
+
+    .current-video__info {
+        max-width: 900px;
+
+        .current-video__title {
+            margin-top: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--outline);
+        }
+    }
+
+    .related-videos-item {
+        max-width: 300px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+        padding-right: 50px;
+
+        .related-video__title {
+            margin-left: 5px;
+        }
+    }
+}
+
+.iframe {
+    border: none;
+}
