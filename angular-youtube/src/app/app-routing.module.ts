@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ChannelComponent } from "./channel/channel.component";
 
 const routes: Routes = [
+    // {
     //     path: '/search-page',
     // },
     {

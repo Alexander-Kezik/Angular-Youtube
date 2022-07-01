@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon'
-import { RouterModule } from "@angular/router";
+import { RouterModule } from '@angular/router';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 import { ChannelComponent } from './channel.component';
 import { ChannelDataComponent } from './channel-data/channel-data.component';
 import { ChannelTabsComponent } from './channel-tabs/channel-tabs.component';
 
 import { SharedModule } from '../shared/shared.module';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
     declarations: [
