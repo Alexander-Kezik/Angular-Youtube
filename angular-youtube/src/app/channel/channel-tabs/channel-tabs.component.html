@@ -7,13 +7,10 @@
     <a [routerLink]="['/channel-page/channels']" [routerLinkActive]="['active']" class="channel__tabs-tab">CHANNELS</a>
     <a [routerLink]="['/channel-page/about']" [routerLinkActive]="['active']" class="channel__tabs-tab">ABOUT THE CHANNEL</a>
     <div class="channel__tabs__search">
-        <mat-icon (click)="onSearch($event)" class="channel__tabs__search-icon">search</mat-icon>
-        <input
-            (click)="$event.stopPropagation()"
-            [(ngModel)]="searchVideo"
-            class="{{ isSearching ? 'channel__tabs__search-input' : 'channel__tabs__search-input disable' }}"
-            placeholder="Search"
-        />
+        <mat-icon (click)="onSearch()" class="channel__tabs__search-icon">search</mat-icon>
+        <mat-form-field class="{{ isSearching ? 'channel__tabs__search-input' : 'channel__tabs__search-input disable' }}">
+            <input (blur)="onHideSearching()" [(ngModel)]="searchVideo" matInput/>
+        </mat-form-field>
     </div>
     <mat-icon class="channel__tabs-arrow">keyboard_arrow_right</mat-icon>
 </div>
