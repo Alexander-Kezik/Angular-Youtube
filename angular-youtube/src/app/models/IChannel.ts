@@ -16,7 +16,7 @@ export interface IChannel {
         brandingSettings: {
             image: {
                 bannerExternalUrl: string
-            }
+            },
         }
     }]
 }
