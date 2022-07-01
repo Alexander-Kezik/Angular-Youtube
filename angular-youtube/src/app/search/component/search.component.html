@@ -1,0 +1,62 @@
+<section class="search-page">
+    <section class="search-page__view-actions">
+        <button
+            mat-raised-button
+            class="search-page_view-change"
+            (click)="changeView()"
+        >
+            {{ videoListView ? "Список" : "Сетка" }}
+        </button>
+    </section>
+    <section
+        class="search-page__video-items video-items_grid"
+        *ngIf="videoListView"
+    >
+        <mat-card
+            class="search-page__item"
+            *ngFor="let videoItem of searchService.videoList"
+        >
+            <iframe
+                class="search-page__iframe"
+                [src]="
+                    sanitizer.bypassSecurityTrustResourceUrl(videoItem.videoURL)
+                "
+            >
+            </iframe>
+            <div class="search-page__container">
+                <img class="search-page__img" [src]="videoItem.authorUrl" />
+                <div class="search-page__container-right">
+                    <h2 class="search-page__title">{{ videoItem.title }}</h2>
+                    <h3 class="search-page__author-name">
+                        {{ videoItem.author }}
+                    </h3>
+                    <div class="search-page__container-bottom">
+                        <span class="search-page__view">
+                            {{ videoItem.view }} просмотров
+                        </span>
+                        <span class="search-page__date">
+                            {{ videoItem.date }} дней назад
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </section>
+    <section
+        class="search-page__video-items video-items_list"
+        *ngIf="!videoListView"
+    >
+        <mat-card
+            class="search-page__item"
+            *ngFor="let videoItem of searchService.videoList"
+        >
+            <iframe
+                class="search-page__iframe"
+                [src]="
+                    sanitizer.bypassSecurityTrustResourceUrl(videoItem.videoURL)
+                "
+            >
+            </iframe>
+        </mat-card>
+    </section>
+</section>

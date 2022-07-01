@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SearchService } from './search.service';
+import { SearchService } from '../service/search.service';
 
 @Component({
     selector: 'app-search',
@@ -8,7 +8,12 @@ import { SearchService } from './search.service';
     styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-    constructor(public video: SearchService, public sanitizer: DomSanitizer) {}
+    constructor(public searchService: SearchService, public sanitizer: DomSanitizer) {}
+    videoListView = true;
 
     ngOnInit(): void {}
+
+    changeView(): void {
+        this.videoListView = !this.videoListView;
+      }
 }

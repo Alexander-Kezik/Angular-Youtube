@@ -8,18 +8,22 @@
             alt="youtube logo"
         />
     </div>
-
-    <form class="header__middle">
-        <input
-            name="search"
-            id="search"
-            class="header__search"
-            type="search"
-            placeholder="Enter query"
-            required
-        />
+    <div class="header__middle">
+        <mat-form-field class="header__search" appearance="fill">
+            <mat-label>Запрос</mat-label>
+            <input
+                [(ngModel)]="query"
+                matInput
+                placeholder="Введите запрос"
+                name="search"
+                id="search"
+                class="header__input"
+                type="search"
+                required
+            />
+        </mat-form-field>
         <button class="header__search-button" type="submit">
             <mat-icon class="header__icon">search</mat-icon>
         </button>
-    </form>
+    </div>
 </div>

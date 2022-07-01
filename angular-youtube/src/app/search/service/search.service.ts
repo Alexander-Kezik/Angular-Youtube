@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { IVideo } from './search';
+import { IVideo } from '../search';
 
 @Injectable({
     providedIn: 'root',
 })
+
+
 export class SearchService {
-    videoList: Array<IVideo> = [
+    videoList: IVideo[] = [
         {
             title: 'Funny Cats Compilation (Most Popular) Part 1',
             author: 'NoCAT NoLiFE 2',
