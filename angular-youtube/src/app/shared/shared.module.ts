@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
+import { VideoListItemComponent } from './videoListItem/video-list-item.component';
 
 @NgModule({
-    declarations: [],
+    declarations: [
+        VideoListItemComponent
+    ],
     imports: [
         CommonModule
     ],
     exports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        VideoListItemComponent
     ]
 })
+
 export class SharedModule { }
