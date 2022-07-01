@@ -15,19 +15,7 @@
         }
     }
 
-    .related-videos-item {
-        max-width: 300px;
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 20px;
-        padding-right: 50px;
-
-        .related-video__title {
-            margin-left: 5px;
-        }
+    .iframe {
+        border: none;
     }
-}
-
-.iframe {
-    border: none;
 }
