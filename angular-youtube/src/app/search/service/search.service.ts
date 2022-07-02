@@ -14,10 +14,11 @@ export class SearchService {
 
     public getPopularVideos(): Observable<IVideo[]> {
         return this._http.get<IVideo[]>(this._popularVideosUrl).pipe(
+            tap((data: any) => console.log(JSON.stringify(data))),
             map((data: any) => {
                 return data.items.map((item: any) => {
                     return {
-                        id: item.id.videoId,
+                        id: item.id,
                         snippet: {
                             title: item.snippet.title,
                             description: item.snippet.description,
