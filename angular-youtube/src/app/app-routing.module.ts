@@ -8,18 +8,16 @@ const routes: Routes = [
         component: SearchComponent,
         pathMatch: 'full',
     },
-    /*
-    {
-        path: '/channel-page',
-    },
-    {
-        path: '/video-page',
-    },
-    {
-        path: '**',
-        redirectTo: '/',
-    },
-    */
+    // {
+    //     path: '/channel-page',
+    // },
+    // {
+    //     path: '/video-page',
+    // },
+    // {
+    //     path: '**',
+    //     redirectTo: '/',
+    // },
 ];
 
 @NgModule({

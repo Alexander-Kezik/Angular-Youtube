@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
     constructor() {}
-    query: string = '';
+    public query: string = '';
     
     ngOnInit(): void {}
 }
