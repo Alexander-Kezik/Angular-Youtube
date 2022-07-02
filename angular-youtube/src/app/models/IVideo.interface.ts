@@ -3,11 +3,6 @@ export interface IVideo {
     snippet: {
         title: string;
         description: string;
-        thumbnails: {
-            high: {
-                url: string,
-            }
-        }
-    }
+        imageUrl: string;
+    };
 }
-

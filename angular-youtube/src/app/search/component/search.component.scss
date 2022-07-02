@@ -6,7 +6,6 @@
         padding: 10px 0;
         margin-bottom: 20px;
         background-color: rgba(195, 187, 187, 0.058);
-
     }
 
     .search-page__video-items {
@@ -30,29 +29,29 @@
                 height: 220px;
             }
 
-            .search-page__title{
+            .search-page__title {
                 font-size: 16px;
             }
         }
     }
 
-    .video-items_list{
+    .video-items_list {
         flex-direction: column;
         align-items: center;
 
-        .item-list{
+        .item-list {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 90%;
             padding: 10px;
 
-            .img-list{
+            .img-list {
                 height: 150px;
                 width: 200px;
             }
 
-            .item-list__container{
+            .item-list__container {
                 display: flex;
                 flex-direction: column;
                 width: 80%;

@@ -9,24 +9,14 @@ import { SearchService } from '../service/search.service';
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit {
     public videoListView = true;
-    public videos!: IVideo[];
-    private _sub!: Subscription;
+    public videos$!: Observable<IVideo[]>;
 
-    constructor(
-        private _searchService: SearchService,
-        private _sanitizer: DomSanitizer
-    ) {}
+    constructor(private _searchService: SearchService) {}
 
     ngOnInit(): void {
-        this._sub = this._searchService.getPopularVideos().subscribe((data) => {
-            this.videos = data.items;
-        });
-    }
-
-    ngOnDestroy(): void {
-        this._sub.unsubscribe();
+        this.videos$ = this._searchService.getPopularVideos();
     }
 
     public changeView(): void {
