@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { IVideo } from 'src/app/models/IVideo.interface';
-import { SharedService } from 'src/app/shared/shared-service/shared.service';
 import { SearchService } from '../service/search.service';
 
 @Component({
@@ -13,17 +13,14 @@ import { SearchService } from '../service/search.service';
 export class SearchComponent implements OnInit {
     public videoListView = true;
     public videos$!: Observable<IVideo[]>;
-    private _clickEventSubscription: Subscription;
+    public query!: string | null;
 
     constructor(
         private _searchService: SearchService,
-        private _sharedService: SharedService
+        private activatedRoute: ActivatedRoute,
+        private router: Router
     ) {
-        this._clickEventSubscription = this._sharedService
-            .getClickEvent()
-            .subscribe(() => {
-                this._showVideosByQuery(this._sharedService.getQuery());
-            });
+        this._showVideosByQuery();
     }
 
     ngOnInit(): void {
@@ -34,7 +31,14 @@ export class SearchComponent implements OnInit {
         this.videoListView = !this.videoListView;
     }
 
-    private _showVideosByQuery(query: string) {
-        this.videos$ = this._searchService.getVideosByQuery(query);
+    private _showVideosByQuery() {
+        this.router.events.subscribe(() => {
+            this.query = this.activatedRoute.snapshot.queryParamMap.get('search_query');
+            if (this.query) {
+                this.videos$ = this._searchService.getVideosByQuery(String(this.query));
+            } else {
+                this.videos$ = this._searchService.getPopularVideos();
+            }
+        });
     }
 }
