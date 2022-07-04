@@ -3,16 +3,17 @@ import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from "@angular/router";
 
 import { ChannelComponent } from './channel.component';
-import { ChannelSubscribeBtnComponent } from "./channelSubscribeBtn/channelSubscribeBtn.component";
-import { ChannelDataComponent } from './channelData/channel-data.component';
-import { ChannelTabsComponent } from './channelTabs/channel-tabs.component';
+import { ChannelDataComponent } from './channel-data/channel-data.component';
+import { ChannelTabsComponent } from './channel-tabs/channel-tabs.component';
 
 import { SharedModule } from '../shared/shared.module';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
     declarations: [
         ChannelComponent,
-        ChannelSubscribeBtnComponent,
         ChannelDataComponent,
         ChannelTabsComponent
     ],
@@ -25,7 +26,10 @@ import { SharedModule } from '../shared/shared.module';
             // { path: 'channel-page/about' }
         ]),
         SharedModule,
-        MatIconModule
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule
     ]
 })
 

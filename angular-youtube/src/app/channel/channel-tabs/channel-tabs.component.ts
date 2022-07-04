@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class ChannelTabsComponent {
-    private _searchVideo: string = '';
-
     public isSearching: boolean = false;
+
+    private _searchVideo: string = '';
 
     public get searchVideo(): string {
         return this._searchVideo;
@@ -19,8 +19,11 @@ export class ChannelTabsComponent {
         this._searchVideo = value;
     }
 
-    public onSearch(e: Event): void {
+    public onSearch(): void {
         this.isSearching = !this.isSearching;
-        e.stopPropagation();
+    }
+
+    public onHideSearching(): void {
+        this.isSearching = false;
     }
 }
