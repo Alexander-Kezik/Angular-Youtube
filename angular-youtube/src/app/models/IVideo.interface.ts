@@ -1,13 +1,8 @@
+import { IVideoSnippet } from './IVideoSnippet.interface';
+import { IVideoStatistics } from './IVideoStatistics.interface';
+
 export interface IVideo {
     id: string;
-    snippet: {
-        title: string;
-        description: string;
-        channelTitle: string;
-    };
-    statistics: {
-        viewCount: number;
-        likeCount: number;
-        commentCount: number;
-    };
+    snippet: IVideoSnippet;
+    statistics: IVideoStatistics;
 }

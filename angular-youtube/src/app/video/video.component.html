@@ -1,14 +1,6 @@
 <section class="video-page" *ngIf="currentVideo">
     <div class="current-video">
-        <div class="current-video__screen">
-            <iframe
-                class="iframe"
-                width="920"
-                height="520"
-                [src]="createSafeUrl(currentVideo.id)"
-            >
-            </iframe>
-        </div>
+        <app-video-player [id]="currentVideo.id"></app-video-player>
         <app-video-info
             [title]="currentVideo.snippet.title"
             [description]="currentVideo.snippet.description"

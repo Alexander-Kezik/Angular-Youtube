@@ -12,20 +12,12 @@ export class VideoComponent implements OnInit {
     public currentVideo!: IVideo;
     public relatedVideos$!: IVideo[];
 
-    constructor(
-        private _videoService: VideoService,
-        private _sanitizer: DomSanitizer
-    ) {}
+    constructor(private _videoService: VideoService) {}
 
     ngOnInit(): void {
         this._videoService.getRelatedVideos().subscribe((data) => {
             this.relatedVideos$ = data.items;
             this.currentVideo = data.items[0];
         });
-    }
-
-    public createSafeUrl(id: string): SafeResourceUrl {
-        const untrustedUrl = 'https://www.youtube.com/embed/' + id;
-        return this._sanitizer.bypassSecurityTrustResourceUrl(untrustedUrl);
     }
 }

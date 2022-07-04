@@ -9,9 +9,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatMenuModule} from "@angular/material/menu";
+import { VideoPlayerComponent } from './video-player/video-player.component';
 
 @NgModule({
-    declarations: [VideoComponent, RelatedVideosComponent, VideoInfoComponent],
+    declarations: [VideoComponent, RelatedVideosComponent, VideoInfoComponent, VideoPlayerComponent],
     imports: [
         SharedModule,
         MatIconModule,
