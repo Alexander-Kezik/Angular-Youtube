@@ -4,10 +4,15 @@
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid #ccc;
-        padding: 10px 0;
+        padding-top: 15px;
         margin-bottom: 20px;
         background-color: rgba(195, 187, 187, 0.058);
         gap: 20px;
+
+        .search-page_view-change{
+            margin-bottom: 19px;
+            padding: 8px 20px;
+        }  
     }
 
     .search-page__video-items {
@@ -33,6 +38,7 @@
 
             .search-page__title {
                 font-size: 16px;
+                padding: 0 10px;
             }
         }
     }

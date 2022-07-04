@@ -12,7 +12,6 @@ export class HeaderComponent {
 
     public submit(form: NgForm): void {
         if (form.valid) {
-            console.log(form.value.search);
             this._sharedService.sendClickEvent(form.value.search);
         }
     }

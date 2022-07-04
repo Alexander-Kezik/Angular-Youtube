@@ -2,11 +2,13 @@
     <section class="search-page__view-actions">
         <mat-form-field appearance="fill">
             <mat-label>Фильтрация</mat-label>
-            <mat-select>
+            <mat-select ngModel (ngModelChange)="showVideosByFilter($event)">
                 <mat-option>Все</mat-option>
-                <mat-option *ngFor="let category of categories$ | async as categories" [value]="category">{{
-                    category.snippet.title
-                }}</mat-option>
+                <mat-option
+                    *ngFor="let category of categories$ | async as categories"
+                    [value]="category.id"
+                    >{{ category.snippet.title }}</mat-option
+                >
             </mat-select>
         </mat-form-field>
         <button

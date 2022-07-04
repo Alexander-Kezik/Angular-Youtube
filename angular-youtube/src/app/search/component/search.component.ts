@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
@@ -35,6 +34,14 @@ export class SearchComponent implements OnInit {
 
     public changeView(): void {
         this.videoListView = !this.videoListView;
+    }
+
+    public showVideosByFilter(value: string) {
+        if (!value) {
+            this.videos$ = this._searchService.getPopularVideos();
+        } else {
+            this.videos$ = this._searchService.getVideosByFilter(value);
+        }
     }
 
     private _showVideosByQuery(query: string) {

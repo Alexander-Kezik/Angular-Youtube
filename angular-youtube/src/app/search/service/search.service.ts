@@ -63,11 +63,29 @@ export class SearchService {
                         id: item.id,
                         snippet: {
                             title: item.snippet.title,
+                            assignable: item.snippet.assignable
                         },
                     } as ICategory;
                 });
-            })
+            }),
         );
+    }
+
+    public getVideosByFilter(categoryId: string): Observable<IVideo[]> {
+        const searchType = 'videos';
+        const queryParams = [
+            'part=snippet',
+            'chart=mostPopular',
+            'maxResults=50',
+            'regionCode=BY',
+            `videoCategoryId=${categoryId}`,
+            `key=${this._API_KEY}`,
+        ];
+
+        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join(
+            '&'
+        )}`;
+        return this._getVideos(videosUrl);
     }
 
     public _getVideos(url: string): Observable<IVideo[]> {
