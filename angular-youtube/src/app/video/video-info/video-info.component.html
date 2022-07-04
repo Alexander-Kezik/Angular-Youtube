@@ -1,26 +1,32 @@
-<div class="current-video__info-section">
-    <h1 class="info-section__title">{{ title }}</h1>
+<div class="current-video__info-section" *ngIf="currentVideo">
+    <h1 class="info-section__title">{{ currentVideo.snippet.title }}</h1>
     <div class="info-section__tools">
-        <div class="tools__views tool">{{ viewCount }} views</div>
+        <div class="tools__views tool">
+            {{ currentVideo.statistics.viewCount }} views
+        </div>
         <div class="tools__likes tool" (click)="toggleLike()">
             <mat-icon class="tab-icon">{{
                 likeActive ? "thumb_up" : "thumb_up_off_alt"
             }}</mat-icon>
-            {{ likeCount }}
+            {{ currentVideo.statistics.likeCount }}
         </div>
         <div class="tools__dislikes tool" (click)="toggleDislike()">
             <mat-icon class="tab-icon">{{
                 dislikeActive ? "thumb_down" : "thumb_down_off_alt"
             }}</mat-icon>
-            Dislike
+            DISLIKE
         </div>
         <div class="tools__share tool">
             <mat-icon class="tab-icon">share</mat-icon>
-            Share
+            SHARE
         </div>
         <div class="tools__download tool">
             <mat-icon class="tab-icon">download</mat-icon>
-            Download
+            DOWNLOAD
+        </div>
+        <div class="tools__create-clip tool">
+            <mat-icon class="tab-icon">content_cut</mat-icon>
+            CREATE CLIP
         </div>
         <button
             mat-icon-button
@@ -34,22 +40,26 @@
     <mat-divider></mat-divider>
     <div class="info-section__channel">
         <div class="channel-title-and-subscribe-btn">
-            <h2 class="channel-title">{{ channelTitle }}</h2>
+            <h2 class="channel-title">
+                {{ currentVideo.snippet.channelTitle }}
+            </h2>
             <button
                 mat-raised-button
                 color="{{ subscribe ? '' : 'warn' }}"
                 (click)="toggleSubscribe()"
             >
-                {{ subscribe ? "Unsubscribe" : "Subscribe" }}
+                {{ subscribe ? "UNSUBSCRIBE" : "SUBSCRIBE" }}
             </button>
         </div>
         <div class="info-section__description" *ngIf="!showDescription">
-            {{ description }}
+            {{ currentVideo.snippet.description }}
         </div>
         <p class="info-section__more-info" (click)="toggleDescription()">
             {{ showDescription ? "Show description" : "Hide" }}
         </p>
     </div>
     <mat-divider></mat-divider>
-    <div class="info-section__comments-count">{{ commentCount }} comments</div>
+    <div class="info-section__comments-count">
+        {{ currentVideo.statistics.commentCount }} comments
+    </div>
 </div>

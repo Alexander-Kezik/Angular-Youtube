@@ -8,10 +8,15 @@ import { Observable } from 'rxjs';
 export class VideoService {
     private _API_KEY = 'AIzaSyDqwqGRfgRSQRXHfbTT7vrO6XMHk4gqXYM';
     private _relatedVideosUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics&chart=mostPopular&maxResults=6&regionCode=US&key=${this._API_KEY}`;
+    private _commentsUrl = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=qjoz-CAO3xQ&key=${this._API_KEY}`;
 
     constructor(private _http: HttpClient) {}
 
     public getRelatedVideos(): Observable<any> {
         return this._http.get(this._relatedVideosUrl);
+    }
+
+    public getComments(): Observable<any> {
+        return this._http.get(this._commentsUrl);
     }
 }

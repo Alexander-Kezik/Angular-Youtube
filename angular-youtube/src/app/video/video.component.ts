@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { IVideo } from '../models/IVideo.interface';
 import { VideoService } from './video.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-video',

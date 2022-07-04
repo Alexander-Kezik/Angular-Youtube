@@ -4,8 +4,9 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import { IVideo } from '../../models/IVideo.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+import { IVideo } from '../../models/IVideo.interface';
 
 @Component({
     selector: 'app-related-videos',

@@ -1,0 +1,51 @@
+.comments-section {
+    max-width: 900px;
+    width: 100%;
+
+    .comments-section__comments-collection {
+        margin-top: 30px;
+
+        .comments-collection__item-comment {
+            display: flex;
+            justify-content: space-between;
+
+            .comment-info {
+                display: flex;
+
+                .author-img {
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 20px;
+                }
+
+                .author-display-name {
+                    font-weight: 500;
+                }
+
+                .comment-likes {
+                    display: flex;
+                    align-items: center;
+                    max-width: 70px;
+                    width: 100%;
+                    justify-content: space-between;
+
+                    .comment-icon {
+                        cursor: pointer;
+                    }
+                }
+
+                .under-comment {
+                    display: flex;
+                    max-width: 150px;
+                    width: 100%;
+                    justify-content: space-between;
+
+                    .button-reply {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

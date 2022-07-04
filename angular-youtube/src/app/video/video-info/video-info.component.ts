@@ -4,6 +4,7 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
+import { IVideo } from '../../models/IVideo.interface';
 
 @Component({
     selector: 'app-video-info',
@@ -12,12 +13,7 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoInfoComponent implements OnInit {
-    @Input() title: string = '';
-    @Input() description: string = '';
-    @Input() channelTitle: string = '';
-    @Input() viewCount: number = 0;
-    @Input() likeCount: number = 0;
-    @Input() commentCount: number = 0;
+    @Input() currentVideo?: IVideo;
 
     public showDescription: boolean = true;
     public subscribe: boolean = false;
