@@ -13,11 +13,11 @@
         class="search-page__video-items video-items_grid"
         *ngIf="videoListView"
     >
-        <mat-card class="search-page__item" *ngFor="let videoItem of videos$ | async videos">
-            <img
-                class="search-page__img"
-                [src]="videoItem.snippet.imageUrl"
-            />
+        <mat-card
+            class="search-page__item"
+            *ngFor="let videoItem of videos$ | async; videos"
+        >
+            <img class="search-page__img" [src]="videoItem.snippet.imageUrl" />
             <h1 class="search-page__title">{{ videoItem.snippet.title }}</h1>
         </mat-card>
     </section>
@@ -28,7 +28,7 @@
     >
         <mat-card
             class="search-page__item item-list"
-            *ngFor="let videoItem of videos$ | async videos"
+            *ngFor="let videoItem of videos$ | async; videos"
         >
             <img
                 class="search-page__img img-list"

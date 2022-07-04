@@ -1,14 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SearchComponent } from './search.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SearchComponent', () => {
     let component: SearchComponent;
-    let fixture: ComponentFixture<SearchComponent>;
+    let fixture: ComponentFixture<SearchComponent>;;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [SearchComponent],
+            imports: [HttpClientTestingModule],
         }).compileComponents();
 
         fixture = TestBed.createComponent(SearchComponent);
@@ -18,5 +19,17 @@ describe('SearchComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should change videoListView from true to false', () => {
+        component.videoListView = true;
+        component.changeView();
+        expect(component.videoListView).toEqual(false);
+    });
+
+    it('should change videoListView from false to true', () => {
+        component.videoListView = false;
+        component.changeView();
+        expect(component.videoListView).toEqual(true);
     });
 });
