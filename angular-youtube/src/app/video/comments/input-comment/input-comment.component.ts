@@ -14,7 +14,7 @@ import {
 export class InputCommentComponent implements OnInit {
     @Input() myText: string = '';
     @Input() operation: string = '';
-    @Input() replyActive: boolean = false;
+    @Input() isReplyActive: boolean = false;
     public addCommentButtonsActive: boolean = false;
 
     constructor() {}
@@ -29,6 +29,6 @@ export class InputCommentComponent implements OnInit {
         if (this.operation === 'comment') {
             this.addCommentButtonsActive = false;
             this.myText = '';
-        } else this.replyActive = false;
+        } else this.isReplyActive = false;
     }
 }

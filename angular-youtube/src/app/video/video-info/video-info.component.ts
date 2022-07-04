@@ -16,20 +16,20 @@ export class VideoInfoComponent implements OnInit {
     @Input() currentVideo?: IVideo;
 
     public showDescription: boolean = true;
-    public subscribe: boolean = false;
-    public likeActive: boolean = false;
-    public dislikeActive: boolean = false;
+    public isSubscribe: boolean = false;
+    public isLikeActive: boolean = false;
+    public isDislikeActive: boolean = false;
 
     constructor() {}
 
     public toggleLike(): void {
-        this.likeActive = !this.likeActive;
-        this.dislikeActive = false;
+        this.isLikeActive = !this.isLikeActive;
+        this.isDislikeActive = false;
     }
 
     public toggleDislike(): void {
-        this.dislikeActive = !this.dislikeActive;
-        this.likeActive = false;
+        this.isDislikeActive = !this.isDislikeActive;
+        this.isLikeActive = false;
     }
 
     public toggleDescription(): void {
@@ -37,7 +37,7 @@ export class VideoInfoComponent implements OnInit {
     }
 
     public toggleSubscribe(): void {
-        this.subscribe = !this.subscribe;
+        this.isSubscribe = !this.isSubscribe;
     }
 
     ngOnInit(): void {}

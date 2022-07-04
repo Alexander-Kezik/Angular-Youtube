@@ -5,7 +5,7 @@
     ></app-input-comment>
     <div
         class="comments-section__comments-collection"
-        *ngFor="let comment of comments$"
+        *ngFor="let comment of comments"
     >
         <div class="comments-collection__item-comment">
             <div class="comment-info">
@@ -26,19 +26,21 @@
                                 class="comment-icon"
                                 (click)="toggleLike()"
                                 >{{
-                                    likeActive ? "thumb_up" : "thumb_up_off_alt"
-                                }}</mat-icon
-                            >
+                                    isLikeActive
+                                        ? "thumb_up"
+                                        : "thumb_up_off_alt"
+                                }}
+                            </mat-icon>
                             {{ comment.snippet.likeCount }}
                             <mat-icon
                                 class="comment-icon"
                                 (click)="toggleDislike()"
                                 >{{
-                                    dislikeActive
+                                    isDislikeActive
                                         ? "thumb_down"
                                         : "thumb_down_off_alt"
-                                }}</mat-icon
-                            >
+                                }}
+                            </mat-icon>
                         </div>
                         <button
                             mat-button
@@ -49,7 +51,7 @@
                         </button>
                     </div>
                     <app-input-comment
-                        [replyActive]="replyActive"
+                        [isReplyActive]="isReplyActive"
                         [myText]="myAnswer"
                         [operation]="operationAnswer"
                     ></app-input-comment>

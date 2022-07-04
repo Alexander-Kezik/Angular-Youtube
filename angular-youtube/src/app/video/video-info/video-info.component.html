@@ -5,15 +5,15 @@
             {{ currentVideo.statistics.viewCount }} views
         </div>
         <div class="tools__likes tool" (click)="toggleLike()">
-            <mat-icon class="tab-icon">{{
-                likeActive ? "thumb_up" : "thumb_up_off_alt"
-            }}</mat-icon>
+            <mat-icon class="tab-icon"
+                >{{ isLikeActive ? "thumb_up" : "thumb_up_off_alt" }}
+            </mat-icon>
             {{ currentVideo.statistics.likeCount }}
         </div>
         <div class="tools__dislikes tool" (click)="toggleDislike()">
-            <mat-icon class="tab-icon">{{
-                dislikeActive ? "thumb_down" : "thumb_down_off_alt"
-            }}</mat-icon>
+            <mat-icon class="tab-icon"
+                >{{ isDislikeActive ? "thumb_down" : "thumb_down_off_alt" }}
+            </mat-icon>
             DISLIKE
         </div>
         <div class="tools__share tool">
@@ -45,10 +45,10 @@
             </h2>
             <button
                 mat-raised-button
-                color="{{ subscribe ? '' : 'warn' }}"
+                color="{{ isSubscribe ? '' : 'warn' }}"
                 (click)="toggleSubscribe()"
             >
-                {{ subscribe ? "UNSUBSCRIBE" : "SUBSCRIBE" }}
+                {{ isSubscribe ? "UNSUBSCRIBE" : "SUBSCRIBE" }}
             </button>
         </div>
         <div class="info-section__description" *ngIf="!showDescription">

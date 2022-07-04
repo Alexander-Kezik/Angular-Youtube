@@ -9,12 +9,12 @@ import { IComment } from '../../models/IComment.interface';
     styleUrls: ['./comments.component.scss'],
 })
 export class CommentsComponent implements OnInit {
-    public comments$: IComment[] = [];
+    public comments: IComment[] = [];
     public myComment: string = '';
     public myAnswer: string = '';
-    public replyActive: boolean = false;
-    public likeActive: boolean = false;
-    public dislikeActive: boolean = false;
+    public isReplyActive: boolean = false;
+    public isLikeActive: boolean = false;
+    public isDislikeActive: boolean = false;
     public operationComment: string = 'comment';
     public operationAnswer: string = 'answer';
 
@@ -24,24 +24,23 @@ export class CommentsComponent implements OnInit {
         this._videoService.getComments().subscribe((data) => {
             data.items.forEach(
                 (item: { snippet: { topLevelComment: IComment } }) => {
-                    this.comments$.push(item.snippet.topLevelComment);
+                    this.comments.push(item.snippet.topLevelComment);
                 }
             );
-            console.log(this.comments$);
         });
     }
 
     public showReplyInput(): void {
-        this.replyActive = true;
+        this.isReplyActive = true;
     }
 
     public toggleLike(): void {
-        this.likeActive = !this.likeActive;
-        this.dislikeActive = false;
+        this.isLikeActive = !this.isLikeActive;
+        this.isDislikeActive = false;
     }
 
     public toggleDislike(): void {
-        this.dislikeActive = !this.dislikeActive;
-        this.likeActive = false;
+        this.isDislikeActive = !this.isDislikeActive;
+        this.isLikeActive = false;
     }
 }

@@ -10,13 +10,13 @@ import { VideoService } from './video.service';
 })
 export class VideoComponent implements OnInit {
     public currentVideo!: IVideo;
-    public relatedVideos$!: IVideo[];
+    public relatedVideos!: IVideo[];
 
     constructor(private _videoService: VideoService) {}
 
     ngOnInit(): void {
         this._videoService.getRelatedVideos().subscribe((data) => {
-            this.relatedVideos$ = data.items;
+            this.relatedVideos = data.items;
             this.currentVideo = data.items[0];
         });
     }
