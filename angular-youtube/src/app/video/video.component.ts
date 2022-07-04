@@ -9,14 +9,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     styleUrls: ['./video.component.scss'],
 })
 export class VideoComponent implements OnInit {
-    public currentVideo: IVideo = {
-        id: 'DPMluEVUqS0',
-        snippet: {
-            title: 'so long nerds',
-            description: `--------------------------------\\nBUY MY MERCHANDISE: https://technoblade.com/\\n\\nbecome a CHANNEL MEMBER here: https://www.youtube.com/channel/UCFAiFyGs6oDiF1Nf-rRJpZA/join\\n\\nother YT channel (go subscribe): https://www.youtube.com/channel/UCV--8wtuyGo3vMtIdeq4j3w\\n\\nfollow me on twitter too: https://twitter.com/Technothepig\\n\\nServer: mc.hypixel.net\\nResource Pack: https://www.youtube.com/watch?v=fRDaP1aAPug\\nWill I add you as a friend?: https://imgur.com/a/x6fEtzB`,
-        },
-    };
-
+    public currentVideo!: IVideo;
     public relatedVideos$!: IVideo[];
 
     constructor(
@@ -27,6 +20,7 @@ export class VideoComponent implements OnInit {
     ngOnInit(): void {
         this._videoService.getRelatedVideos().subscribe((data) => {
             this.relatedVideos$ = data.items;
+            this.currentVideo = data.items[0];
         });
     }
 

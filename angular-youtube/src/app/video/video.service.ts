@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class VideoService {
     private _API_KEY = 'AIzaSyDqwqGRfgRSQRXHfbTT7vrO6XMHk4gqXYM';
-    private _relatedVideosUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=8&regionCode=US&key=${this._API_KEY}`;
+    private _relatedVideosUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics&chart=mostPopular&maxResults=6&regionCode=US&key=${this._API_KEY}`;
 
     constructor(private _http: HttpClient) {}
 

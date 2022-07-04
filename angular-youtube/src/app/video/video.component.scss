@@ -2,18 +2,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-width: 1320px;
+    max-width: 1300px;
     margin: 20px auto;
-
-    .current-video__info {
-        max-width: 900px;
-
-        .current-video__title {
-            margin-top: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--outline);
-        }
-    }
 
     .iframe {
         border: none;

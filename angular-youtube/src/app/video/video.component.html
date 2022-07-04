@@ -1,4 +1,4 @@
-<section class="video-page">
+<section class="video-page" *ngIf="currentVideo">
     <div class="current-video">
         <div class="current-video__screen">
             <iframe
@@ -9,14 +9,14 @@
             >
             </iframe>
         </div>
-        <div class="current-video__info">
-            <h1 class="current-video__title">
-                {{ currentVideo.snippet.title }}
-            </h1>
-            <p class="current-video__description">
-                {{ currentVideo.snippet.description }}
-            </p>
-        </div>
+        <app-video-info
+            [title]="currentVideo.snippet.title"
+            [description]="currentVideo.snippet.description"
+            [channelTitle]="currentVideo.snippet.channelTitle"
+            [viewCount]="currentVideo.statistics.viewCount"
+            [likeCount]="currentVideo.statistics.likeCount"
+            [commentCount]="currentVideo.statistics.commentCount"
+        ></app-video-info>
     </div>
     <app-related-videos [relatedVideos]="relatedVideos$"></app-related-videos>
 </section>
