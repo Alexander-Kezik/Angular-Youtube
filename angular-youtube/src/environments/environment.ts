@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    endpoints: {
+        channel: {
+            getChannel: 'https://www.googleapis.com/youtube/v3/channels?&part=snippet,brandingSettings,statistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw'
+        }
+    }
 };
 
 /*
