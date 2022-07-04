@@ -2,10 +2,12 @@
     .search-page__view-actions {
         display: flex;
         justify-content: center;
+        align-items: center;
         border-bottom: 1px solid #ccc;
         padding: 10px 0;
         margin-bottom: 20px;
         background-color: rgba(195, 187, 187, 0.058);
+        gap: 20px;
     }
 
     .search-page__video-items {

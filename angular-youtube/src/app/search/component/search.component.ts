@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
+import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
 import { SharedService } from 'src/app/shared/shared-service/shared.service';
 import { SearchService } from '../service/search.service';
@@ -13,6 +14,7 @@ import { SearchService } from '../service/search.service';
 export class SearchComponent implements OnInit {
     public videoListView = true;
     public videos$!: Observable<IVideo[]>;
+    public categories$!: Observable<ICategory[]>;
     private _clickEventSubscription: Subscription;
 
     constructor(
@@ -28,6 +30,7 @@ export class SearchComponent implements OnInit {
 
     ngOnInit(): void {
         this.videos$ = this._searchService.getPopularVideos();
+        this.categories$ = this._searchService.getVideoCategories();
     }
 
     public changeView(): void {

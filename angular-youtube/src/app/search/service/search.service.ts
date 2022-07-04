@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
+import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
 
 @Injectable({
@@ -22,7 +23,9 @@ export class SearchService {
             `key=${this._API_KEY}`,
         ];
 
-        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join('&')}`;
+        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join(
+            '&'
+        )}`;
         return this._getVideos(videosUrl);
     }
 
@@ -35,8 +38,36 @@ export class SearchService {
             `key=${this._API_KEY}`,
         ];
 
-        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join('&')}`;
+        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join(
+            '&'
+        )}`;
         return this._getVideos(videosUrl);
+    }
+
+    public getVideoCategories(): Observable<ICategory[]> {
+        const searchType = 'videoCategories';
+        const queryParams = [
+            'part=snippet',
+            'regionCode=BY',
+            `key=${this._API_KEY}`,
+        ];
+        const categoriesUrl = `${
+            this._API_URL
+        }/${searchType}?${queryParams.join('&')}`;
+
+        return this._http.get<ICategory[]>(categoriesUrl).pipe(
+            tap((data: any) => console.log(JSON.stringify(data))),
+            map((data: any) => {
+                return data.items.map((item: any) => {
+                    return {
+                        id: item.id,
+                        snippet: {
+                            title: item.snippet.title,
+                        },
+                    } as ICategory;
+                });
+            })
+        );
     }
 
     public _getVideos(url: string): Observable<IVideo[]> {

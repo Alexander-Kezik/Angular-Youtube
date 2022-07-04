@@ -10,6 +10,7 @@ import { SearchModule } from './search/search.module';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
         FormsModule,
         MatInputModule,
         HttpClientModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent],
