@@ -77,12 +77,11 @@ export class SearchService {
     }
 
     public getVideosByFilter(categoryId: string): Observable<IVideo[]> {
-        const searchType = 'videos';
+        const searchType = 'search';
         const queryParams = [
             'part=snippet',
-            'chart=mostPopular',
             'maxResults=50',
-            'regionCode=BY',
+            'type=video',
             `videoCategoryId=${categoryId}`,
             `key=${this._API_KEY}`,
         ];
@@ -111,9 +110,9 @@ export class SearchService {
             catchError((err) => {
                 let errorMessage: string;
                 if (err.error instanceof ErrorEvent) {
-                  errorMessage = `An error occurred: ${err.error.message}`;
+                    errorMessage = `An error occurred: ${err.error.message}`;
                 } else {
-                  errorMessage = `Backend returned code ${err.status}: ${err.message}`;
+                    errorMessage = `Backend returned code ${err.status}: ${err.message}`;
                 }
                 return throwError(() => errorMessage);
             })

@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit {
     public showFilter = true;
     public videos$!: Observable<IVideo[]>;
     public categories$!: Observable<ICategory[]>;
-    public query!: string | null;
+    public query: string | null = null;
 
     constructor(
         private _searchService: SearchService,
