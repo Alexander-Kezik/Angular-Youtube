@@ -12,9 +12,7 @@ export class HeaderComponent {
 
     public submit(form: NgForm): void {
         if (form.valid) {
-            this._router.navigate(['/search-page'], {
-                queryParams: { search_query: form.value.search },
-            });
+            this._router.navigate(['/search-page'], { queryParams: { 'search_query': form.value.search } });
         }
     }
 }

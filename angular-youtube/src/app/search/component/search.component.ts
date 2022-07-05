@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
@@ -22,7 +23,7 @@ export class SearchComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _router: Router
     ) {}
-
+    
     ngOnInit(): void {
         this.videos$ = this._searchService.getPopularVideos();
         this.categories$ = this._searchService.getVideoCategories();
