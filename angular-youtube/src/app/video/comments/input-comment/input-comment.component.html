@@ -12,7 +12,7 @@
     </mat-form-field>
     <div
         class="add-comment__buttons"
-        *ngIf="addCommentButtonsActive || isReplyActive"
+        *ngIf="isAddCommentButtonsActive"
     >
         <button mat-button (click)="hideAddCommentButtons()">CANCEL</button>
         <button mat-flat-button [disabled]="!myText" color="primary">

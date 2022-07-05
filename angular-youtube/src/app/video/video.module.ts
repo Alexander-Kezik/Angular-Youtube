@@ -14,7 +14,6 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { CommentsComponent } from './comments/comments.component';
 import { VideoRoutingModule } from './video-routing.module';
 import { InputCommentComponent } from './comments/input-comment/input-comment.component';
-import { PublicationDataPipe } from './comments/publication-data.pipe';
 
 @NgModule({
     declarations: [
@@ -24,7 +23,6 @@ import { PublicationDataPipe } from './comments/publication-data.pipe';
         VideoPlayerComponent,
         CommentsComponent,
         InputCommentComponent,
-        PublicationDataPipe,
     ],
     imports: [
         SharedModule,

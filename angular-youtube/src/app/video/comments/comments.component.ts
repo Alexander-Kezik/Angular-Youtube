@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { VideoService } from '../video.service';
 import { IComment } from '../../models/IComment.interface';
 import { ActivatedRoute } from '@angular/router';
+import { ICache } from '../../models/ICache';
 
 @Component({
     selector: 'app-comments',
@@ -17,8 +18,8 @@ export class CommentsComponent implements OnInit {
     public operationComment: string = 'comment';
     public operationAnswer: string = 'answer';
 
-    public commentLike: any = {};
-    public commentDislike: any = {};
+    public commentLike: ICache = {};
+    public commentDislike: ICache = {};
 
     constructor(
         private _videoService: VideoService,
@@ -38,11 +39,8 @@ export class CommentsComponent implements OnInit {
 
     public addCommentLike(id: string): void {
         if (!Object.keys(this.commentLike).includes(id)) {
-            this.commentLike[id] = 1;
-            this.commentDislike[id] = undefined;
-            this.commentDislike = JSON.parse(
-                JSON.stringify(this.commentDislike)
-            );
+            this.commentLike[id] = true;
+            delete this.commentDislike[id];
         }
     }
 
@@ -52,9 +50,8 @@ export class CommentsComponent implements OnInit {
 
     public addCommentDislike(id: string): void {
         if (!Object.keys(this.commentDislike).includes(id)) {
-            this.commentDislike[id] = 1;
-            this.commentLike[id] = undefined;
-            this.commentLike = JSON.parse(JSON.stringify(this.commentLike));
+            this.commentDislike[id] = true;
+            delete this.commentLike[id];
         }
     }
 

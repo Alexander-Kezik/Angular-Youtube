@@ -14,21 +14,20 @@ import {
 export class InputCommentComponent implements OnInit {
     @Input() myText: string = '';
     @Input() operation: string = '';
-    @Input() isReplyActive: boolean = false;
-    public addCommentButtonsActive: boolean = false;
+    public isAddCommentButtonsActive: boolean = false;
 
     constructor() {}
 
     ngOnInit(): void {}
 
     public showAddCommentButtons(): void {
-        this.addCommentButtonsActive = true;
+        this.isAddCommentButtonsActive = true;
     }
 
     public hideAddCommentButtons(): void {
         if (this.operation === 'comment') {
-            this.addCommentButtonsActive = false;
+            this.isAddCommentButtonsActive = false;
             this.myText = '';
-        } else this.isReplyActive = false;
+        }
     }
 }

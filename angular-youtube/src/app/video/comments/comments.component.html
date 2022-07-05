@@ -19,7 +19,7 @@
                             {{ comment.snippet.authorDisplayName }}
                         </p>
                         <p class="published-at">
-                            {{ comment.snippet.publishedAt | publicationData}}
+                            {{ comment.snippet.publishedAt | date: "medium"}}
                         </p>
                     </div>
                     <p class="text-original">
@@ -60,7 +60,6 @@
                         </button>
                     </div>
                     <app-input-comment
-                        [isReplyActive]="isReplyActive"
                         [myText]="myAnswer"
                         [operation]="operationAnswer"
                     ></app-input-comment>

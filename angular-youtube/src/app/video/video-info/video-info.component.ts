@@ -5,6 +5,7 @@ import {
     OnInit,
 } from '@angular/core';
 import { IVideo } from '../../models/IVideo.interface';
+import { ICache } from '../../models/ICache';
 
 @Component({
     selector: 'app-video-info',
@@ -15,18 +16,17 @@ import { IVideo } from '../../models/IVideo.interface';
 export class VideoInfoComponent implements OnInit {
     @Input() currentVideo?: IVideo;
 
-    public showDescription: boolean = true;
+    public isShownDescription: boolean = true;
     public isSubscribe: boolean = false;
-    public videoLike: any = {};
-    public videoDislike: any = {};
+    public videoLike: ICache = {};
+    public videoDislike: ICache = {};
 
     constructor() {}
 
     public addVideoLike(id: string): void {
         if (!Object.keys(this.videoLike).includes(id)) {
-            this.videoLike[id] = 1;
-            this.videoDislike[id] = undefined;
-            this.videoDislike = JSON.parse(JSON.stringify(this.videoDislike));
+            this.videoLike[id] = true;
+            delete this.videoDislike[id];
         }
     }
 
@@ -36,9 +36,8 @@ export class VideoInfoComponent implements OnInit {
 
     public addVideoDislike(id: string): void {
         if (!Object.keys(this.videoDislike).includes(id)) {
-            this.videoDislike[id] = 1;
-            this.videoLike[id] = undefined;
-            this.videoLike = JSON.parse(JSON.stringify(this.videoLike));
+            this.videoDislike[id] = true;
+            delete this.videoLike[id];
         }
     }
 
@@ -47,7 +46,7 @@ export class VideoInfoComponent implements OnInit {
     }
 
     public toggleDescription(): void {
-        this.showDescription = !this.showDescription;
+        this.isShownDescription = !this.isShownDescription;
     }
 
     public toggleSubscribe(): void {

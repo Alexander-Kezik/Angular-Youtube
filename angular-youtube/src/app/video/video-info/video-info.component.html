@@ -68,11 +68,11 @@
                 {{ isSubscribe ? "UNSUBSCRIBE" : "SUBSCRIBE" }}
             </button>
         </div>
-        <div class="info-section__description" *ngIf="!showDescription">
+        <div class="info-section__description" *ngIf="!isShownDescription">
             {{ currentVideo.snippet.description }}
         </div>
         <p class="info-section__more-info" (click)="toggleDescription()">
-            {{ showDescription ? "Show description" : "Hide" }}
+            {{ isShownDescription ? "Show description" : "Hide" }}
         </p>
     </div>
     <mat-divider></mat-divider>
