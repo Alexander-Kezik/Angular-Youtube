@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, tap, catchError, throwError } from 'rxjs';
+import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
 
 @Injectable({
@@ -22,7 +23,9 @@ export class SearchService {
             `key=${this._API_KEY}`,
         ];
 
-        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join('&')}`;
+        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join(
+            '&'
+        )}`;
         return this._getVideos(videosUrl);
     }
 
@@ -35,7 +38,57 @@ export class SearchService {
             `key=${this._API_KEY}`,
         ];
 
-        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join('&')}`;
+        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join(
+            '&'
+        )}`;
+        return this._getVideos(videosUrl);
+    }
+
+    public getVideoCategories(): Observable<ICategory[]> {
+        const searchType = 'videoCategories';
+        const queryParams = [
+            'part=snippet',
+            'regionCode=BY',
+            `key=${this._API_KEY}`,
+        ];
+        const categoriesUrl = `${
+            this._API_URL
+        }/${searchType}?${queryParams.join('&')}`;
+
+        return this._http.get<ICategory[]>(categoriesUrl).pipe(
+            map((data: any) =>
+                data.items.filter((item: any) => item.snippet.assignable)
+            ),
+            tap((data: any) =>
+                console.log('After filter', JSON.stringify(data))
+            ),
+            map((data: any) => {
+                return data.map((item: any) => {
+                    return {
+                        id: item.id,
+                        snippet: {
+                            title: item.snippet.title,
+                            assignable: item.snippet.assignable,
+                        },
+                    } as ICategory;
+                });
+            })
+        );
+    }
+
+    public getVideosByFilter(categoryId: string): Observable<IVideo[]> {
+        const searchType = 'search';
+        const queryParams = [
+            'part=snippet',
+            'maxResults=50',
+            'type=video',
+            `videoCategoryId=${categoryId}`,
+            `key=${this._API_KEY}`,
+        ];
+
+        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join(
+            '&'
+        )}`;
         return this._getVideos(videosUrl);
     }
 
@@ -53,6 +106,15 @@ export class SearchService {
                         },
                     } as IVideo;
                 });
+            }),
+            catchError((err) => {
+                let errorMessage: string;
+                if (err.error instanceof ErrorEvent) {
+                    errorMessage = `An error occurred: ${err.error.message}`;
+                } else {
+                    errorMessage = `Backend returned code ${err.status}: ${err.message}`;
+                }
+                return throwError(() => errorMessage);
             })
         );
     }
