@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { VideoService } from '../video.service';
 import { IComment } from '../../models/IComment.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-comments',
@@ -19,10 +20,14 @@ export class CommentsComponent implements OnInit {
     public commentLike: any = {};
     public commentDislike: any = {};
 
-    constructor(private _videoService: VideoService) {}
+    constructor(
+        private _videoService: VideoService,
+        private _route: ActivatedRoute
+    ) {}
 
     ngOnInit(): void {
-        this._videoService.getComments().subscribe((data) => {
+        const id = this._route.snapshot.paramMap.get('id');
+        this._videoService.getComments(id).subscribe((data) => {
             data.items.forEach(
                 (item: { snippet: { topLevelComment: IComment } }) => {
                     this.comments.push(item.snippet.topLevelComment);

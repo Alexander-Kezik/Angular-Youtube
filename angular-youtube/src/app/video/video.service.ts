@@ -7,16 +7,24 @@ import { Observable } from 'rxjs';
 })
 export class VideoService {
     private _API_KEY = 'AIzaSyDqwqGRfgRSQRXHfbTT7vrO6XMHk4gqXYM';
-    private _relatedVideosUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics&chart=mostPopular&maxResults=6&regionCode=US&key=${this._API_KEY}`;
-    private _commentsUrl = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=qjoz-CAO3xQ&key=${this._API_KEY}`;
 
     constructor(private _http: HttpClient) {}
 
-    public getRelatedVideos(): Observable<any> {
-        return this._http.get(this._relatedVideosUrl);
+    public getCurrentVideo(id: string | null): Observable<any> {
+        return this._http.get(
+            `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics&id=${id}&key=${this._API_KEY}`
+        );
     }
 
-    public getComments(): Observable<any> {
-        return this._http.get(this._commentsUrl);
+    public getRelatedVideos(): Observable<any> {
+        return this._http.get(
+            `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics&chart=mostPopular&maxResults=6&regionCode=US&key=${this._API_KEY}`
+        );
+    }
+
+    public getComments(id: string | null): Observable<any> {
+        return this._http.get(
+            `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${id}&key=${this._API_KEY}`
+        );
     }
 }

@@ -55,9 +55,11 @@
     <mat-divider></mat-divider>
     <div class="info-section__channel">
         <div class="channel-title-and-subscribe-btn">
-            <h2 class="channel-title">
-                {{ currentVideo.snippet.channelTitle }}
-            </h2>
+            <a routerLink="/channel-page/{{ currentVideo.snippet.channelId }}">
+                <h2 class="channel-title">
+                    {{ currentVideo.snippet.channelTitle }}
+                </h2>
+            </a>
             <button
                 mat-raised-button
                 color="{{ isSubscribe ? '' : 'warn' }}"

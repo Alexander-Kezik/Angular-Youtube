@@ -14,9 +14,14 @@
                     [src]="comment.snippet.authorProfileImageUrl"
                 />
                 <div>
-                    <p class="author-display-name">
-                        {{ comment.snippet.authorDisplayName }}
-                    </p>
+                    <div class="upper-comment">
+                        <p class="author-display-name">
+                            {{ comment.snippet.authorDisplayName }}
+                        </p>
+                        <p class="published-at">
+                            {{ comment.snippet.publishedAt | publicationData}}
+                        </p>
+                    </div>
                     <p class="text-original">
                         {{ comment.snippet.textOriginal }}
                     </p>
