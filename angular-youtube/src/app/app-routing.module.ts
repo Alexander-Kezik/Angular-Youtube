@@ -7,6 +7,7 @@ const routes: Routes = [
         path: 'search-page',
         component: SearchComponent,
         pathMatch: 'full',
+        loadChildren: () => import('./search/search.module').then(m => m.SearchModule)
     },
     // {
     //     path: '/channel-page',
