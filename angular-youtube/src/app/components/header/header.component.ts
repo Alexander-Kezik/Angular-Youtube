@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { SharedService } from 'src/app/shared/shared-service/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -8,11 +8,13 @@ import { SharedService } from 'src/app/shared/shared-service/shared.service';
     styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-    constructor(private _sharedService: SharedService) {}
+    constructor(private _router: Router) {}
 
     public submit(form: NgForm): void {
         if (form.valid) {
-            this._sharedService.sendClickEvent(form.value.search);
+            this._router.navigate(['/search-page'], {
+                queryParams: { search_query: form.value.search },
+            });
         }
     }
 }

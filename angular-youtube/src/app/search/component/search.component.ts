@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
-import { SharedService } from 'src/app/shared/shared-service/shared.service';
 import { SearchService } from '../service/search.service';
 
 @Component({
@@ -12,24 +12,21 @@ import { SearchService } from '../service/search.service';
 })
 export class SearchComponent implements OnInit {
     public videoListView = true;
+    public showFilter = true;
     public videos$!: Observable<IVideo[]>;
     public categories$!: Observable<ICategory[]>;
-    private _clickEventSubscription: Subscription;
+    public query!: string | null;
 
     constructor(
         private _searchService: SearchService,
-        private _sharedService: SharedService
-    ) {
-        this._clickEventSubscription = this._sharedService
-            .getClickEvent()
-            .subscribe(() => {
-                this._showVideosByQuery(this._sharedService.getQuery());
-            });
-    }
+        private _activatedRoute: ActivatedRoute,
+        private _router: Router
+    ) {}
 
     ngOnInit(): void {
         this.videos$ = this._searchService.getPopularVideos();
         this.categories$ = this._searchService.getVideoCategories();
+        this._showVideosByQuery();
     }
 
     public changeView(): void {
@@ -44,7 +41,16 @@ export class SearchComponent implements OnInit {
         }
     }
 
-    private _showVideosByQuery(query: string) {
-        this.videos$ = this._searchService.getVideosByQuery(query);
+    private _showVideosByQuery() {
+        this._router.events.subscribe(() => {
+            this.query = this._activatedRoute.snapshot.queryParamMap.get('search_query');
+            if (this.query) {
+                this.videos$ = this._searchService.getVideosByQuery(String(this.query));
+                this.showFilter = false;
+            } else {
+                this.videos$ = this._searchService.getPopularVideos();
+                this.showFilter = true;
+            }
+        });
     }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, tap, catchError, throwError } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
 
@@ -56,18 +56,23 @@ export class SearchService {
         }/${searchType}?${queryParams.join('&')}`;
 
         return this._http.get<ICategory[]>(categoriesUrl).pipe(
-            tap((data: any) => console.log(JSON.stringify(data))),
+            map((data: any) =>
+                data.items.filter((item: any) => item.snippet.assignable)
+            ),
+            tap((data: any) =>
+                console.log('After filter', JSON.stringify(data))
+            ),
             map((data: any) => {
-                return data.items.map((item: any) => {
+                return data.map((item: any) => {
                     return {
                         id: item.id,
                         snippet: {
                             title: item.snippet.title,
-                            assignable: item.snippet.assignable
+                            assignable: item.snippet.assignable,
                         },
                     } as ICategory;
                 });
-            }),
+            })
         );
     }
 
@@ -102,6 +107,15 @@ export class SearchService {
                         },
                     } as IVideo;
                 });
+            }),
+            catchError((err) => {
+                let errorMessage: string;
+                if (err.error instanceof ErrorEvent) {
+                  errorMessage = `An error occurred: ${err.error.message}`;
+                } else {
+                  errorMessage = `Backend returned code ${err.status}: ${err.message}`;
+                }
+                return throwError(() => errorMessage);
             })
         );
     }

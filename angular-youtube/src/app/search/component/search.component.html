@@ -1,8 +1,11 @@
 <section class="search-page">
     <section class="search-page__view-actions">
-        <mat-form-field appearance="fill">
+        <mat-form-field *ngIf="showFilter" class="search-page_filter" appearance="fill">
             <mat-label>Фильтрация</mat-label>
-            <mat-select ngModel (ngModelChange)="showVideosByFilter($event)">
+            <mat-select 
+                ngModel 
+                (ngModelChange)="showVideosByFilter($event)"
+            >
                 <mat-option>Все</mat-option>
                 <mat-option
                     *ngFor="let category of categories$ | async as categories"
@@ -26,7 +29,7 @@
     >
         <mat-card
             class="search-page__item"
-            *ngFor="let videoItem of videos$ | async; videos"
+            *ngFor="let videoItem of videos$ | async"
         >
             <img class="search-page__img" [src]="videoItem.snippet.imageUrl" />
             <h1 class="search-page__title">{{ videoItem.snippet.title }}</h1>
@@ -39,7 +42,7 @@
     >
         <mat-card
             class="search-page__item item-list"
-            *ngFor="let videoItem of videos$ | async; videos"
+            *ngFor="let videoItem of videos$ | async"
         >
             <img
                 class="search-page__img img-list"
@@ -54,5 +57,8 @@
                 </p>
             </div>
         </mat-card>
+    </section>
+    <section class="search-page__item item-load" *ngIf="!(videos$ | async)">
+        <mat-spinner style="margin:0 auto"></mat-spinner>
     </section>
 </section>
