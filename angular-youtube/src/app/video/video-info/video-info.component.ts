@@ -17,19 +17,33 @@ export class VideoInfoComponent implements OnInit {
 
     public showDescription: boolean = true;
     public isSubscribe: boolean = false;
-    public isLikeActive: boolean = false;
-    public isDislikeActive: boolean = false;
+    public videoLike: any = {};
+    public videoDislike: any = {};
 
     constructor() {}
 
-    public toggleLike(): void {
-        this.isLikeActive = !this.isLikeActive;
-        this.isDislikeActive = false;
+    public addVideoLike(id: string): void {
+        if (!Object.keys(this.videoLike).includes(id)) {
+            this.videoLike[id] = 1;
+            this.videoDislike[id] = undefined;
+            this.videoDislike = JSON.parse(JSON.stringify(this.videoDislike));
+        }
     }
 
-    public toggleDislike(): void {
-        this.isDislikeActive = !this.isDislikeActive;
-        this.isLikeActive = false;
+    public checkVideoLike(id: string): boolean {
+        return Object.keys(this.videoLike).includes(id);
+    }
+
+    public addVideoDislike(id: string): void {
+        if (!Object.keys(this.videoDislike).includes(id)) {
+            this.videoDislike[id] = 1;
+            this.videoLike[id] = undefined;
+            this.videoLike = JSON.parse(JSON.stringify(this.videoLike));
+        }
+    }
+
+    public checkVideoDislike(id: string): boolean {
+        return Object.keys(this.videoDislike).includes(id);
     }
 
     public toggleDescription(): void {

@@ -13,10 +13,11 @@ export class CommentsComponent implements OnInit {
     public myComment: string = '';
     public myAnswer: string = '';
     public isReplyActive: boolean = false;
-    public isLikeActive: boolean = false;
-    public isDislikeActive: boolean = false;
     public operationComment: string = 'comment';
     public operationAnswer: string = 'answer';
+
+    public commentLike: any = {};
+    public commentDislike: any = {};
 
     constructor(private _videoService: VideoService) {}
 
@@ -30,17 +31,33 @@ export class CommentsComponent implements OnInit {
         });
     }
 
+    public addCommentLike(id: string): void {
+        if (!Object.keys(this.commentLike).includes(id)) {
+            this.commentLike[id] = 1;
+            this.commentDislike[id] = undefined;
+            this.commentDislike = JSON.parse(
+                JSON.stringify(this.commentDislike)
+            );
+        }
+    }
+
+    public checkCommentLike(id: string): boolean {
+        return Object.keys(this.commentLike).includes(id);
+    }
+
+    public addCommentDislike(id: string): void {
+        if (!Object.keys(this.commentDislike).includes(id)) {
+            this.commentDislike[id] = 1;
+            this.commentLike[id] = undefined;
+            this.commentLike = JSON.parse(JSON.stringify(this.commentLike));
+        }
+    }
+
+    public checkCommentDislike(id: string): boolean {
+        return Object.keys(this.commentDislike).includes(id);
+    }
+
     public showReplyInput(): void {
         this.isReplyActive = true;
-    }
-
-    public toggleLike(): void {
-        this.isLikeActive = !this.isLikeActive;
-        this.isDislikeActive = false;
-    }
-
-    public toggleDislike(): void {
-        this.isDislikeActive = !this.isDislikeActive;
-        this.isLikeActive = false;
     }
 }

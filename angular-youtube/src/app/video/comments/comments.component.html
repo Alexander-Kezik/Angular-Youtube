@@ -24,19 +24,23 @@
                         <div class="comment-likes">
                             <mat-icon
                                 class="comment-icon"
-                                (click)="toggleLike()"
+                                (click)="addCommentLike(comment.id)"
                                 >{{
-                                    isLikeActive
+                                    checkCommentLike(comment.id)
                                         ? "thumb_up"
                                         : "thumb_up_off_alt"
                                 }}
                             </mat-icon>
-                            {{ comment.snippet.likeCount }}
+                            {{
+                                checkCommentLike(comment.id)
+                                    ? +comment.snippet.likeCount + 1
+                                    : comment.snippet.likeCount
+                            }}
                             <mat-icon
                                 class="comment-icon"
-                                (click)="toggleDislike()"
+                                (click)="addCommentDislike(comment.id)"
                                 >{{
-                                    isDislikeActive
+                                    checkCommentDislike(comment.id)
                                         ? "thumb_down"
                                         : "thumb_down_off_alt"
                                 }}

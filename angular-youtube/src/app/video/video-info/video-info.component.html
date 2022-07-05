@@ -4,15 +4,30 @@
         <div class="tools__views tool">
             {{ currentVideo.statistics.viewCount }} views
         </div>
-        <div class="tools__likes tool" (click)="toggleLike()">
-            <mat-icon class="tab-icon"
-                >{{ isLikeActive ? "thumb_up" : "thumb_up_off_alt" }}
+        <div class="tools__likes tool" (click)="addVideoLike(currentVideo.id)">
+            <mat-icon class="tab-icon">
+                {{
+                    checkVideoLike(currentVideo.id)
+                        ? "thumb_up"
+                        : "thumb_up_off_alt"
+                }}
             </mat-icon>
-            {{ currentVideo.statistics.likeCount }}
+            {{
+                checkVideoLike(currentVideo.id)
+                    ? +currentVideo.statistics.likeCount + 1
+                    : currentVideo.statistics.likeCount
+            }}
         </div>
-        <div class="tools__dislikes tool" (click)="toggleDislike()">
-            <mat-icon class="tab-icon"
-                >{{ isDislikeActive ? "thumb_down" : "thumb_down_off_alt" }}
+        <div
+            class="tools__dislikes tool"
+            (click)="addVideoDislike(currentVideo.id)"
+        >
+            <mat-icon class="tab-icon">
+                {{
+                    checkVideoDislike(currentVideo.id)
+                        ? "thumb_down"
+                        : "thumb_down_off_alt"
+                }}
             </mat-icon>
             DISLIKE
         </div>
