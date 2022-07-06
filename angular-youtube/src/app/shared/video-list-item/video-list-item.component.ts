@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./video-list-item.component.scss']
 })
 
-export class VideoListItemComponent { }
+export class VideoListItemComponent {
+    public isGrid: boolean = true;
+}

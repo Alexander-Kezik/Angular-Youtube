@@ -1,19 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { VideoListItemComponent } from './video-list-item/video-list-item.component';
+import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
     declarations: [
-        VideoListItemComponent
+        VideoListItemComponent,
+        PlaylistItemComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        MatIconModule
     ],
     exports: [
         CommonModule,
         FormsModule,
-        VideoListItemComponent
+        VideoListItemComponent,
+        PlaylistItemComponent
     ]
 })
 
