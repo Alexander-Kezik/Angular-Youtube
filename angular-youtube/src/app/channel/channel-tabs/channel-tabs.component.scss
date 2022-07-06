@@ -4,25 +4,31 @@
     height: 48px;
     align-items: center;
 
-    &-tab {
-        font-size: 14px;
-        font-family: sans-serif;
-        color: #606060;
-        text-decoration: none;
-        padding: 0 32px;
-        transition: .3s all;
+    &__nav {
+        margin-top: 40px;
+        width: 1140px;
+        margin-bottom: 40px;
 
-        &.active {
-            color: #030303;
-            border-bottom: 3px solid #606060;
-        }
+        &-tab {
+            font-size: 14px;
+            font-family: sans-serif;
+            color: #606060;
+            text-decoration: none;
+            padding: 0 32px;
+            transition: .3s all;
 
-        &:hover {
-            color: #030303;
-        }
+            &.active {
+                color: #030303;
+                border-bottom: 3px solid #606060;
+            }
 
-        &:target {
-            background-color: #606060;
+            &:hover {
+                color: #030303;
+            }
+
+            &:target {
+                background-color: #606060;
+            }
         }
     }
 

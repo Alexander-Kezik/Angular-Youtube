@@ -1,0 +1,14 @@
+<section class="video-page" *ngIf="currentVideo">
+    <div class="current-video">
+        <app-video-player [id]="currentVideo.id"></app-video-player>
+        <app-video-info
+            [title]="currentVideo.snippet.title"
+            [description]="currentVideo.snippet.description"
+            [channelTitle]="currentVideo.snippet.channelTitle"
+            [viewCount]="currentVideo.statistics.viewCount"
+            [likeCount]="currentVideo.statistics.likeCount"
+            [commentCount]="currentVideo.statistics.commentCount"
+        ></app-video-info>
+    </div>
+    <app-related-videos [relatedVideos]="relatedVideos$"></app-related-videos>
+</section>

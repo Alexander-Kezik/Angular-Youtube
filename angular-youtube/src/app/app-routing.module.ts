@@ -4,12 +4,13 @@ import { ChannelComponent } from "./channel/channel.component";
 
 const routes: Routes = [
     // {
-    //     path: '/search-page',
+    //     path: 'search-page',
     // },
     {
         path: 'channel-page',
         component: ChannelComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
+        loadChildren: () => import('./channel/channel.module').then(m => m.ChannelModule)
     },
     // {
     //     path: '/video-page',
@@ -17,7 +18,6 @@ const routes: Routes = [
     // {
     //     path: '**',
     //     redirectTo: '',
-    // },
 ];
 
 @NgModule({
@@ -25,4 +25,4 @@ const routes: Routes = [
     exports: [RouterModule],
 })
 
-export class AppRoutingModule { }
+export class AppRoutingModule {}
