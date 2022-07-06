@@ -109,7 +109,7 @@ export class SearchService {
         return this._getVideos(videosUrl);
     }
 
-    public _getVideos(url: string): Observable<IVideo[]> {
+    private _getVideos(url: string): Observable<IVideo[]> {
         return this._http.get<IVideo[]>(url).pipe(
             tap((data: any) => console.log(JSON.stringify(data))),
             map((data: any) => {
