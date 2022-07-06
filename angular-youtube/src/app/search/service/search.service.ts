@@ -8,7 +8,7 @@ import { IVideo } from 'src/app/models/IVideo.interface';
     providedIn: 'root',
 })
 export class SearchService {
-    private _API_KEY = `AIzaSyCeOoU7zr3iFnu7EtEtSZodRc93xpEYG_E`;
+    private _API_KEY = `AIzaSyDIxebQ-_fsbyFuofy7IIcj6nx1Dayhp1w`;
     private _API_URL = `https://youtube.googleapis.com/youtube/v3`;
 
     constructor(private _http: HttpClient) {}
@@ -83,6 +83,23 @@ export class SearchService {
             'maxResults=50',
             'type=video',
             `videoCategoryId=${categoryId}`,
+            `key=${this._API_KEY}`,
+        ];
+
+        const videosUrl = `${this._API_URL}/${searchType}?${queryParams.join(
+            '&'
+        )}`;
+        return this._getVideos(videosUrl);
+    }
+
+    public getVideosBySortingCondition(sortCondition: string, query: string): Observable<IVideo[]> {
+        const searchType = 'search';
+        const queryParams = [
+            'part=snippet',
+            'maxResults=50',
+            `order=${sortCondition}`,
+            `q=${query}`,
+            'type=video',
             `key=${this._API_KEY}`,
         ];
 
