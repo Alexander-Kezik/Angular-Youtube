@@ -5,9 +5,9 @@
             class="search-page_filter"
             appearance="fill"
         >
-            <mat-label>Фильтрация</mat-label>
+            <mat-label>Filtration</mat-label>
             <mat-select ngModel (ngModelChange)="showVideosByFilter($event)">
-                <mat-option>Все</mat-option>
+                <mat-option>All</mat-option>
                 <mat-option
                     *ngFor="let category of categories$ | async as categories"
                     [value]="category.id"
@@ -20,7 +20,7 @@
             class="search-page_filter"
             appearance="fill"
         >
-            <mat-label>Сортировка</mat-label>
+            <mat-label>Sorting</mat-label>
             <mat-select
                 ngModel
                 (ngModelChange)="showVideosBySortCondition($event)"
@@ -37,7 +37,7 @@
             class="search-page_view-change"
             (click)="changeView()"
         >
-            {{ videoListView ? "Список" : "Сетка" }}
+            {{ videoListView ? "List" : "Grid" }}
         </button>
     </section>
 

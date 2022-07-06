@@ -18,15 +18,12 @@ export class SearchComponent implements OnInit {
     public categories$!: Observable<ICategory[]>;
     public query: string | null = null;
     public sortConditions = [
-        { value: 'relevance', title: 'По релевантности' },
-        { value: 'date', title: 'По дате' },
-        { value: 'rating', title: 'По рейтингу' },
-        { value: 'title', title: 'По названию' },
-        {
-            value: 'videoCount',
-            title: 'По количеству загруженных видео на канале',
-        },
-        { value: 'viewCount', title: 'По количеству просмотров' },
+        { value: 'relevance', title: 'By relevance' },
+        { value: 'date', title: 'By upload date' },
+        { value: 'rating', title: 'By rating' },
+        { value: 'title', title: 'By title' },
+        { value: 'videoCount', title: 'By video count on chanel' },
+        { value: 'viewCount', title: 'By number of views' },
     ];
 
     constructor(
@@ -34,7 +31,7 @@ export class SearchComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _router: Router
     ) {}
-    
+
     ngOnInit(): void {
         this.videos$ = this._searchService.getPopularVideos();
         this.categories$ = this._searchService.getVideoCategories();
@@ -54,9 +51,12 @@ export class SearchComponent implements OnInit {
     }
 
     public showVideosBySortCondition(sortCondition: string) {
-        if(this.query){
-            this.videos$ = this._searchService.getVideosBySortingCondition(sortCondition, this.query);
-        } 
+        if (this.query) {
+            this.videos$ = this._searchService.getVideosBySortingCondition(
+                sortCondition,
+                this.query
+            );
+        }
     }
 
     private _showVideosByQuery() {

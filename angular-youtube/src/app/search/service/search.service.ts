@@ -8,7 +8,7 @@ import { IVideo } from 'src/app/models/IVideo.interface';
     providedIn: 'root',
 })
 export class SearchService {
-    private _API_KEY = `AIzaSyDIxebQ-_fsbyFuofy7IIcj6nx1Dayhp1w`;
+    private _API_KEY = `AIzaSyBxmwgRaBt6XEZ_rbfvh311kOUxR5vOaMI`;
     private _API_URL = `https://youtube.googleapis.com/youtube/v3`;
 
     constructor(private _http: HttpClient) {}
