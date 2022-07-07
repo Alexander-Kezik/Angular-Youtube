@@ -1,17 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchComponent } from './search.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchService } from '../service/search.service';
-import { EMPTY, of } from 'rxjs';
 
 describe('SearchComponent', () => {
     let component: SearchComponent;
-    let service: SearchService;
     let fixture: ComponentFixture<SearchComponent>;
-    let activatedRouter: ActivatedRoute;
-    let router: Router;
+    let service: SearchService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -21,9 +17,10 @@ describe('SearchComponent', () => {
     });
 
     beforeEach(() => {
-        const spyHttp = jasmine.createSpyObj('HttpClient', { get: of({}) });
-        service = new SearchService(spyHttp);
-        component = new SearchComponent(service, activatedRouter, router);
+        fixture = TestBed.createComponent(SearchComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        service = TestBed.inject(SearchService);
     });
 
     it('should create', () => {
@@ -43,31 +40,24 @@ describe('SearchComponent', () => {
     });
 
     it('should call getVideosBySortingCondition when showVideosBySortCondition', () => {
-        const spy = spyOn(service, 'getVideosBySortingCondition').and.callFake(() => {
-            return EMPTY;
-            }
-        );
+        const mySpy = spyOn(service, 'getVideosBySortingCondition');
+
         component.query = 'cats';
         component.showVideosBySortCondition('data');
-        expect(spy).toHaveBeenCalled();
+        expect(mySpy).toHaveBeenCalled();
     });
 
     it('should call getPopularVideos when showVideosByFilter if there is no category', () => {
-        const spy = spyOn(service, 'getPopularVideos').and.callFake(() => {
-            return EMPTY;
-            }
-        );
+        const mySpy = spyOn(service, 'getPopularVideos');
+
         component.showVideosByFilter('');
-        expect(spy).toHaveBeenCalled();
+        expect(mySpy).toHaveBeenCalled();
     });
 
     it('should call getVideosByFilter when showVideosByFilter if there is a category', () => {
-        const spy = spyOn(service, 'getVideosByFilter').and.callFake(() => {
-            return EMPTY;
-            }
-        );
-        component.showVideosByFilter('1');
-        expect(spy).toHaveBeenCalled();
-    });
+        const mySpy = spyOn(service, 'getVideosByFilter');
 
+        component.showVideosByFilter('1');
+        expect(mySpy).toHaveBeenCalled();
+    });
 });

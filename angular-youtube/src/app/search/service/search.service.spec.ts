@@ -1,40 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
-import { inject } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
-
 import { SearchService } from './search.service';
-
-interface IAPICategory {
-    items: {
-        id: string;
-        snippet: {
-            title: string;
-            assignable: boolean;
-        };
-    };
-}
-
-interface IAPIVideo {
-    items: {
-        id: string;
-        snippet: {
-            title: string;
-            description: string;
-            thumbnails: {
-                high: {
-                    url: string;
-                };
-            };
-        };
-    };
-}
 
 describe('SearchService', () => {
     let service: SearchService;
@@ -60,7 +28,7 @@ describe('SearchService', () => {
         },
     ];
 
-    let API_CATEGORIES: IAPICategory = {
+    let API_CATEGORIES: any = {
         items: {
             id: '1',
             snippet: {
@@ -70,7 +38,7 @@ describe('SearchService', () => {
         },
     };
 
-    let API_VIDEOS: IAPIVideo = {
+    let API_VIDEOS: any = {
         items: {
             id: '1',
             snippet: {

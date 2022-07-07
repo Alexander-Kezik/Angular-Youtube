@@ -1,0 +1,32 @@
+import { TestBed } from '@angular/core/testing';
+import { HeaderService } from './header.service';
+
+describe('HeaderService', () => {
+    let service: HeaderService;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(HeaderService);
+    });
+
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
+
+    it('should return true if request contains forbidden word', () => {
+        expect(service.checkSearchQueryForBadWords('black')).toEqual(true);
+    });
+
+    it('should return false if request does not contain forbidden word', () => {
+        expect(service.checkSearchQueryForBadWords('cats')).toEqual(false);
+    });
+
+    it('should return true if request contains forbidden word even if the user tries to bypass the check', () => {
+        expect(service.checkSearchQueryForBadWords('BLACK')).toEqual(true);
+        expect(service.checkSearchQueryForBadWords('b.l.a.c.k')).toEqual(true);
+        expect(service.checkSearchQueryForBadWords('b-l-a-c-k')).toEqual(true);
+        expect(service.checkSearchQueryForBadWords('b,l,a,c,k')).toEqual(true);
+        expect(service.checkSearchQueryForBadWords('blac7k')).toEqual(true);
+        expect(service.checkSearchQueryForBadWords('black person')).toEqual(true);
+    });
+});

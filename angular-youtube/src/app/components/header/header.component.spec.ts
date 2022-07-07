@@ -1,11 +1,9 @@
-import { Directive, Input } from '@angular/core';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { HeaderComponent } from './header.component';
-import { By } from '@angular/platform-browser';
-import { SearchComponent } from 'src/app/search/component/search.component';
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -17,9 +15,7 @@ describe('HeaderComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [HeaderComponent],
-            imports: [
-                FormsModule
-            ],
+            imports: [FormsModule, MatSnackBarModule, BrowserAnimationsModule],
             providers: [{ provide: Router, useValue: mockRouter }],
         }).compileComponents();
 
@@ -42,6 +38,23 @@ describe('HeaderComponent', () => {
         component.submit(testForm);
         expect(mockRouter.navigate).toHaveBeenCalledWith(['/search-page'], {
             queryParams: { search_query: testForm.value.search },
+        });
+    });
+
+    it('should called snackBar if request contains forbidden word', () => {
+        const SnackBar = TestBed.inject(MatSnackBar);
+        const mySpy = spyOn(SnackBar, 'open');
+        const forbiddenWord = 'black';
+        const testForm = <NgForm>{
+            value: {
+                search: forbiddenWord,
+            },
+            valid: true,
+        };
+        component.submit(testForm);
+        expect(mySpy).toHaveBeenCalled();
+        expect(mySpy).toHaveBeenCalledWith('FORBIDDEN WORD!!!', 'Close', {
+            duration: 3000,
         });
     });
 });
