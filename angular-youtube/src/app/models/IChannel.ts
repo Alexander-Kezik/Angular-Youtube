@@ -8,15 +8,13 @@ export interface ISnippet {
 }
 
 export interface IChannel {
-    items: [{
-        snippet: ISnippet
-        statistics: {
-            subscriberCount: number
+    snippet: ISnippet
+    statistics: {
+        subscriberCount: number
+    },
+    brandingSettings: {
+        image: {
+            bannerExternalUrl: string
         },
-        brandingSettings: {
-            image: {
-                bannerExternalUrl: string
-            },
-        }
-    }]
+    }
 }
