@@ -1,61 +1,23 @@
-.channel__tabs {
+.channel-search {
     display: flex;
-    justify-content: space-between;
-    height: 48px;
     align-items: center;
+    overflow: hidden;
+    color: black;
 
-    &__nav {
-        margin-top: 40px;
-        width: 1140px;
-        margin-bottom: 40px;
-
-        &-tab {
-            font-size: 14px;
-            font-family: sans-serif;
-            color: #606060;
-            text-decoration: none;
-            padding: 0 32px;
-            transition: .3s all;
-
-            &.active {
-                color: #030303;
-                border-bottom: 3px solid #606060;
-            }
-
-            &:hover {
-                color: #030303;
-            }
-
-            &:target {
-                background-color: #606060;
-            }
-        }
-    }
-
-    &-arrow {
+    &-icon {
+        transform: translateY(-3px);
+        width: 22px;
+        height: 22px;
         cursor: pointer;
+        margin-right: 5px;
     }
 
-    &__search {
-        display: flex;
-        align-items: center;
-        overflow: hidden;
+    &-input {
+        border: none;
+        height: 100%;
 
-        &-icon {
-            transform: translateY(-3px);
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-
-        &-input {
-            border: none;
-            height: 100%;
-
-            &.disable {
-                visibility: hidden;
-            }
+        &.disable {
+            visibility: hidden;
         }
     }
 }

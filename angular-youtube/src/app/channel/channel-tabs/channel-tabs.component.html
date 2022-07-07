@@ -1,16 +1,25 @@
-<div class="channel__tabs">
-    <nav mat-tab-nav-bar class="channel__tabs__nav">
-        <a mat-tab-link [routerLink]="['/channel-page']" [routerLinkActive]="['active']" class="channel__tabs__nav-tab">HOME</a>
-        <a mat-tab-link [routerLink]="['/channel-page/video']" [routerLinkActive]="['active']" class="channel__tabs__nav-tab">VIDEOS</a>
-        <a mat-tab-link [routerLink]="['/channel-page/playlists']" [routerLinkActive]="['active']" class="channel__tabs__nav-tab">PLAYLISTS</a>
-        <a mat-tab-link [routerLink]="['/channel-page/community']" [routerLinkActive]="['active']" class="channel__tabs__nav-tab">COMMUNITY</a>
-        <a mat-tab-link [routerLink]="['/channel-page/channels']" [routerLinkActive]="['active']" class="channel__tabs__nav-tab">CHANNELS</a>
-        <a mat-tab-link [routerLink]="['/channel-page/about']" [routerLinkActive]="['active']" class="channel__tabs__nav-tab">ABOUT THE CHANNEL</a>
-        <div class="channel__tabs__search">
-            <mat-icon (click)="onSearch()" class="channel__tabs__search-icon">search</mat-icon>
-            <mat-form-field class="{{ isSearching ? 'channel__tabs__search-input' : 'channel__tabs__search-input disable' }}">
-                <input (blur)="onHideSearching()" [(ngModel)]="searchVideo" matInput/>
-            </mat-form-field>
+ <mat-tab-group>
+    <mat-tab label="HOME">
+        <div class="container">
+            <channel-playlists></channel-playlists>
+            <channel-channels></channel-channels>
         </div>
-    </nav>
-</div>
+    </mat-tab>
+        <mat-tab label="VIDEOS">VIDEOS</mat-tab>
+        <mat-tab label="PLAYLISTS">PLAYLISTS</mat-tab>
+        <mat-tab label="COMMUNITY">COMMUNITY</mat-tab>
+        <mat-tab label="CHANNELS">CHANNELS</mat-tab>
+    <mat-tab label="ABOUT THE CHANNEL">
+        <channel-about></channel-about>
+    </mat-tab>
+     <mat-tab disabled>
+         <ng-template mat-tab-label>
+             <div class="channel-search">
+                 <mat-icon (click)="onSearch()" class="channel-search-icon">search</mat-icon>
+                 <mat-form-field class="{{ isSearching ? 'channel-search-input' : 'channel-search-input disable' }}">
+                     <input (blur)="onHideSearching()" [(ngModel)]="searchVideo" matInput/>
+                 </mat-form-field>
+             </div>
+         </ng-template>
+     </mat-tab>
+</mat-tab-group>

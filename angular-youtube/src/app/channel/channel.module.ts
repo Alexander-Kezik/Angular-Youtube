@@ -11,8 +11,10 @@ import { ChannelTabsComponent } from './channel-tabs/channel-tabs.component';
 import { ChannelPlaylistsComponent } from './channel-playlists/channel-playlists.component';
 import { ChannelChannelsComponent } from './channel-channels/channel-channels.component';
 
+
 import { SharedModule } from '../shared/shared.module';
-import { ChannelRoutingModule } from "./channel-routing.module";
+import { ChannelRoutingModule } from './channel-routing.module';
+import { ChannelAboutComponent } from './channel-about/channel-about.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +22,8 @@ import { ChannelRoutingModule } from "./channel-routing.module";
         ChannelDataComponent,
         ChannelTabsComponent,
         ChannelPlaylistsComponent,
-        ChannelChannelsComponent
+        ChannelChannelsComponent,
+        ChannelAboutComponent
     ],
     imports: [
         ChannelRoutingModule,

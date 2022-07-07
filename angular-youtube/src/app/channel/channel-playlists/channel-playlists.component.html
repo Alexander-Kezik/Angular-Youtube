@@ -10,7 +10,7 @@
                 <img src="{{ videos.snippet.thumbnails.high.url }}" alt="thumbnail" class="channel-playlists__item__videos__video-img"/>
                 <div class="channel-playlists__item__videos__video-title">{{ videos.snippet.title }}</div>
                 <div class="channel-playlists__item__videos__video-channel">{{ videos.snippet.channelTitle }}</div>
-                <div class="channel-playlists__item__videos__video-time">{{ videos.snippet.publishedAt }}</div>
+                <div class="channel-playlists__item__videos__video-time">{{ videos.snippet.publishedAt | date }}</div>
             </div>
         </div>
     </li>
