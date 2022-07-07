@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VideoPlayerComponent } from './video-player.component';
-import { SafeResourceUrl } from '@angular/platform-browser';
+import { VideoModule } from '../video.module';
 
 describe('VideoPlayerComponent', () => {
     let component: VideoPlayerComponent;
@@ -9,6 +9,7 @@ describe('VideoPlayerComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
+            imports: [VideoModule],
             declarations: [VideoPlayerComponent],
         }).compileComponents();
 

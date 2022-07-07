@@ -8,7 +8,7 @@
                 class="iframe"
                 width="168"
                 height="90"
-                [src]="createSafeUrl(relatedVideo.id)"
+                [src]="relatedVideo.id | sanitizeUrl"
             >
             </iframe>
             <h2 class="related-video__title">

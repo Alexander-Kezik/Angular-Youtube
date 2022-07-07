@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { IVideo } from '../models/IVideo.interface';
-import { VideoService } from './video.service';
+import { VideoService } from './service/video.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

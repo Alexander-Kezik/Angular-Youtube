@@ -1,7 +1,4 @@
-<div
-    class="comments-section__add-comment"
-    *ngIf="operation === 'comment'"
->
+<div class="comments-section__add-comment" *ngIf="operation === 'comment'">
     <mat-form-field class="form-field">
         <mat-label>Enter your {{ operation }}</mat-label>
         <input
@@ -10,10 +7,7 @@
             (click)="showAddCommentButtons()"
         />
     </mat-form-field>
-    <div
-        class="add-comment__buttons"
-        *ngIf="isAddCommentButtonsActive"
-    >
+    <div class="add-comment__buttons" *ngIf="isAddCommentButtonsActive">
         <button mat-button (click)="hideAddCommentButtons()">CANCEL</button>
         <button mat-flat-button [disabled]="!myText" color="primary">
             SUBMIT {{ operation | uppercase }}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { VideoService } from '../video.service';
+import { VideoService } from '../service/video.service';
 import { IComment } from '../../models/IComment.interface';
 import { ActivatedRoute } from '@angular/router';
 import { ICache } from '../../models/ICache';

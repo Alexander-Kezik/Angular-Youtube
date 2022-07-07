@@ -4,7 +4,6 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { IVideo } from '../../models/IVideo.interface';
 
@@ -17,12 +16,7 @@ import { IVideo } from '../../models/IVideo.interface';
 export class RelatedVideosComponent implements OnInit {
     @Input() relatedVideos: IVideo[] = [];
 
-    constructor(private _sanitizer: DomSanitizer) {}
+    constructor() {}
 
     ngOnInit(): void {}
-
-    public createSafeUrl(id: string): SafeResourceUrl {
-        const untrustedUrl = 'https://www.youtube.com/embed/' + id;
-        return this._sanitizer.bypassSecurityTrustResourceUrl(untrustedUrl);
-    }
 }

@@ -38,4 +38,10 @@ describe('InputCommentComponent', () => {
         expect(component.isAddCommentButtonsActive).toBe(false);
         expect(component.myText).toBe('');
     });
+
+    it('should have the correct operation', () => {
+        component.operation = 'comment';
+
+        expect(component.operation).toEqual('comment');
+    });
 });
