@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SearchComponent } from './search/component/search.component';
 
 const routes: Routes = [
+    {
+        path: 'search-page',
+        component: SearchComponent,
+        pathMatch: 'full',
+        loadChildren: () => import('./search/search.module').then(m => m.SearchModule)
+    },
     // {
-    //     path: 'search-page',
-    // },
-    // {
-    //     path: 'channel-page',
+    //     path: '/channel-page',
     // },
     {
         path: 'video-page',
-        loadChildren: () =>
-            import('./video/video.module').then((m) => m.VideoModule),
+        loadChildren: () => import('./video/video.module').then((m) => m.VideoModule),
     },
     {
         path: '**',

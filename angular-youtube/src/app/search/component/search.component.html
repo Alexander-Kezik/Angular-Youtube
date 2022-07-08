@@ -1,0 +1,82 @@
+<section class="search-page">
+    <section class="search-page__view-actions">
+        <mat-form-field
+            *ngIf="showFilter"
+            class="search-page_filter"
+            appearance="fill"
+        >
+            <mat-label>Filtration</mat-label>
+            <mat-select ngModel (ngModelChange)="showVideosByFilter($event)">
+                <mat-option>All</mat-option>
+                <mat-option
+                    *ngFor="let category of categories$ | async as categories"
+                    [value]="category.id"
+                    >{{ category.snippet.title }}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field
+            *ngIf="!showFilter"
+            class="search-page_filter"
+            appearance="fill"
+        >
+            <mat-label>Sorting</mat-label>
+            <mat-select
+                ngModel
+                (ngModelChange)="showVideosBySortCondition($event)"
+            >
+                <mat-option
+                    *ngFor="let condition of sortConditions"
+                    [value]="condition.value"
+                    >{{ condition.title }}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+        <button
+            mat-raised-button
+            class="search-page_view-change"
+            (click)="changeView()"
+        >
+            {{ videoListView ? "List" : "Grid" }}
+        </button>
+    </section>
+
+    <section
+        class="search-page__video-items video-items_grid"
+        *ngIf="videoListView"
+    >
+        <mat-card
+            class="search-page__item"
+            *ngFor="let videoItem of videos$ | async"
+        >
+            <img class="search-page__img" [src]="videoItem.snippet.imageUrl" />
+            <h1 class="search-page__title">{{ videoItem.snippet.title }}</h1>
+        </mat-card>
+    </section>
+
+    <section
+        class="search-page__video-items video-items_list"
+        *ngIf="!videoListView"
+    >
+        <mat-card
+            class="search-page__item item-list"
+            *ngFor="let videoItem of videos$ | async"
+        >
+            <img
+                class="search-page__img img-list"
+                [src]="videoItem.snippet.imageUrl"
+            />
+            <div class="search-page__video-items item-list__container">
+                <h1 class="search-page__title">
+                    {{ videoItem.snippet.title }}
+                </h1>
+                <p class="search-page__description">
+                    {{ videoItem.snippet.description }}
+                </p>
+            </div>
+        </mat-card>
+    </section>
+    <section class="search-page__item item-load" *ngIf="!(videos$ | async)">
+        <mat-spinner style="margin: 0 auto"></mat-spinner>
+    </section>
+</section>
