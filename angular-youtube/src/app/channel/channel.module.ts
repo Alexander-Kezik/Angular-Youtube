@@ -1,35 +1,38 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon'
-import { RouterModule } from "@angular/router";
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { ChannelComponent } from './channel.component';
 import { ChannelDataComponent } from './channel-data/channel-data.component';
 import { ChannelTabsComponent } from './channel-tabs/channel-tabs.component';
+import { ChannelPlaylistsComponent } from './channel-playlists/channel-playlists.component';
+import { ChannelChannelsComponent } from './channel-channels/channel-channels.component';
+
 
 import { SharedModule } from '../shared/shared.module';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
+import { ChannelRoutingModule } from './channel-routing.module';
+import { ChannelAboutComponent } from './channel-about/channel-about.component';
 
 @NgModule({
     declarations: [
         ChannelComponent,
         ChannelDataComponent,
-        ChannelTabsComponent
+        ChannelTabsComponent,
+        ChannelPlaylistsComponent,
+        ChannelChannelsComponent,
+        ChannelAboutComponent
     ],
     imports: [
-        RouterModule.forChild([
-            // { path: 'channel-page/video' },
-            // { path: 'channel-page/playlists' },
-            // { path: 'channel-page/community' },
-            // { path: 'channel-page/channels' },
-            // { path: 'channel-page/about' }
-        ]),
+        ChannelRoutingModule,
         SharedModule,
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        MatTabsModule
     ]
 })
 

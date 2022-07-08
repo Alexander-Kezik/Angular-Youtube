@@ -1,0 +1,132 @@
+.video-item {
+    grid-template-columns: 360px 720px;
+    grid-template-rows: 202px;
+    display: grid;
+    column-gap: 16px;
+
+    &__link {
+        cursor: pointer;
+        display: flex;
+        position: relative;
+
+        &-image {
+            height: 100%;
+            justify-content: center;
+        }
+
+        &-time {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            color: white;
+            font-size: 12px;
+            font-family: sans-serif;
+            padding: 3px 4px;
+            background: black;
+            line-height: 12px;
+        }
+    }
+
+    &__info {
+        color: #030303;
+        text-decoration: none;
+        cursor: pointer;
+
+        &-header {
+            font-size: 18px;
+            font-family: sans-serif;
+            font-weight: 700;
+        }
+
+        &-views {
+            color: #606060;
+            font-size: 12px;
+            font-family: sans-serif;
+        }
+
+        &__channel {
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            text-decoration: none;
+
+            &-icon {
+                height: 24px;
+                width: 24px;
+                border-radius: 100%;
+                margin-right: 8px;
+            }
+
+            &-name {
+                color: #606060;
+                font-size: 12px;
+                font-family: sans-serif;
+            }
+        }
+
+        &-description {
+            color: #606060;
+            font-size: 12px;
+            font-family: sans-serif;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
+}
+
+.video-grid-item {
+    display: grid;
+    grid-template-rows: 165px auto;
+    grid-template-columns: 295px;
+
+    &__link {
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+
+        &-image {
+            height: 165px;
+        }
+
+        &-time {
+            position: absolute;
+        }
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 48px 225px;
+        grid-template-rows: auto;
+
+        &-icon {
+            height: 36px;
+            width: 36px;
+            border-radius: 100%;
+            margin-top: 12px;
+        }
+
+        &__info {
+            padding-top: 12px;
+
+            &-header {
+                font-size: 14px;
+                color: #030303;
+                font-family: sans-serif;
+                font-weight: 700;
+            }
+
+            &-name {
+                color: #606060;
+                font-size: 12px;
+                line-height: 18px;
+            }
+
+            &-views {
+                font-size: 12px;
+                color: #606060;
+            }
+        }
+    }
+}

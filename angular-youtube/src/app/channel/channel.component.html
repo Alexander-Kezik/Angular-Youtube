@@ -1,11 +1,11 @@
 <section *ngIf="channel$ | async as channel" class="channel">
-    <img src="{{ channel.banner + EXTENSION_FOR_CHANNEL_BANNER }}" class="channel__banner" alt="banner"/>
+    <img src="{{ channel.brandingSettings.image.bannerExternalUrl + EXTENSION_FOR_CHANNEL_BANNER }}" class="channel__banner" alt="banner"/>
     <div class="channel__container">
         <div class="channel__header">
             <channel-data
-                [thumbnail]="channel.thumbnail"
-                [title]="channel.title"
-                [subscribersCount]="channel.subscribersCount"
+                [thumbnail]="channel.snippet.thumbnails.default.url"
+                [title]="channel.snippet.title"
+                [subscribersCount]="channel.statistics.subscriberCount"
             ></channel-data>
             <button mat-raised-button color="warn">SUBSCRIBE</button>
         </div>

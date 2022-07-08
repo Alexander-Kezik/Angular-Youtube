@@ -1,5 +1,8 @@
 export interface ISnippet {
     title: string,
+    publishedAt: string,
+    description: string,
+    country: string,
     thumbnails: {
         default: {
             url: string
@@ -8,15 +11,14 @@ export interface ISnippet {
 }
 
 export interface IChannel {
-    items: [{
-        snippet: ISnippet
-        statistics: {
-            subscriberCount: number
-        },
-        brandingSettings: {
-            image: {
-                bannerExternalUrl: string
-            },
+    snippet: ISnippet
+    statistics: {
+        subscriberCount: number,
+        viewCount: number
+    },
+    brandingSettings: {
+        image: {
+            bannerExternalUrl: string
         }
-    }]
+    }
 }
