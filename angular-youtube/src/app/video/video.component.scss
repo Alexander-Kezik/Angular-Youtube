@@ -1,0 +1,12 @@
+.video-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin: 20px auto;
+
+    .current-video {
+        max-width: 920px;
+        width: 100%;
+    }
+}

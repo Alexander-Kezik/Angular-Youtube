@@ -1,0 +1,19 @@
+<div class="related-videos-collection">
+    <a routerLink="/video-page">
+        <div
+            class="related-videos-item"
+            *ngFor="let relatedVideo of relatedVideos"
+        >
+            <iframe
+                class="iframe"
+                width="168"
+                height="90"
+                [src]="relatedVideo.id | sanitizeUrl"
+            >
+            </iframe>
+            <h2 class="related-video__title">
+                {{ relatedVideo.snippet.title }}
+            </h2>
+        </div>
+    </a>
+</div>

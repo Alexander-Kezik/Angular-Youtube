@@ -12,18 +12,18 @@ const routes: Routes = [
     // {
     //     path: '/channel-page',
     // },
-    // {
-    //     path: '/video-page',
-    // },
-    // {
-    //     path: '**',
-    //     redirectTo: '/',
-    // },
+    {
+        path: 'video-page',
+        loadChildren: () => import('./video/video.module').then((m) => m.VideoModule),
+    },
+    {
+        path: '**',
+        redirectTo: '',
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
 })
-
 export class AppRoutingModule {}
