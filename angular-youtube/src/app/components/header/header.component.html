@@ -2,7 +2,7 @@
     <div class="header__left">
         <mat-icon class="header__sidebar-icon">menu</mat-icon>
         <img
-            [routerLink]="['/search-page']"
+            routerLink="/search-page"
             class="header__logo"
             src="/assets/logo.svg"
             alt="youtube logo"
@@ -14,12 +14,12 @@
         (ngSubmit)="submit(searchForm)"
     >
         <mat-form-field class="header__search" appearance="fill">
-            <mat-label>Запрос</mat-label>
+            <mat-label>Query</mat-label>
             <input
                 ngModel
                 matInput
                 #search="ngModel"
-                placeholder="Введите запрос"
+                placeholder="Enter a query"
                 name="search"
                 id="search"
                 class="header__input"

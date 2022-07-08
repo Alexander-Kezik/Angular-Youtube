@@ -1,13 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
-import { inject } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
-
 import { SearchService } from './search.service';
 
 describe('SearchService', () => {
@@ -24,6 +18,41 @@ describe('SearchService', () => {
         },
     ];
 
+    let CATEGORIES: ICategory[] = [
+        {
+            id: '1',
+            snippet: {
+                title: 'category',
+                assignable: true,
+            },
+        },
+    ];
+
+    let API_CATEGORIES: any = {
+        items: {
+            id: '1',
+            snippet: {
+                title: 'category',
+                assignable: true,
+            },
+        },
+    };
+
+    let API_VIDEOS: any = {
+        items: {
+            id: '1',
+            snippet: {
+                title: 'title',
+                description: 'description',
+                thumbnails: {
+                    high: {
+                        url: 'url',
+                    },
+                },
+            },
+        },
+    };
+
     beforeEach(() => {
         httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
         service = new SearchService(httpClientSpy);
@@ -34,10 +63,20 @@ describe('SearchService', () => {
     });
 
     it('should get popular videos', () => {
-        httpClientSpy.get.and.returnValue(of(VIDEOS));
+        httpClientSpy.get.and.returnValue(of(API_VIDEOS));
         service.getPopularVideos().subscribe({
             next: (videos) => {
                 expect(videos).toEqual(VIDEOS);
+            },
+        });
+        expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
+    });
+
+    it('should get categories', () => {
+        httpClientSpy.get.and.returnValue(of(API_CATEGORIES));
+        service.getVideoCategories().subscribe({
+            next: (videos) => {
+                expect(videos).toEqual(CATEGORIES);
             },
         });
         expect(httpClientSpy.get).toHaveBeenCalledTimes(1);

@@ -7,17 +7,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [SearchComponent],
     imports: [
-        CommonModule,
         MatCardModule,
         MatButtonModule,
         MatIconModule,
         MatSelectModule,
-        FormsModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        SharedModule
     ],
 })
 export class SearchModule {}

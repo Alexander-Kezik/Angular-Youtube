@@ -17,13 +17,21 @@ export class SearchComponent implements OnInit {
     public videos$!: Observable<IVideo[]>;
     public categories$!: Observable<ICategory[]>;
     public query: string | null = null;
+    public sortConditions = [
+        { value: 'relevance', title: 'By relevance' },
+        { value: 'date', title: 'By upload date' },
+        { value: 'rating', title: 'By rating' },
+        { value: 'title', title: 'By title' },
+        { value: 'videoCount', title: 'By video count on chanel' },
+        { value: 'viewCount', title: 'By number of views' },
+    ];
 
     constructor(
         private _searchService: SearchService,
         private _activatedRoute: ActivatedRoute,
         private _router: Router
     ) {}
-    
+
     ngOnInit(): void {
         this.videos$ = this._searchService.getPopularVideos();
         this.categories$ = this._searchService.getVideoCategories();
@@ -42,11 +50,23 @@ export class SearchComponent implements OnInit {
         }
     }
 
+    public showVideosBySortCondition(sortCondition: string) {
+        if (this.query) {
+            this.videos$ = this._searchService.getVideosBySortingCondition(
+                sortCondition,
+                this.query
+            );
+        }
+    }
+
     private _showVideosByQuery() {
         this._router.events.subscribe(() => {
-            this.query = this._activatedRoute.snapshot.queryParamMap.get('search_query');
+            this.query =
+                this._activatedRoute.snapshot.queryParamMap.get('search_query');
             if (this.query) {
-                this.videos$ = this._searchService.getVideosByQuery(String(this.query));
+                this.videos$ = this._searchService.getVideosByQuery(
+                    String(this.query)
+                );
                 this.showFilter = false;
             } else {
                 this.videos$ = this._searchService.getPopularVideos();
