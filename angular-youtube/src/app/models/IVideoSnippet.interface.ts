@@ -4,4 +4,10 @@ export interface IVideoSnippet {
     imageUrl: string;
     channelTitle: string;
     channelId: string;
+    publishedAt: string;
+    thumbnails: {
+        high: {
+            url: string;
+        };
+    };
 }

@@ -15,6 +15,12 @@ describe('SearchService', () => {
             imageUrl: 'url',
             channelTitle: 'title',
             channelId: '1',
+            publishedAt: 'date',
+            thumbnails: {
+                high: {
+                    url: 'url'
+                }
+            }
         },
     ];
 

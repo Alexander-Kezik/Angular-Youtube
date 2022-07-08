@@ -2,7 +2,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap, catchError, throwError } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
-import { IVideo } from 'src/app/models/IVideo.interface';
 import { IVideoSnippet } from 'src/app/models/IVideoSnippet.interface';
 
 @Injectable({
@@ -47,6 +46,12 @@ export class SearchService {
                         imageUrl: item.snippet.thumbnails.high.url,
                         channelTitle: item.snippet.channelTitle,
                         channelId: item.snippet.channelTitle,
+                        publishedAt: item.snippet.publishedAt,
+                        thumbnails: {
+                            high: {
+                                url: item.snippet.thumbnails.high.url,
+                            }
+                        }
                     } as IVideoSnippet;
                 });
             }),
