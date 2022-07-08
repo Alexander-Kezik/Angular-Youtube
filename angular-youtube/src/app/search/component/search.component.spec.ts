@@ -1,27 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchComponent } from './search.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SearchService } from '../service/search.service';
+import { of } from 'rxjs';
 
 describe('SearchComponent', () => {
     let component: SearchComponent;
-    let fixture: ComponentFixture<SearchComponent>;
-    let service: SearchService;
+    let activatedRoute: any;
+    let router: any;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            declarations: [SearchComponent],
-            imports: [HttpClientTestingModule, RouterTestingModule],
-        }).compileComponents();
+    let mockService = jasmine.createSpyObj('SearchService', {
+        getVideos: of(),
+        getVideoCategories: of(),
     });
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(SearchComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-        service = TestBed.inject(SearchService);
-    });
+    component = new SearchComponent(mockService, activatedRoute, router);
 
     it('should create', () => {
         expect(component).toBeTruthy();
@@ -39,25 +29,35 @@ describe('SearchComponent', () => {
         expect(component.videoListView).toEqual(true);
     });
 
-    it('should call getVideosBySortingCondition when showVideosBySortCondition', () => {
-        const mySpy = spyOn(service, 'getVideosBySortingCondition');
+    it('should call getVideos with filtering videos when showVideosByFilter', () => {
+        let categoryId = '1';
+        component.showVideosByFilter(categoryId);
+        expect(mockService.getVideos).toHaveBeenCalledWith({
+            searchType: 'search',
+            type: 'video',
+            videoCategoryId: `${categoryId}`,
+        });
+    });
 
+    it('should call getVideos with popular videos when showVideosByFilter', () => {
+        let categoryId = '';
+        component.showVideosByFilter(categoryId);
+        expect(mockService.getVideos).toHaveBeenCalledWith({
+            searchType: 'videos',
+            chart: 'mostPopular',
+            regionCode: 'BY',
+        });
+    });
+
+    it('should call getVideos when showVideosBySortCondition', () => {
         component.query = 'cats';
-        component.showVideosBySortCondition('data');
-        expect(mySpy).toHaveBeenCalled();
-    });
-
-    it('should call getPopularVideos when showVideosByFilter if there is no category', () => {
-        const mySpy = spyOn(service, 'getPopularVideos');
-
-        component.showVideosByFilter('');
-        expect(mySpy).toHaveBeenCalled();
-    });
-
-    it('should call getVideosByFilter when showVideosByFilter if there is a category', () => {
-        const mySpy = spyOn(service, 'getVideosByFilter');
-
-        component.showVideosByFilter('1');
-        expect(mySpy).toHaveBeenCalled();
+        let sortCondition = 'data';
+        component.showVideosBySortCondition(sortCondition);
+        expect(mockService.getVideos).toHaveBeenCalledWith({
+            searchType: 'search',
+            order: `${sortCondition}`,
+            q: `${component.query}`,
+            type: 'video',
+        });
     });
 });

@@ -49,8 +49,8 @@
             class="search-page__item"
             *ngFor="let videoItem of videos$ | async"
         >
-            <img class="search-page__img" [src]="videoItem.snippet.imageUrl" />
-            <h1 class="search-page__title">{{ videoItem.snippet.title }}</h1>
+            <img class="search-page__img" [src]="videoItem.imageUrl" />
+            <h1 class="search-page__title">{{ videoItem.title }}</h1>
         </mat-card>
     </section>
 
@@ -64,14 +64,14 @@
         >
             <img
                 class="search-page__img img-list"
-                [src]="videoItem.snippet.imageUrl"
+                [src]="videoItem.imageUrl"
             />
             <div class="search-page__video-items item-list__container">
                 <h1 class="search-page__title">
-                    {{ videoItem.snippet.title }}
+                    {{ videoItem.title }}
                 </h1>
                 <p class="search-page__description">
-                    {{ videoItem.snippet.description }}
+                    {{ videoItem.description }}
                 </p>
             </div>
         </mat-card>

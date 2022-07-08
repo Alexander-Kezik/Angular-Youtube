@@ -2,19 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
+import { IVideoSnippet } from 'src/app/models/IVideoSnippet.interface';
 import { SearchService } from './search.service';
 
 describe('SearchService', () => {
     let service: SearchService;
     let httpClientSpy: jasmine.SpyObj<HttpClient>;
-    let VIDEOS: IVideo[] = [
+    let VIDEOS: IVideoSnippet[] = [
         {
-            id: '1',
-            snippet: {
-                title: 'title',
-                description: 'description',
-                imageUrl: 'url',
-            },
+            title: 'cat',
+            description: 'cat',
+            imageUrl: 'url',
+            channelTitle: 'title',
+            channelId: '1',
         },
     ];
 
@@ -62,12 +62,15 @@ describe('SearchService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should get popular videos', () => {
+    it('should get videos', () => {
         httpClientSpy.get.and.returnValue(of(API_VIDEOS));
-        service.getPopularVideos().subscribe({
+        service.getVideos([]).subscribe({
             next: (videos) => {
                 expect(videos).toEqual(VIDEOS);
             },
+            error: (err: any) => {
+                expect(err).toBeInstanceOf(String);
+            }
         });
         expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
     });
@@ -78,6 +81,9 @@ describe('SearchService', () => {
             next: (videos) => {
                 expect(videos).toEqual(CATEGORIES);
             },
+            error: (err: any) => {
+                expect(err).toBeInstanceOf(String);
+            }
         });
         expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
     });
