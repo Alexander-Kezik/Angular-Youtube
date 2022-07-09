@@ -2,11 +2,26 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const baseApiUrl: string = 'https://www.googleapis.com/youtube/v3/'
+
 export const environment = {
     production: false,
     endpoints: {
         channel: {
-            getChannel: 'https://www.googleapis.com/youtube/v3/channels?&part=snippet,brandingSettings,statistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw'
+            getChannel: `${baseApiUrl}channels?part=snippet,brandingSettings,statistics`
+        },
+        channelSections: {
+            getChannelSections: `${baseApiUrl}channelSections?part=snippet,contentDetails`
+        },
+        playlists: {
+            getPlaylists: `${baseApiUrl}playlists?maxResults=10&part=snippet,contentDetails`,
+            getPlaylistItems: `${baseApiUrl}playlistItems?part=contentDetails,snippet`
+        },
+        search: {
+            getVideoBySearchingByKeyword: `${baseApiUrl}search?part=snippet&maxResults=25`
+        },
+        videos: {
+            getVideo: `${baseApiUrl}videos?part=snippet,statistics`
         }
     }
 };

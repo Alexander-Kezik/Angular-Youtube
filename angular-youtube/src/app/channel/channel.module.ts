@@ -15,6 +15,7 @@ import { ChannelChannelsComponent } from './channel-channels/channel-channels.co
 import { SharedModule } from '../shared/shared.module';
 import { ChannelRoutingModule } from './channel-routing.module';
 import { ChannelAboutComponent } from './channel-about/channel-about.component';
+import { ChannelVideoSearchComponent } from './channel-video-search/channel-video-search.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { ChannelAboutComponent } from './channel-about/channel-about.component';
         ChannelTabsComponent,
         ChannelPlaylistsComponent,
         ChannelChannelsComponent,
-        ChannelAboutComponent
+        ChannelAboutComponent,
+        ChannelVideoSearchComponent
     ],
     imports: [
         ChannelRoutingModule,
