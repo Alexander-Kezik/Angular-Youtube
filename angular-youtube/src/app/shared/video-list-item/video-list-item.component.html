@@ -1,4 +1,4 @@
-<div [ngClass]="{
+<div *ngIf="item" [ngClass]="{
         'video-item': !isGrid,
         'video-grid-item': isGrid
         }">
@@ -20,7 +20,7 @@
                 'video-grid-item__wrapper__info-header': isGrid
             }">{{ item.snippet.title }}</div>
         <div *ngIf="!isGrid">
-            <div class="video-item__info-views">{{ item.statistics.viewCount }}</div>
+            <div class="video-item__info-views">{{ item.statistics.viewCount }} views</div>
             <a class="video-item__info__channel-name">{{ item.snippet.channelTitle }}</a>
         </div>
         <div *ngIf="isGrid">

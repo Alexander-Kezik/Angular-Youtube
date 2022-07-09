@@ -6,7 +6,10 @@
 
     &__link {
         cursor: pointer;
+        background: black;
         display: flex;
+        justify-content: center;
+        width: 100%;
 
         &-image {
             height: 100%;

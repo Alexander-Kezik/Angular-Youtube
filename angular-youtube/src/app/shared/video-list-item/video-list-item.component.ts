@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {IVideo} from "../../models/IVideo.interface";
+
+import { IVideo } from '../../models/IVideo.interface';
 
 @Component({
     selector: 'video-list-item',
@@ -9,5 +10,5 @@ import {IVideo} from "../../models/IVideo.interface";
 
 export class VideoListItemComponent {
     @Input() public isGrid: boolean = false;
-    @Input() public item!: IVideo;
+    @Input() public item: IVideo | undefined;
 }
