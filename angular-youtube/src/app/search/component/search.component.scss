@@ -15,57 +15,18 @@
         }  
     }
 
-    .search-page__video-items {
+    .search-page__video-items_grid {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         flex-wrap: wrap;
         gap: 20px;
-        cursor: pointer;
-
-        .search-page__item {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            max-width: 350px;
-            gap: 10px;
-            padding: 0;
-            border: none;
-
-            .search-page__img {
-                width: 100%;
-                height: 220px;
-            }
-
-            .search-page__title {
-                font-size: 16px;
-                padding: 0 10px;
-            }
-        }
+        padding: 0 30px;
     }
 
-    .video-items_list {
+    .search-page__video-items_list {
+        display: flex;
         flex-direction: column;
-        align-items: center;
-
-        .item-list {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: none;
-            width: 90%;
-            padding: 10px;
-
-            .img-list {
-                height: 150px;
-                width: 200px;
-            }
-
-            .item-list__container {
-                display: flex;
-                flex-direction: column;
-                width: 80%;
-                background-color: white;
-            }
-        }
+        padding: 0 30px;
+        gap: 20px;
     }
 }

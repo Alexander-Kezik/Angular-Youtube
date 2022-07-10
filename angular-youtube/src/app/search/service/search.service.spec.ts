@@ -12,7 +12,6 @@ describe('SearchService', () => {
         {
             title: 'cat',
             description: 'cat',
-            imageUrl: 'url',
             channelTitle: 'title',
             channelId: '1',
             publishedAt: 'date',

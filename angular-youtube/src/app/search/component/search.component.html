@@ -41,41 +41,18 @@
         </button>
     </section>
 
-    <section
-        class="search-page__video-items video-items_grid"
-        *ngIf="videoListView"
+    <section [ngClass]="{
+        'search-page__video-items_grid': videoListView,
+        'search-page__video-items_list': !videoListView
+        }"
     >
-        <mat-card
-            class="search-page__item"
+        <video-list-item
             *ngFor="let videoItem of videos$ | async"
-        >
-            <img class="search-page__img" [src]="videoItem.imageUrl" />
-            <h1 class="search-page__title">{{ videoItem.title }}</h1>
-        </mat-card>
+            [isGrid]="videoListView"
+            [item]="videoItem"
+        ></video-list-item>
     </section>
 
-    <section
-        class="search-page__video-items video-items_list"
-        *ngIf="!videoListView"
-    >
-        <mat-card
-            class="search-page__item item-list"
-            *ngFor="let videoItem of videos$ | async"
-        >
-            <img
-                class="search-page__img img-list"
-                [src]="videoItem.imageUrl"
-            />
-            <div class="search-page__video-items item-list__container">
-                <h1 class="search-page__title">
-                    {{ videoItem.title }}
-                </h1>
-                <p class="search-page__description">
-                    {{ videoItem.description }}
-                </p>
-            </div>
-        </mat-card>
-    </section>
     <section class="search-page__item item-load" *ngIf="!(videos$ | async)">
         <mat-spinner style="margin: 0 auto"></mat-spinner>
     </section>

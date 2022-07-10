@@ -1,26 +1,82 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap, catchError, throwError } from 'rxjs';
+import { map, Observable, tap, catchError, throwError, mergeMap } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
-import { IVideoSnippet } from 'src/app/models/IVideoSnippet.interface';
+import { IVideo } from 'src/app/models/IVideo.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SearchService {
-    private _API_KEY = `AIzaSyDKxnbEapmfG4wXUN7P2OvRFduM-GxsEhI`;
+    private _API_KEY = `AIzaSyAOzEIMSEK7IhhpE9TdpisjUnSMz4LTAxc`;
     private _API_URL = `https://youtube.googleapis.com/youtube/v3`;
+    private _VIDEOS_URL = `${environment.endpoints.videos.getVideo}`;
+    private _CATEGORIES_URL = `${environment.endpoints.categories.getCategories}&key=${this._API_KEY}`;
 
     constructor(private _http: HttpClient) {}
 
-    public getVideos(arg: any): Observable<IVideoSnippet[]> {
-        const params = [
-            { 'part=': 'snippet' },
-            { 'chart=': arg.chart },
-            { 'maxResults=': '50' },
-            { 'type=': arg.type },
+    public getVideos(arg: any): Observable<IVideo[]> {
+        let videosUrl = this._formUrl(arg);
+
+        if (arg.searchType === 'search') {
+            return this._http.get<IVideo[]>(videosUrl).pipe(
+                mergeMap((data: any) =>
+                    this._http.get<IVideo[]>(
+                        `${this._VIDEOS_URL}&id=${data.items
+                            .map((item: any) => item.id.videoId)
+                            .join('&id=')}&key=${this._API_KEY}`
+                    )
+                ),
+                map((data: any) => data.items),
+                tap((data: any) => console.log(JSON.stringify(data))),
+                catchError(this._handleError)
+            );
+        } else {
+            return this._http.get<IVideo[]>(videosUrl).pipe(
+                map((data: any) => data.items),
+                tap((data: any) => console.log(JSON.stringify(data))),
+                catchError(this._handleError)
+            );
+        }
+    }
+
+    public getVideoCategories(): Observable<ICategory[]> {
+        return this._http.get<ICategory[]>(this._CATEGORIES_URL).pipe(
+            map((data: any) =>
+                data.items.filter((item: any) => item.snippet.assignable)
+            ),
+            tap((data: any) =>
+                console.log('After filter', JSON.stringify(data))
+            ),
+            map((data: any) => data),
+            catchError(this._handleError)
+        );
+    }
+
+    private _handleError(err: HttpErrorResponse): Observable<never> {
+        let errorMessage: string;
+        if (err.error instanceof ErrorEvent) {
+            errorMessage = `An error occurred: ${err.error.message}`;
+        } else {
+            errorMessage = `Backend returned code ${err.status}: ${err.message}`;
+        }
+        return throwError(() => errorMessage);
+    }
+
+    private _formUrl(arg: any): string { 
+        let part = 'snippet', chart;
+        if (arg.searchType === 'videos') {
+            part = 'snippet, statistics';
+            chart = 'mostPopular';
+        }
+        let params = [
+            { 'part=': part },
+            { 'chart=': chart },
+            { 'maxResults=': '48' },
+            { 'type=': 'video' },
             { 'videoCategoryId=': arg.videoCategoryId },
-            { 'regionCode=': arg.regionCode },
+            { 'regionCode=': 'BY' },
             { 'q=': arg.q },
             { 'order=': arg.order },
             { 'key=': this._API_KEY },
@@ -32,73 +88,6 @@ export class SearchService {
                 (param) => `${Object.keys(param)[0]}${Object.values(param)[0]}`
             );
 
-        const videosUrl = `${this._API_URL}/${arg.searchType}?${params.join(
-            '&'
-        )}`;
-
-        return this._http.get<IVideoSnippet[]>(videosUrl).pipe(
-            tap((data: any) => console.log(JSON.stringify(data))),
-            map((data: any) => {
-                return data.items.map((item: any) => {
-                    return {
-                        title: item.snippet.title,
-                        description: item.snippet.description,
-                        imageUrl: item.snippet.thumbnails.high.url,
-                        channelTitle: item.snippet.channelTitle,
-                        channelId: item.snippet.channelTitle,
-                        publishedAt: item.snippet.publishedAt,
-                        thumbnails: {
-                            high: {
-                                url: item.snippet.thumbnails.high.url,
-                            }
-                        }
-                    } as IVideoSnippet;
-                });
-            }),
-            catchError(this.handleError)
-        );
-    }
-
-    public getVideoCategories(): Observable<ICategory[]> {
-        const searchType = 'videoCategories';
-        const queryParams = [
-            'part=snippet',
-            'regionCode=BY',
-            `key=${this._API_KEY}`,
-        ];
-        const categoriesUrl = `${
-            this._API_URL
-        }/${searchType}?${queryParams.join('&')}`;
-
-        return this._http.get<ICategory[]>(categoriesUrl).pipe(
-            map((data: any) =>
-                data.items.filter((item: any) => item.snippet.assignable)
-            ),
-            tap((data: any) =>
-                console.log('After filter', JSON.stringify(data))
-            ),
-            map((data: any) => {
-                return data.map((item: any) => {
-                    return {
-                        id: item.id,
-                        snippet: {
-                            title: item.snippet.title,
-                            assignable: item.snippet.assignable,
-                        },
-                    } as ICategory;
-                });
-            }),
-            catchError(this.handleError)
-        );
-    }
-
-    private handleError(err: HttpErrorResponse): Observable<never> {
-        let errorMessage: string;
-        if (err.error instanceof ErrorEvent) {
-            errorMessage = `An error occurred: ${err.error.message}`;
-        } else {
-            errorMessage = `Backend returned code ${err.status}: ${err.message}`;
-        }
-        return throwError(() => errorMessage);
+        return `${this._API_URL}/${arg.searchType}?${params.join('&')}`;
     }
 }
