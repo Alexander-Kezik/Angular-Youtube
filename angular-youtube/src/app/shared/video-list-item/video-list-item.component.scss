@@ -1,15 +1,17 @@
 .video-item {
-    grid-template-columns: 360px 720px;
-    grid-template-rows: 202px;
+    grid-template-columns: calc(33%) calc(66%);
+    grid-template-rows: 100%;
     display: grid;
-    column-gap: 16px;
+    column-gap: calc(2%);
 
     &__link {
         cursor: pointer;
+        background: black;
         display: flex;
+        justify-content: center;
 
         &-image {
-            height: 100%;
+            width: 100%;
             justify-content: center;
         }
     }
@@ -23,6 +25,9 @@
             font-size: 18px;
             font-family: sans-serif;
             font-weight: 700;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
         &-views {
