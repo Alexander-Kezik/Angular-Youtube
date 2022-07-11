@@ -4,14 +4,18 @@ import { of } from 'rxjs';
 describe('SearchComponent', () => {
     let component: SearchComponent;
     let activatedRoute: any;
-    let router: any;
+    let routerMock: any;
 
     let mockService = jasmine.createSpyObj('SearchService', {
         getVideos: of(),
         getVideoCategories: of(),
     });
 
-    component = new SearchComponent(mockService, activatedRoute, router);
+    routerMock = {
+        events: of()
+    }
+
+    component = new SearchComponent(mockService, activatedRoute, routerMock);
 
     it('should create', () => {
         expect(component).toBeTruthy();
@@ -34,7 +38,6 @@ describe('SearchComponent', () => {
         component.showVideosByFilter(categoryId);
         expect(mockService.getVideos).toHaveBeenCalledWith({
             searchType: 'search',
-            type: 'video',
             videoCategoryId: `${categoryId}`,
         });
     });
@@ -44,8 +47,6 @@ describe('SearchComponent', () => {
         component.showVideosByFilter(categoryId);
         expect(mockService.getVideos).toHaveBeenCalledWith({
             searchType: 'videos',
-            chart: 'mostPopular',
-            regionCode: 'BY',
         });
     });
 
@@ -57,7 +58,15 @@ describe('SearchComponent', () => {
             searchType: 'search',
             order: `${sortCondition}`,
             q: `${component.query}`,
-            type: 'video',
         });
+    });
+
+    it('should call getVideos and getVideoCategories when ngOnInit', () => {
+        component.query = 'cats';
+        component.ngOnInit();
+        expect(mockService.getVideos).toHaveBeenCalledWith({
+            searchType: 'videos',
+        });
+        expect(mockService.getVideoCategories).toHaveBeenCalled();
     });
 });

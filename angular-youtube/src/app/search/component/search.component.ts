@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
-import { IVideoSnippet } from 'src/app/models/IVideoSnippet.interface';
 import { SearchService } from '../service/search.service';
 
 @Component({

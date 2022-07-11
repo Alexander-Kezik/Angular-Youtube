@@ -34,8 +34,8 @@ export class SearchService {
             );
         } else {
             return this._http.get<IVideo[]>(videosUrl).pipe(
-                map((data: any) => data.items),
                 tap((data: any) => console.log(JSON.stringify(data))),
+                map((data: any) => data.items),
                 catchError(this._handleError)
             );
         }
