@@ -41,9 +41,10 @@
         </button>
     </section>
 
-    <section [ngClass]="{
-        'search-page__video-items_grid': videoListView,
-        'search-page__video-items_list': !videoListView
+    <section
+        [ngClass]="{
+            'search-page__video-items_grid': videoListView,
+            'search-page__video-items_list': !videoListView
         }"
     >
         <video-list-item
