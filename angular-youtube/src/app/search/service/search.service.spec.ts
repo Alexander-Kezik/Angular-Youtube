@@ -48,6 +48,11 @@ describe('SearchService', () => {
         items: VIDEOS,
     };
 
+    let mockHttpErrorResponse: any = {
+        status: 404,
+        message: 'some message about error',
+    };
+
     beforeEach(() => {
         httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
         service = new SearchService(httpClientSpy);
@@ -59,7 +64,7 @@ describe('SearchService', () => {
 
     it('should get popular videos', () => {
         httpClientSpy.get.and.returnValue(of(API_VIDEOS));
-        service.getVideos({}).subscribe({
+        service.getVideos({ searchType: 'videos' }).subscribe({
             next: (videos) => {
                 expect(videos).toEqual(VIDEOS);
             },
@@ -72,7 +77,7 @@ describe('SearchService', () => {
 
     it('should get videos by some condition', () => {
         httpClientSpy.get.and.returnValue(of(API_VIDEOS));
-        service.getVideos({searchType: 'search'}).subscribe({
+        service.getVideos({ searchType: 'search' }).subscribe({
             next: (videos) => {
                 expect(videos).toEqual(VIDEOS);
             },
@@ -86,13 +91,27 @@ describe('SearchService', () => {
     it('should get categories', () => {
         httpClientSpy.get.and.returnValue(of(API_CATEGORIES));
         service.getVideoCategories().subscribe({
-            next: (videos) => {
-                expect(videos).toEqual(CATEGORIES);
+            next: (categories) => {
+                expect(categories).toEqual(CATEGORIES);
             },
             error: (err: any) => {
                 expect(err).toBeInstanceOf(String);
             },
         });
         expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
+    });
+
+    it('should get string url when _formUrl', () => {
+        expect((service as any)._formUrl({ searchType: 'videos' })).toBeInstanceOf(String);
+    });
+
+    it('should return error with message when _handleError', () => {
+        (service as any)._handleError(mockHttpErrorResponse).subscribe({
+            next: () => {},
+            error: (error: any) => {
+                expect(error).toBeTruthy();
+                expect(error).toEqual(`Error with ${mockHttpErrorResponse.status} code: ${mockHttpErrorResponse.message}`);
+            },
+        });
     });
 });

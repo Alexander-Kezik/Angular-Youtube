@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { map, Observable, tap, catchError, throwError, mergeMap } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { IVideo } from 'src/app/models/IVideo.interface';
-import { environment } from 'src/environments/environment';
+import { environment, baseApiUrl } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SearchService {
     private _API_KEY = `AIzaSyAOzEIMSEK7IhhpE9TdpisjUnSMz4LTAxc`;
-    private _API_URL = `https://youtube.googleapis.com/youtube/v3`;
+    private _API_URL = `${baseApiUrl}`;
     private _VIDEOS_URL = `${environment.endpoints.videos.getVideo}`;
     private _CATEGORIES_URL = `${environment.endpoints.categories.getCategories}&key=${this._API_KEY}`;
 
@@ -56,11 +56,7 @@ export class SearchService {
 
     private _handleError(err: HttpErrorResponse): Observable<never> {
         let errorMessage: string;
-        if (err.error instanceof ErrorEvent) {
-            errorMessage = `An error occurred: ${err.error.message}`;
-        } else {
-            errorMessage = `Backend returned code ${err.status}: ${err.message}`;
-        }
+        errorMessage = `Error with ${err.status} code: ${err.message}`;
         return throwError(() => errorMessage);
     }
 
@@ -80,14 +76,9 @@ export class SearchService {
             { 'q=': arg.q },
             { 'order=': arg.order },
             { 'key=': this._API_KEY },
-        ]
-            // избавляемся от объектов, значения которых не пришли из search.component
-            .filter((param) => Object.values(param)[0])
-            // объединяем ключ и значение в одну строку
-            .map(
-                (param) => `${Object.keys(param)[0]}${Object.values(param)[0]}`
-            );
-
-        return `${this._API_URL}/${arg.searchType}?${params.join('&')}`;
+        ].filter((param) => Object.values(param)[0])// избавляемся от объектов, значения которых не пришли из search.component
+         .map((param) => `${Object.keys(param)[0]}${Object.values(param)[0]}`); // объединяем ключ и значение в одну строку
+    
+        return `${this._API_URL}${arg.searchType}?${params.join('&')}`;
     }
 }

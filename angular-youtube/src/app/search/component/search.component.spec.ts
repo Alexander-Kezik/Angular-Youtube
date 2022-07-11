@@ -1,21 +1,50 @@
 import { SearchComponent } from './search.component';
 import { of } from 'rxjs';
+import { NavigationEnd } from '@angular/router';
 
 describe('SearchComponent', () => {
     let component: SearchComponent;
-    let activatedRoute: any;
+    let mockActivatedRoute: any;
     let routerMock: any;
+    let mockService: any;
+    let searchQuery: string | null;
 
-    let mockService = jasmine.createSpyObj('SearchService', {
-        getVideos: of(),
-        getVideoCategories: of(),
+    beforeEach(() => {
+        searchQuery = 'query';
+        mockService = jasmine.createSpyObj('SearchService', {
+            getVideos: of(),
+            getVideoCategories: of(),
+        });
+
+        routerMock = {
+            events: of(
+                new NavigationEnd(
+                    0,
+                    `search-page?search_query=${searchQuery}`,
+                    `search-page?search_query=${searchQuery}`
+                )
+            ),
+        };
+
+        mockActivatedRoute = {
+            snapshot: {
+                queryParamMap: {
+                    get: function (data: string): string | null {
+                        if (searchQuery) {
+                            return searchQuery;
+                        }
+                        return null;
+                    },
+                },
+            },
+        };
+
+        component = new SearchComponent(
+            mockService,
+            mockActivatedRoute,
+            routerMock
+        );
     });
-
-    routerMock = {
-        events: of()
-    }
-
-    component = new SearchComponent(mockService, activatedRoute, routerMock);
 
     it('should create', () => {
         expect(component).toBeTruthy();
@@ -62,11 +91,65 @@ describe('SearchComponent', () => {
     });
 
     it('should call getVideos and getVideoCategories when ngOnInit', () => {
-        component.query = 'cats';
         component.ngOnInit();
         expect(mockService.getVideos).toHaveBeenCalledWith({
             searchType: 'videos',
         });
         expect(mockService.getVideoCategories).toHaveBeenCalled();
+    });
+
+    it('should assign videos by query to videos$ when _showVideosByQuery if there is query', () => {
+        component.query = 'cats';
+        component._showVideosByQuery();
+        expect(component.query).toEqual('query');
+        expect(component.videos$).toEqual(
+            mockService.getVideos({
+                searchType: 'search',
+                q: `${component.query}`,
+            })
+        );
+        expect(component.showFilter).toEqual(false);
+    });
+
+    it('should assign popular videos to videos$ when _showVideosByQuery if there is no query', () => {
+        searchQuery = null;
+
+        routerMock = {
+            events: of(
+                new NavigationEnd(
+                    0,
+                    `search-page?search_query=${searchQuery}`,
+                    `search-page?search_query=${searchQuery}`
+                )
+            ),
+        };
+
+        mockActivatedRoute = {
+            snapshot: {
+                queryParamMap: {
+                    get: function (data: string): string | null {
+                        if (searchQuery) {
+                            return searchQuery;
+                        }
+                        return null;
+                    },
+                },
+            },
+        };
+
+        component = new SearchComponent(
+            mockService,
+            mockActivatedRoute,
+            routerMock
+        );
+
+        component._showVideosByQuery();
+        expect(component.query).toEqual(null);
+        expect(component.videos$).toEqual(
+            mockService.getVideos({
+                searchType: 'videos',
+            })
+        );
+        expect(component.showFilter).toEqual(true);
     });
 });

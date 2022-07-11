@@ -66,11 +66,11 @@ export class SearchComponent implements OnInit {
         }
     }
 
-    private _showVideosByQuery() {
-        this._router.events.subscribe(() => {
-            this.query =
-                this._activatedRoute.snapshot.queryParamMap.get('search_query');
-            if (this.query) {
+
+    public _showVideosByQuery(): void {
+        this._router.events.subscribe(() => { 
+           this.query = this._activatedRoute.snapshot.queryParamMap.get('search_query');
+           if (this.query) {
                 this.videos$ = this._searchService.getVideos({
                     searchType: 'search',
                     q: `${this.query}`,
