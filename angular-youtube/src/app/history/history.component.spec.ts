@@ -47,9 +47,17 @@ describe('HistoryComponent', () => {
     it('should clear local storage with watch history', () => {
         spyOn(component as any, '_reloadPage').and.callFake(function () {});
 
-        component.clearWatchHistory();
+        component.clearSearchHistory();
 
         expect(localStorage.getItem('watchedVideos')).toBe(null);
+    });
+
+    it('should clear local storage with search history', () => {
+        spyOn(component as any, '_reloadPage').and.callFake(function () {});
+
+        component.clearWatchHistory();
+
+        expect(localStorage.getItem('searchHistory')).toBe(null);
     });
 
     it('should get watch history', () => {
