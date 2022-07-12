@@ -100,7 +100,7 @@ describe('SearchComponent', () => {
 
     it('should assign videos by query to videos$ when _showVideosByQuery if there is query', () => {
         component.query = 'cats';
-        component._showVideosByQuery();
+        (component as any)._showVideosByQuery();
         expect(component.query).toEqual('query');
         expect(component.videos$).toEqual(
             mockService.getVideos({
@@ -143,7 +143,7 @@ describe('SearchComponent', () => {
             routerMock
         );
 
-        component._showVideosByQuery();
+        (component as any)._showVideosByQuery();
         expect(component.query).toEqual(null);
         expect(component.videos$).toEqual(
             mockService.getVideos({

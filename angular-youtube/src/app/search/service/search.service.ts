@@ -9,10 +9,9 @@ import { environment, baseApiUrl } from 'src/environments/environment';
     providedIn: 'root',
 })
 export class SearchService {
-    private _API_KEY = `AIzaSyAOzEIMSEK7IhhpE9TdpisjUnSMz4LTAxc`;
-    private _API_URL = `${baseApiUrl}`;
-    private _VIDEOS_URL = `${environment.endpoints.videos.getVideo}`;
-    private _CATEGORIES_URL = `${environment.endpoints.categories.getCategories}&key=${this._API_KEY}`;
+    private _API_URL        = `${baseApiUrl}`;
+    private _VIDEOS_URL     = `${environment.endpoints.videos.getVideo}`;
+    private _CATEGORIES_URL = `${environment.endpoints.categories.getCategories}`;
 
     constructor(private _http: HttpClient) {}
 
@@ -25,7 +24,7 @@ export class SearchService {
                     this._http.get<IVideo[]>(
                         `${this._VIDEOS_URL}&id=${data.items
                             .map((item: any) => item.id.videoId)
-                            .join('&id=')}&key=${this._API_KEY}`
+                            .join('&id=')}`
                     )
                 ),
                 map((data: any) => data.items),
@@ -63,7 +62,7 @@ export class SearchService {
     private _formUrl(arg: any): string { 
         let part = 'snippet', chart;
         if (arg.searchType === 'videos') {
-            part = 'snippet, statistics';
+            part = 'snippet,statistics';
             chart = 'mostPopular';
         }
         let params = [
@@ -75,7 +74,6 @@ export class SearchService {
             { 'regionCode=': 'BY' },
             { 'q=': arg.q },
             { 'order=': arg.order },
-            { 'key=': this._API_KEY },
         ].filter((param) => Object.values(param)[0])// избавляемся от объектов, значения которых не пришли из search.component
          .map((param) => `${Object.keys(param)[0]}${Object.values(param)[0]}`); // объединяем ключ и значение в одну строку
     

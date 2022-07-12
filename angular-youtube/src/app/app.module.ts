@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,7 @@ import { SearchModule } from './search/search.module';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AppApiService } from './app-api.service';
 
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
@@ -26,7 +27,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         BrowserAnimationsModule,
         MatSnackBarModule,
     ],
-    providers: [],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: AppApiService, multi: true }],
     bootstrap: [AppComponent],
 })
 

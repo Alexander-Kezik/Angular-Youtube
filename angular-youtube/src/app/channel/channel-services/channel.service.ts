@@ -15,13 +15,12 @@ import {IVideo} from "../../models/IVideo.interface";
 })
 
 export class ChannelService {
-    private _API_KEY = '&key=AIzaSyA2JLgY0v-AxXur_bjEHoQoHFRVARux8wM';
-    private _channelUrl = `${environment.endpoints.channel.getChannel + this._API_KEY}`;
-    private _playlistsUrl = `${environment.endpoints.playlists.getPlaylists + this._API_KEY}`;
-    private _channelSectionsUrl = `${environment.endpoints.channelSections.getChannelSections + this._API_KEY}`;
-    private _playlistItemsUrl = `${environment.endpoints.playlists.getPlaylistItems + this._API_KEY}`;
-    private _searchingByKeyWordUrl = `${environment.endpoints.search.getVideoBySearchingByKeyword + this._API_KEY}`;
-    private _videosUrl = `${environment.endpoints.videos.getVideo + this._API_KEY}`
+    private _channelUrl = `${environment.endpoints.channel.getChannel}`;
+    private _playlistsUrl = `${environment.endpoints.playlists.getPlaylists}`;
+    private _channelSectionsUrl = `${environment.endpoints.channelSections.getChannelSections}`;
+    private _playlistItemsUrl = `${environment.endpoints.playlists.getPlaylistItems}`;
+    private _searchingByKeyWordUrl = `${environment.endpoints.search.getVideoBySearchingByKeyword}`;
+    private _videosUrl = `${environment.endpoints.videos.getVideo}`
 
 
     constructor(private _http: HttpClient) { }
@@ -119,7 +118,7 @@ export class ChannelService {
         return this.getChannelSections()
             .pipe(
                 map(value => value.filter(item => item.type === 'multiplechannels').map(item => item.items.join(','))),
-                mergeMap(ids => this._http.get<{ items: IChannel[] }>(`${this._channelUrl}&id=${ids + this._API_KEY}`)),
+                mergeMap(ids => this._http.get<{ items: IChannel[] }>(`${this._channelUrl}&id=${ids}`)),
                 map(channels => channels.items)
             )
     }

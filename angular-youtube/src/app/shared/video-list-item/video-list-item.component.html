@@ -10,7 +10,9 @@
                 'video-item__link-image': !isGrid,
                 'video-grid-item__link-image': isGrid
             }"
-            src="{{ item.snippet.thumbnails.high.url }}" alt="video image"/>
+            src="{{ item.snippet.thumbnails.high.url }}" alt="video image"
+            [routerLink]="['/video-page', item.id]"
+            />
     </a>
     <a [ngClass]="{
             'video-item__info': !isGrid,
