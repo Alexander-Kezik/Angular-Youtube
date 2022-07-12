@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
@@ -21,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         RouterModule,
         MatIconModule,
         SearchModule,
+        SharedModule,
         FormsModule,
         MatInputModule,
         HttpClientModule,

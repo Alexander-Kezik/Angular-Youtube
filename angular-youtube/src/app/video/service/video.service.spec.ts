@@ -1,7 +1,7 @@
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { VideoService } from './video.service';
-import { HttpClientModule } from '@angular/common/http';
 
 describe('VideoService', () => {
     let videoService: VideoService;
@@ -19,16 +19,14 @@ describe('VideoService', () => {
 
     it(
         'should retrieves comments by videoId',
-        waitForAsync(
-            inject([VideoService], (videoService: VideoService) => {
-                const id = 'qjoz-CAO3xQ';
-                videoService
-                    .getComments(id)
-                    .subscribe((result) =>
-                        expect(result.items.length).toBeGreaterThan(0)
-                    );
-            })
-        )
+        waitForAsync(() => {
+            const id = 'qjoz-CAO3xQ';
+            videoService
+                .getComments(id)
+                .subscribe((result) =>
+                    expect(result.length).toBeGreaterThan(0)
+                );
+        })
     );
 
     it(
@@ -38,7 +36,7 @@ describe('VideoService', () => {
                 videoService
                     .getRelatedVideos()
                     .subscribe((result) =>
-                        expect(result.items.length).toBeGreaterThan(0)
+                        expect(result.length).toBeGreaterThan(0)
                     );
             })
         )
@@ -51,7 +49,7 @@ describe('VideoService', () => {
                 const id = 'qjoz-CAO3xQ';
                 videoService
                     .getCurrentVideo(id)
-                    .subscribe((result) => expect(result.items.length).toBe(1));
+                    .subscribe((result) => expect(result.length).toBe(1));
             })
         )
     );

@@ -1,9 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Input,
-    OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-video-player',
@@ -11,10 +6,8 @@ import {
     styleUrls: ['./video-player.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoPlayerComponent implements OnInit {
+export class VideoPlayerComponent {
     @Input() id: string = '';
 
     constructor() {}
-
-    ngOnInit(): void {}
 }

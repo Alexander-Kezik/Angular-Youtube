@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { IVideo } from '../models/IVideo.interface';
 import { VideoService } from './service/video.service';
-import { ActivatedRoute } from '@angular/router';
+import { IComment } from '../models/IComment.interface';
 
 @Component({
     selector: 'app-video',
@@ -10,8 +11,10 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./video.component.scss'],
 })
 export class VideoComponent implements OnInit {
-    public currentVideo!: IVideo;
-    public relatedVideos!: IVideo[];
+    public currentVideo?: IVideo;
+    public relatedVideos: IVideo[] = [];
+    public comments: IComment[] = [];
+    public watchedVideos: { [id: string]: string } = {};
 
     constructor(
         private _videoService: VideoService,
@@ -19,12 +22,55 @@ export class VideoComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const id = this._route.snapshot.paramMap.get('id');
-        this._videoService.getCurrentVideo(id).subscribe((data) => {
-            this.currentVideo = data.items[0]
-        })
-        this._videoService.getRelatedVideos().subscribe((data) => {
-            this.relatedVideos = data.items;
+        this._route.params.subscribe((params) => {
+            this.getCurrentVideo(params['id']);
         });
+    }
+
+    public getRelatedVideos(id: string): void {
+        this._videoService.getRelatedVideos().subscribe((data) => {
+            this.relatedVideos = data.filter((item) => item.id !== id);
+        });
+    }
+
+    public getCurrentVideo(id: string): void {
+        this._videoService.getCurrentVideo(id).subscribe((data) => {
+            this.currentVideo = data[0];
+            this.getRelatedVideos(this.currentVideo.id);
+            this.addVideoToTheHistory(this.currentVideo.id);
+            this.getComments(this.currentVideo.id);
+        });
+    }
+
+    public getComments(id: string): void {
+        this._videoService.getComments(id).subscribe((data) => {
+            this.comments = data;
+        });
+    }
+
+    public addVideoToTheHistory(id: string): void {
+        if (localStorage.getItem('watchedVideos') !== null) {
+            this.watchedVideos = JSON.parse(
+                localStorage.getItem('watchedVideos')!
+            );
+        }
+
+        let hours =
+            new Date().getHours() < 10
+                ? '0' + new Date().getHours()
+                : new Date().getHours();
+        let minutes =
+            new Date().getMinutes() < 10
+                ? '0' + new Date().getMinutes()
+                : new Date().getMinutes();
+
+        if (!Object.keys(this.watchedVideos).includes(id)) {
+            this.watchedVideos[id] = hours + ':' + minutes;
+        }
+
+        localStorage.setItem(
+            'watchedVideos',
+            JSON.stringify(this.watchedVideos)
+        );
     }
 }

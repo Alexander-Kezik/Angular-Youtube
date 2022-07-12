@@ -1,9 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Input,
-    OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { IVideo } from '../../models/IVideo.interface';
 
@@ -13,10 +8,8 @@ import { IVideo } from '../../models/IVideo.interface';
     styleUrls: ['./related-videos.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RelatedVideosComponent implements OnInit {
+export class RelatedVideosComponent {
     @Input() relatedVideos: IVideo[] = [];
 
     constructor() {}
-
-    ngOnInit(): void {}
 }

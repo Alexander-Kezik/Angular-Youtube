@@ -1,0 +1,32 @@
+<div *ngIf="item" [ngClass]="{
+        'video-item': !isGrid,
+        'video-grid-item': isGrid
+        }">
+    <a [ngClass]="{
+            'video-item__link': !isGrid,
+            'video-grid-item__link': isGrid
+            }">
+        <img [ngClass]="{
+                'video-item__link-image': !isGrid,
+                'video-grid-item__link-image': isGrid
+            }"
+             src="{{ item.snippet.imageUrl }}" alt="video image"/>
+    </a>
+    <a [ngClass]="{
+            'video-item__info': !isGrid,
+            'video-grid-item__wrapper__info': isGrid}">
+        <div [ngClass]="{
+                'video-item__info-header': !isGrid,
+                'video-grid-item__wrapper__info-header': isGrid
+            }">{{ item.snippet.title }}</div>
+        <div *ngIf="!isGrid">
+            <div class="video-item__info-views">{{ item.statistics.viewCount }} views</div>
+            <a class="video-item__info__channel-name">{{ item.snippet.channelTitle }}</a>
+        </div>
+        <div *ngIf="isGrid">
+            <a class="video-grid-item__wrapper__info-name">{{ item.snippet.channelTitle }}</a>
+            <div class="video-grid-item__wrapper__info-views">{{ item.statistics.viewCount }}</div>
+        </div>
+        <div *ngIf="!isGrid" class="video-item__info-description">{{ item.snippet.description }}</div>
+    </a>
+</div>

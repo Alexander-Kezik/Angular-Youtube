@@ -17,8 +17,12 @@ const routes: Routes = [
         loadChildren: () => import('./video/video.module').then((m) => m.VideoModule),
     },
     {
+        path: 'history',
+        loadChildren: () => import('./history/history.module').then((m) => m.HistoryModule),
+    },
+    {
         path: '**',
-        redirectTo: '',
+        redirectTo: 'search-page',
     },
 ];
 

@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -17,7 +17,8 @@ import { SharedModule } from '../shared/shared.module';
         MatIconModule,
         MatSelectModule,
         MatProgressSpinnerModule,
-        SharedModule
+        SharedModule,
     ],
+    exports: [SearchComponent],
 })
 export class SearchModule {}

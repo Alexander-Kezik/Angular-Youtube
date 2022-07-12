@@ -50,12 +50,14 @@
         >
             <mat-icon>more_horiz</mat-icon>
         </button>
-        <mat-menu #menu="matMenu"> </mat-menu>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Report</button>
+        </mat-menu>
     </div>
     <mat-divider></mat-divider>
     <div class="info-section__channel">
         <div class="channel-title-and-subscribe-btn">
-            <a routerLink="/channel-page/{{ currentVideo.snippet.channelId }}">
+            <a [routerLink]="['/channel-page', currentVideo.snippet.channelId]">
                 <h2 class="channel-title">
                     {{ currentVideo.snippet.channelTitle }}
                 </h2>

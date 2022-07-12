@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CommentsComponent } from './comments.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+import { CommentsComponent } from './comments.component';
 
 describe('CommentsComponent', () => {
     let component: CommentsComponent;

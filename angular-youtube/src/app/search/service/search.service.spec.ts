@@ -14,7 +14,14 @@ describe('SearchService', () => {
                 title: 'title',
                 description: 'description',
                 imageUrl: 'url',
+                channelTitle: 'channelTitle',
+                channelId: 'channelId',
             },
+            statistics: {
+                viewCount: 1,
+                likeCount: 1,
+                commentCount: 1,
+            }
         },
     ];
 
