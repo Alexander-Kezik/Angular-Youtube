@@ -47,7 +47,7 @@ describe('HistoryComponent', () => {
     it('should clear local storage with watch history', () => {
         spyOn(component as any, '_reloadPage').and.callFake(function () {});
 
-        component.clearHistory();
+        component.clearWatchHistory();
 
         expect(localStorage.getItem('watchedVideos')).toBe(null);
     });

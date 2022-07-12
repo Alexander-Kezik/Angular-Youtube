@@ -27,8 +27,13 @@ export class HistoryComponent implements OnInit {
         );
     }
 
-    public clearHistory(): void {
+    public clearWatchHistory(): void {
         localStorage.removeItem('watchedVideos');
+        this._reloadPage();
+    }
+
+    public clearSearchHistory(): void {
+        localStorage.removeItem('searchHistory');
         this._reloadPage();
     }
 

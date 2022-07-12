@@ -14,7 +14,7 @@
                     [isGrid]="false"
                     [item]="video"
                 ></video-list-item>
-                <p class="date">Watched at {{ getWatchedVideos[video.id]}}</p>
+                <p class="date">Watched at {{ getWatchedVideos[video.id] }}</p>
             </div>
         </div>
         <h2 class="info-section__no-video-msg" *ngIf="!watchedVideos.length">
@@ -25,12 +25,15 @@
         <div>
             <div
                 class="tools-section__clear-watch-history history-tool"
-                (click)="clearHistory()"
+                (click)="clearWatchHistory()"
             >
                 <span class="material-icons">delete_forever</span>
                 <p>Clear watch history</p>
             </div>
-            <div class="tools-section__clear-search-history history-tool">
+            <div
+                class="tools-section__clear-search-history history-tool"
+                (click)="clearSearchHistory()"
+            >
                 <span class="material-icons">delete_forever</span>
                 <p>Clear search history</p>
             </div>

@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './shared/shared.module';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
@@ -28,6 +29,7 @@ import { SharedModule } from './shared/shared.module';
         HttpClientModule,
         BrowserAnimationsModule,
         MatSnackBarModule,
+        MatAutocompleteModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
