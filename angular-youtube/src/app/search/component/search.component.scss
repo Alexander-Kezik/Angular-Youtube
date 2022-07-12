@@ -9,10 +9,10 @@
         background-color: rgba(195, 187, 187, 0.058);
         gap: 20px;
 
-        .search-page_view-change{
+        .search-page_view-change {
             margin-bottom: 19px;
             padding: 8px 20px;
-        }  
+        }
     }
 
     .search-page__video-items_grid {
@@ -20,13 +20,18 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 20px;
-        padding: 0 30px;
+        padding: 0 65px;
     }
 
     .search-page__video-items_list {
         display: flex;
         flex-direction: column;
-        padding: 0 30px;
+        align-items: center;
         gap: 20px;
+
+        :nth-child(n){
+            height: 200px;
+            width: 90%;
+        }
     }
 }
