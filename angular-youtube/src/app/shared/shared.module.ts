@@ -1,20 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { VideoListItemComponent } from './video-list-item/video-list-item.component';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+
 import { SanitizeUrlPipe } from './pipes/sanitize-url/sanitize-url.pipe';
+import { VideoListItemComponent } from './video-list-item/video-list-item.component';
+import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
 
 @NgModule({
     declarations: [
         VideoListItemComponent,
-        SanitizeUrlPipe
+        SanitizeUrlPipe,
+        PlaylistItemComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, MatIconModule, RouterModule],
     exports: [
         CommonModule,
         FormsModule,
         VideoListItemComponent,
         SanitizeUrlPipe,
+        PlaylistItemComponent,
     ],
 })
 export class SharedModule {}

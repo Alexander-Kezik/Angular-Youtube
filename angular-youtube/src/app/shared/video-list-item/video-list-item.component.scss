@@ -63,7 +63,11 @@
 
 .video-grid-item {
     display: grid;
+<<<<<<< HEAD
     grid-template-rows: 165px auto;
+=======
+    grid-template-rows: 220px auto;
+>>>>>>> 61d32d4752868597ae27be099d533d675467b7dd
     grid-template-columns: 295px;
 
     &__link {
@@ -72,7 +76,7 @@
         overflow: hidden;
 
         &-image {
-            height: 165px;
+            width: 100%;
         }
 
         &-time {

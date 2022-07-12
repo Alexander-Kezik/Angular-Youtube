@@ -30,11 +30,16 @@ export class VideoService {
                 map((data: any) => {
                     return data.items.map((item: any) => {
                         return {
+                            ...item,
                             id: item.id,
                             snippet: {
                                 title: item.snippet.title,
                                 description: item.snippet.description,
-                                imageUrl: item.snippet.thumbnails.high.url,
+                                thumbnails: {
+                                    high: {
+                                        url: item.snippet.thumbnails.high.url,
+                                    },
+                                },
                                 channelTitle: item.snippet.channelTitle,
                                 channelId: item.snippet.channelId,
                             },
@@ -54,6 +59,7 @@ export class VideoService {
             map((data: any) => {
                 return data.items.map((item: any) => {
                     return {
+                        ...item,
                         id: item.id,
                         snippet: {
                             title: item.snippet.title,

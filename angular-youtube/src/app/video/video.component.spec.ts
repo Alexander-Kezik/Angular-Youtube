@@ -83,19 +83,24 @@ describe('VideoComponent', () => {
         const id = 'TmaAOV4SJNQ';
         const mockRelatedVideos = [
             {
-                id: 'asd',
+                id: '1',
                 snippet: {
-                    title: 'asd',
-                    description: 'asd',
-                    imageUrl: 'asd',
-                    channelTitle: 'asd',
-                    channelId: 'asd',
+                    title: 'title',
+                    description: 'description',
+                    channelTitle: 'channelTitle',
+                    channelId: 'channelId',
+                    publishedAt: 'publishedAt',
+                    thumbnails: {
+                        high: {
+                            url: 'url',
+                        },
+                    },
                 },
                 statistics: {
-                    viewCount: 1,
-                    likeCount: 1,
-                    commentCount: 1,
-                },
+                    viewCount: 78,
+                    likeCount: 4,
+                    commentCount: 5,
+                }
             },
         ];
         spyOn(videoService, 'getRelatedVideos').and.returnValue(
@@ -114,17 +119,22 @@ describe('VideoComponent', () => {
             {
                 id: 'TmaAOV4SJNQ',
                 snippet: {
-                    title: 'asd',
-                    description: 'asd',
-                    imageUrl: 'asd',
-                    channelTitle: 'asd',
-                    channelId: 'asd',
+                    title: 'title',
+                    description: 'description',
+                    channelTitle: 'channelTitle',
+                    channelId: 'channelId',
+                    publishedAt: 'publishedAt',
+                    thumbnails: {
+                        high: {
+                            url: 'url',
+                        },
+                    },
                 },
                 statistics: {
-                    viewCount: 1,
-                    likeCount: 1,
-                    commentCount: 1,
-                },
+                    viewCount: 78,
+                    likeCount: 4,
+                    commentCount: 5,
+                }
             },
         ];
         spyOn(videoService, 'getCurrentVideo').and.returnValue(

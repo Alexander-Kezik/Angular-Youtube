@@ -13,10 +13,10 @@
 // hue. Available color palettes: https://material.io/design/color/
 $angular-youtube-primary: mat.define-palette(mat.$indigo-palette);
 $angular-youtube-accent: mat.define-palette(
-    mat.$pink-palette,
-    A200,
-    A100,
-    A400
+        mat.$pink-palette,
+        A200,
+        A100,
+        A400
 );
 
 // The warn palette is optional (defaults to red).
