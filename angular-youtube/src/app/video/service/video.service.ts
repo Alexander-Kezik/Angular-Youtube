@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, mergeMap, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { IVideo } from '../../models/IVideo.interface';
@@ -11,11 +11,11 @@ import { IComment } from '../../models/IComment.interface';
 })
 export class VideoService {
     private _API_KEY = '&key=AIzaSyDqwqGRfgRSQRXHfbTT7vrO6XMHk4gqXYM';
-    private _currentVideoUrl = `${
+    private _videoUrl = `${
         environment.endpoints.videos.getVideo + this._API_KEY
     }`;
     private _relatedVideosUrl = `${
-        environment.endpoints.videos.getRelatedVideos + this._API_KEY
+        environment.endpoints.search.getRelatedVideos + this._API_KEY
     }`;
     private _commentsUrl = `${
         environment.endpoints.commentThreads.getComments + this._API_KEY
@@ -24,11 +24,50 @@ export class VideoService {
     constructor(private _http: HttpClient) {}
 
     public getCurrentVideo(id: string | null): Observable<IVideo[]> {
+        return this._http.get<IVideo[]>(`${this._videoUrl}&id=${id}`).pipe(
+            map((data: any) => {
+                return data.items.map((item: any) => {
+                    return {
+                        ...item,
+                        id: item.id,
+                        snippet: {
+                            title: item.snippet.title,
+                            description: item.snippet.description,
+                            thumbnails: {
+                                high: {
+                                    url: item.snippet.thumbnails.high.url,
+                                },
+                            },
+                            channelTitle: item.snippet.channelTitle,
+                            channelId: item.snippet.channelId,
+                            publishedAt: item.snippet.publishedAt,
+                        },
+                        statistics: {
+                            viewCount: item.statistics.viewCount,
+                            likeCount: item.statistics.likeCount,
+                            commentCount: item.statistics.commentCount,
+                        },
+                    } as IVideo;
+                });
+            })
+        );
+    }
+
+    public getRelatedVideos(videoId: string): Observable<IVideo[]> {
         return this._http
-            .get<IVideo[]>(`${this._currentVideoUrl}&id=${id}`)
+            .get<{ items: [{ id: { videoId: string } }] }>(
+                `${this._relatedVideosUrl}&relatedToVideoId=${videoId}`
+            )
             .pipe(
-                map((data: any) => {
-                    return data.items.map((item: any) => {
+                mergeMap((id) =>
+                    this._http.get<{ items: IVideo[] }>(
+                        `${this._videoUrl}&id=${id.items
+                            .map((item) => item.id.videoId)
+                            .join(',')}`
+                    )
+                ),
+                map((videos) =>
+                    videos.items.map((item: IVideo) => {
                         return {
                             ...item,
                             id: item.id,
@@ -42,6 +81,7 @@ export class VideoService {
                                 },
                                 channelTitle: item.snippet.channelTitle,
                                 channelId: item.snippet.channelId,
+                                publishedAt: item.snippet.publishedAt,
                             },
                             statistics: {
                                 viewCount: item.statistics.viewCount,
@@ -49,41 +89,16 @@ export class VideoService {
                                 commentCount: item.statistics.commentCount,
                             },
                         } as IVideo;
-                    });
-                })
+                    })
+                )
             );
-    }
-
-    public getRelatedVideos(): Observable<IVideo[]> {
-        return this._http.get<IVideo[]>(`${this._relatedVideosUrl}`).pipe(
-            map((data: any) => {
-                return data.items.map((item: any) => {
-                    return {
-                        ...item,
-                        id: item.id,
-                        snippet: {
-                            title: item.snippet.title,
-                            description: item.snippet.description,
-                            imageUrl: item.snippet.thumbnails.high.url,
-                            channelTitle: item.snippet.channelTitle,
-                            channelId: item.snippet.channelId,
-                        },
-                        statistics: {
-                            viewCount: item.statistics.viewCount,
-                            likeCount: item.statistics.likeCount,
-                            commentCount: item.statistics.commentCount,
-                        },
-                    } as IVideo;
-                });
-            })
-        );
     }
 
     public getComments(id: string | null): Observable<IComment[]> {
         return this._http
-            .get<IComment[]>(`${this._commentsUrl}&videoId=${id}`)
+            .get<{ items: IComment[] }>(`${this._commentsUrl}&videoId=${id}`)
             .pipe(
-                map((data: any) => {
+                map((data: { items: IComment[] }) => {
                     return data.items.map((item: any) => {
                         return {
                             id: item.snippet.topLevelComment.id,

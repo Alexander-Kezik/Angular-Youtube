@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { SanitizeUrlPipe } from './pipes/sanitize-url/sanitize-url.pipe';
 import { VideoListItemComponent } from './video-list-item/video-list-item.component';
 import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
     declarations: [
@@ -14,7 +15,12 @@ import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
         SanitizeUrlPipe,
         PlaylistItemComponent,
     ],
-    imports: [CommonModule, MatIconModule, RouterModule],
+    imports: [
+        CommonModule,
+        MatIconModule,
+        RouterModule,
+        MatProgressBarModule,
+    ],
     exports: [
         CommonModule,
         FormsModule,

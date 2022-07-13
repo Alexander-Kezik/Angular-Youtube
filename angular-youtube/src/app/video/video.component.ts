@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IVideo } from '../models/IVideo.interface';
 import { VideoService } from './service/video.service';
 import { IComment } from '../models/IComment.interface';
+import { map, mergeMap, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-video',
@@ -28,8 +29,8 @@ export class VideoComponent implements OnInit {
     }
 
     public getRelatedVideos(id: string): void {
-        this._videoService.getRelatedVideos().subscribe((data) => {
-            this.relatedVideos = data.filter((item) => item.id !== id);
+        this._videoService.getRelatedVideos(id).subscribe((data) => {
+            this.relatedVideos = data;
         });
     }
 

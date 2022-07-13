@@ -22,10 +22,10 @@ export const environment = {
         },
         search: {
             getVideoBySearchingByKeyword: `${baseApiUrl}search?part=snippet&maxResults=25`,
+            getRelatedVideos: `${baseApiUrl}search?part=snippet&maxResults=25&type=video`,
         },
         videos: {
             getVideo: `${baseApiUrl}videos?part=snippet,statistics`,
-            getRelatedVideos: `${baseApiUrl}videos?part=snippet,statistics&chart=mostPopular&maxResults=25`,
         },
         categories: {
             getCategories: `${baseApiUrl}videoCategories?part=snippet&regionCode=BY`,

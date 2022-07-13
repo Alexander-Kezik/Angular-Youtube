@@ -25,9 +25,12 @@ export class HistoryService {
                         snippet: {
                             title: item.snippet.title,
                             description: item.snippet.description,
-                            imageUrl: item.snippet.thumbnails.high.url,
+                            thumbnails: {
+                                high: { url: item.snippet.thumbnails.high.url },
+                            },
                             channelTitle: item.snippet.channelTitle,
                             channelId: item.snippet.channelId,
+                            publishedAt: item.snippet.publishedAt,
                         },
                         statistics: {
                             viewCount: item.statistics.viewCount,
