@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { IVideo } from '../models/IVideo.interface';
 import { VideoService } from './service/video.service';
 import { IComment } from '../models/IComment.interface';
-import { map, mergeMap, switchMap } from 'rxjs';
+import { takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-video',
@@ -16,16 +16,22 @@ export class VideoComponent implements OnInit {
     public relatedVideos: IVideo[] = [];
     public comments: IComment[] = [];
     public watchedVideos: { [id: string]: string } = {};
+    private _paramsId!: string | null;
 
     constructor(
         private _videoService: VideoService,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        private _router: Router
     ) {}
 
     ngOnInit(): void {
-        this._route.params.subscribe((params) => {
-            this.getCurrentVideo(params['id']);
-        });
+        this._paramsId = this._route.snapshot.paramMap.get('id');
+        this._router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.getCurrentVideo(this._paramsId!);
+        this.getComments(this._paramsId!);
+        this.getRelatedVideos(this._paramsId!);
     }
 
     public getRelatedVideos(id: string): void {
@@ -37,9 +43,7 @@ export class VideoComponent implements OnInit {
     public getCurrentVideo(id: string): void {
         this._videoService.getCurrentVideo(id).subscribe((data) => {
             this.currentVideo = data[0];
-            this.getRelatedVideos(this.currentVideo.id);
             this.addVideoToTheHistory(this.currentVideo.id);
-            this.getComments(this.currentVideo.id);
         });
     }
 

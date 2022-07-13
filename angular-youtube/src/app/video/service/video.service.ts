@@ -10,15 +10,14 @@ import { IComment } from '../../models/IComment.interface';
     providedIn: 'root',
 })
 export class VideoService {
-    private _API_KEY = '&key=AIzaSyDqwqGRfgRSQRXHfbTT7vrO6XMHk4gqXYM';
     private _videoUrl = `${
-        environment.endpoints.videos.getVideo + this._API_KEY
+        environment.endpoints.videos.getVideo
     }`;
     private _relatedVideosUrl = `${
-        environment.endpoints.search.getRelatedVideos + this._API_KEY
+        environment.endpoints.search.getRelatedVideos
     }`;
     private _commentsUrl = `${
-        environment.endpoints.commentThreads.getComments + this._API_KEY
+        environment.endpoints.commentThreads.getComments
     }`;
 
     constructor(private _http: HttpClient) {}

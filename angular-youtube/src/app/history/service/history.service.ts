@@ -9,9 +9,8 @@ import { IVideo } from '../../models/IVideo.interface';
     providedIn: 'root',
 })
 export class HistoryService {
-    private _API_KEY = '&key=AIzaSyDqwqGRfgRSQRXHfbTT7vrO6XMHk4gqXYM';
     private _videoUrl = `${
-        environment.endpoints.videos.getVideo + this._API_KEY
+        environment.endpoints.videos.getVideo
     }`;
 
     constructor(private _http: HttpClient) {}
