@@ -1,8 +1,6 @@
 <div class="related-videos-collection">
     <div class="related-videos-item" *ngFor="let relatedVideo of relatedVideos">
-        <a [routerLink]="['/video-page', relatedVideo.id]">
-            <video-list-item [isGrid]="false" [item]="relatedVideo">
-            </video-list-item>
-        </a>
+        <video-list-item [isGrid]="false" [item]="relatedVideo">
+        </video-list-item>
     </div>
 </div>
