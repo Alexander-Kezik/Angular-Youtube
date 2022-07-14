@@ -25,11 +25,17 @@
                 class="header__input"
                 type="search"
                 required
-                [matAutocomplete]="auto">
+                [matAutocomplete]="auto"
+            />
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of searchHistory" [value]="option">
-                    <span style="margin-right: 5px" class="material-icons">history</span>
-                    {{option}}
+                <mat-option
+                    *ngFor="let option of searchHistory"
+                    [value]="option"
+                >
+                    <span style="margin-right: 5px" class="material-icons"
+                        >history</span
+                    >
+                    {{ option }}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
@@ -41,5 +47,5 @@
             <mat-icon class="header__icon">search</mat-icon>
         </button>
     </form>
-    <p class="header__history-link" routerLink="/history">History</p>
+    <p class="header__history-link" [routerLink]="['/history']">History</p>
 </div>

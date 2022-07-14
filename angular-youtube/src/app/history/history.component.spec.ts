@@ -9,16 +9,21 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HistoryComponent } from './history.component';
 import { HistoryService } from './service/history.service';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 describe('HistoryComponent', () => {
     let component: HistoryComponent;
     let historyService: HistoryService;
     let fixture: ComponentFixture<HistoryComponent>;
+    let mockRouter = {
+        navigate: jasmine.createSpy('navigate'),
+    };
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             declarations: [HistoryComponent],
+            providers: [{ provide: Router, useValue: mockRouter }],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HistoryComponent);
@@ -45,18 +50,16 @@ describe('HistoryComponent', () => {
     });
 
     it('should clear local storage with watch history', () => {
-        spyOn(component as any, '_reloadPage').and.callFake(function () {});
-
         component.clearSearchHistory();
 
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['/search-page']);
         expect(localStorage.getItem('watchedVideos')).toBe(null);
     });
 
     it('should clear local storage with search history', () => {
-        spyOn(component as any, '_reloadPage').and.callFake(function () {});
-
         component.clearWatchHistory();
 
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['/search-page']);
         expect(localStorage.getItem('searchHistory')).toBe(null);
     });
 

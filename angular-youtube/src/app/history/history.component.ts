@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IVideo } from '../models/IVideo.interface';
 import { HistoryService } from './service/history.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-history',
@@ -11,7 +12,10 @@ export class HistoryComponent implements OnInit {
     public watchedVideos: IVideo[] = [];
     public getWatchedVideos: { [id: string]: Date } = {};
 
-    constructor(private _historyService: HistoryService) {}
+    constructor(
+        private _historyService: HistoryService,
+        private _router: Router
+    ) {}
 
     ngOnInit(): void {
         if (localStorage.getItem('watchedVideos') !== null) {
@@ -29,15 +33,11 @@ export class HistoryComponent implements OnInit {
 
     public clearWatchHistory(): void {
         localStorage.removeItem('watchedVideos');
-        this._reloadPage();
+        this._router.navigate(['/search-page']);
     }
 
     public clearSearchHistory(): void {
         localStorage.removeItem('searchHistory');
-        this._reloadPage();
-    }
-
-    private _reloadPage(): void {
-        location.reload();
+        this._router.navigate(['/search-page']);
     }
 }
