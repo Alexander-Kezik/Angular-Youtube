@@ -69,7 +69,7 @@ describe('HistoryComponent', () => {
         });
         localStorage.setItem('watchedVideos', mockVideo);
         component.ngOnInit();
-        expect(component.getWatchedVideos).toEqual(JSON.parse(mockVideo));
+        expect(component.localStorageWatchedVideos).toEqual(JSON.parse(mockVideo));
     });
 
     it('should set watchedVideos', fakeAsync(() => {

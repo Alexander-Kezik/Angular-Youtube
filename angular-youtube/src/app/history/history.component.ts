@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HistoryComponent implements OnInit {
     public watchedVideos: IVideo[] = [];
-    public getWatchedVideos: { [id: string]: Date } = {};
+    public localStorageWatchedVideos: { [id: string]: Date } = {};
 
     constructor(
         private _historyService: HistoryService,
@@ -19,12 +19,12 @@ export class HistoryComponent implements OnInit {
 
     ngOnInit(): void {
         if (localStorage.getItem('watchedVideos') !== null) {
-            this.getWatchedVideos = JSON.parse(
+            this.localStorageWatchedVideos = JSON.parse(
                 localStorage.getItem('watchedVideos')!
             );
         }
 
-        Object.keys(this.getWatchedVideos).forEach((videoId) =>
+        Object.keys(this.localStorageWatchedVideos).forEach((videoId) =>
             this._historyService.getVideo(videoId).subscribe((data) => {
                 this.watchedVideos.push(data[0]);
             })

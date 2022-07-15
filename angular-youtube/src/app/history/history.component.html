@@ -14,7 +14,7 @@
                     [isGrid]="false"
                     [item]="video"
                 ></video-list-item>
-                <p class="date">Watched at {{ getWatchedVideos[video.id] }}</p>
+                <p class="date">Watched at {{ localStorageWatchedVideos[video.id] }}</p>
             </div>
         </div>
         <h2 class="info-section__no-video-msg" *ngIf="!watchedVideos.length">

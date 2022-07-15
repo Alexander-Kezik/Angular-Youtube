@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IVideo } from '../models/IVideo.interface';
 import { VideoService } from './service/video.service';
 import { IComment } from '../models/IComment.interface';
-import { takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-video',
