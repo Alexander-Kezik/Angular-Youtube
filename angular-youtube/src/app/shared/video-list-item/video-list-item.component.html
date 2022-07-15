@@ -12,7 +12,6 @@
             }"
             src="{{ item.snippet.thumbnails.high.url }}" alt="video image"
             />
-            [routerLink]="['/video-page', item.id]">
         <mat-progress-bar mode="determinate" value="40" color="warn" *ngIf="isWatched"></mat-progress-bar>
     </a>
     <div [ngClass]="{
