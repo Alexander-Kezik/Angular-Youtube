@@ -5,6 +5,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { VideoComponent } from './video.component';
 import { SharedModule } from '../shared/shared.module';
@@ -14,7 +15,6 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { CommentsComponent } from './comments/comments.component';
 import { VideoRoutingModule } from './video-routing.module';
 import { InputCommentComponent } from './comments/input-comment/input-comment.component';
-import { SanitizeUrlPipe } from './pipe/sanitize-url.pipe';
 
 @NgModule({
     declarations: [
@@ -24,7 +24,6 @@ import { SanitizeUrlPipe } from './pipe/sanitize-url.pipe';
         VideoPlayerComponent,
         CommentsComponent,
         InputCommentComponent,
-        SanitizeUrlPipe,
     ],
     imports: [
         SharedModule,
@@ -34,6 +33,7 @@ import { SanitizeUrlPipe } from './pipe/sanitize-url.pipe';
         MatDividerModule,
         MatMenuModule,
         MatInputModule,
+        MatProgressSpinnerModule,
         VideoRoutingModule,
     ],
 })

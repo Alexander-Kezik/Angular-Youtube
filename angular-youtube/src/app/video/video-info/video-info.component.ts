@@ -1,9 +1,5 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Input,
-    OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 import { IVideo } from '../../models/IVideo.interface';
 import { ICache } from '../../models/ICache';
 
@@ -13,7 +9,7 @@ import { ICache } from '../../models/ICache';
     styleUrls: ['./video-info.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoInfoComponent implements OnInit {
+export class VideoInfoComponent {
     @Input() currentVideo?: IVideo;
 
     public isShownDescription: boolean = true;
@@ -52,6 +48,4 @@ export class VideoInfoComponent implements OnInit {
     public toggleSubscribe(): void {
         this.isSubscribe = !this.isSubscribe;
     }
-
-    ngOnInit(): void {}
 }

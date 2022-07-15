@@ -26,7 +26,7 @@ describe('SearchService', () => {
                 viewCount: 78,
                 likeCount: 4,
                 commentCount: 5,
-            },
+            }
         },
     ];
 

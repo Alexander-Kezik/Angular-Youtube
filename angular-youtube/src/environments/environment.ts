@@ -7,6 +7,9 @@ export const baseApiUrl: string = 'https://www.googleapis.com/youtube/v3/';
 export const environment = {
     production: false,
     endpoints: {
+        commentThreads: {
+            getComments: `${baseApiUrl}commentThreads?part=snippet`,
+        },
         channel: {
             getChannel: `${baseApiUrl}channels?part=snippet,brandingSettings,statistics`,
         },
@@ -19,6 +22,7 @@ export const environment = {
         },
         search: {
             getVideoBySearchingByKeyword: `${baseApiUrl}search?part=snippet&maxResults=25`,
+            getRelatedVideos: `${baseApiUrl}search?part=snippet&maxResults=25&type=video`,
         },
         videos: {
             getVideo: `${baseApiUrl}videos?part=snippet,statistics`,

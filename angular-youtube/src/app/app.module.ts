@@ -11,6 +11,8 @@ import { SearchModule } from './search/search.module';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedModule } from './shared/shared.module';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AppApiService } from './app-api.service';
 
 @NgModule({
@@ -21,14 +23,17 @@ import { AppApiService } from './app-api.service';
         RouterModule,
         MatIconModule,
         SearchModule,
+        SharedModule,
         FormsModule,
         MatInputModule,
         HttpClientModule,
         BrowserAnimationsModule,
         MatSnackBarModule,
+        MatAutocompleteModule,
     ],
-    providers: [{ provide: HTTP_INTERCEPTORS, useClass: AppApiService, multi: true }],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: AppApiService, multi: true },
+    ],
     bootstrap: [AppComponent],
 })
-
 export class AppModule {}

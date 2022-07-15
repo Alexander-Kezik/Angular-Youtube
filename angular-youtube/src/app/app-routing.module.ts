@@ -15,6 +15,10 @@ const routes: Routes = [
         loadChildren: () => import('./video/video.module').then((m) => m.VideoModule),
     },
     {
+        path: 'history',
+        loadChildren: () => import('./history/history.module').then((m) => m.HistoryModule),
+    },
+    {
         path: 'channel-page',
         component: ChannelComponent,
         pathMatch: 'full',

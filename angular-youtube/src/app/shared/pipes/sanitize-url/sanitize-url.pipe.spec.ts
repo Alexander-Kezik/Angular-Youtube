@@ -1,6 +1,7 @@
-import { SanitizeUrlPipe } from './sanitize-url.pipe';
 import { DomSanitizer } from '@angular/platform-browser';
 import { getTestBed, TestBed } from '@angular/core/testing';
+
+import { SanitizeUrlPipe } from './sanitize-url.pipe';
 
 describe('SanitizeUrlPipe', () => {
     let injector;
@@ -23,7 +24,7 @@ describe('SanitizeUrlPipe', () => {
         expect(pipe).toBeTruthy();
     });
 
-    it('sanitize url pipe should return Safe resource url', () => {
+    it('sanitize url sanitize-url should return Safe resource url', () => {
         const id = 'qjoz-CAO3xQ';
         const trustedResourceUrl = 'https://www.youtube.com/embed/qjoz-CAO3xQ';
 

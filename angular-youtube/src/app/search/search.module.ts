@@ -4,7 +4,7 @@ import { SearchComponent } from './component/search.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 
@@ -19,5 +19,6 @@ import { RouterModule } from '@angular/router';
         SharedModule,
         RouterModule
     ],
+    exports: [SearchComponent],
 })
 export class SearchModule {}
