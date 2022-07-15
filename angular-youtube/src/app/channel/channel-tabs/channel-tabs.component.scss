@@ -20,4 +20,11 @@
             visibility: hidden;
         }
     }
+
+    &__not-found {
+        text-align: center;
+        font-size: 24px;
+        color: #030303;
+        padding: 50px 0;
+    }
 }

@@ -6,24 +6,14 @@
 
     &__link {
         cursor: pointer;
+        background: black;
         display: flex;
-        position: relative;
+        justify-content: center;
+        width: 100%;
 
         &-image {
             height: 100%;
             justify-content: center;
-        }
-
-        &-time {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            color: white;
-            font-size: 12px;
-            font-family: sans-serif;
-            padding: 3px 4px;
-            background: black;
-            line-height: 12px;
         }
     }
 
@@ -50,13 +40,6 @@
             align-items: center;
             margin: 12px 0;
             text-decoration: none;
-
-            &-icon {
-                height: 24px;
-                width: 24px;
-                border-radius: 100%;
-                margin-right: 8px;
-            }
 
             &-name {
                 color: #606060;

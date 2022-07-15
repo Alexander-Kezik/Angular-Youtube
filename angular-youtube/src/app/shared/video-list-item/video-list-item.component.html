@@ -1,31 +1,33 @@
-<div *ngIf="!isGrid" class="video-item">
-    <a class="video-item__link">
-        <img class="video-item__link-image" src="https://i.ytimg.com/vi/-452p_9ESbM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAifmLUEI7UNDFCz7WsRVC1wOsgBA" alt="video image"/>
-        <span class="video-item__link-time">1:00:12</span>
+<div *ngIf="item" [ngClass]="{
+        'video-item': !isGrid,
+        'video-grid-item': isGrid
+        }">
+    <a [ngClass]="{
+            'video-item__link': !isGrid,
+            'video-grid-item__link': isGrid
+            }">
+        <img [ngClass]="{
+                'video-item__link-image': !isGrid,
+                'video-grid-item__link-image': isGrid
+            }"
+            src="{{ item.snippet.thumbnails.high.url }}" alt="video image"/>
     </a>
-    <a class="video-item__info">
-        <div class="video-item__info-header">Котики и милые котята ))) Милое видео</div>
-        <div class="video-item__info-views">7,3 млн просмотров
-            4 года назад</div>
-        <a class="video-item__info__channel">
-            <img class="video-item__info__channel-icon" alt="channel icon" src="https://yt3.ggpht.com/ytc/AKedOLT-mZbgnI_--k4Z_ludc9fUwHxbfhdt4w5vxAVzCw=s68-c-k-c0x00ffffff-no-rj"/>
-            <div class="video-item__info__channel-name">FANVIDOS - Милые котики</div>
-        </a>
-        <div class="video-item__info-description">Котики самое милое видео в мире.Милые котята .Любите видео приколы с животными ? Тогда Вам срочно к нам! Смешные ...</div>
-    </a>
-</div>
-<div class="video-grid-item" *ngIf="isGrid">
-    <a class="video-grid-item__link">
-        <img class="video-grid-item__link-image" src="https://i.ytimg.com/vi/-452p_9ESbM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAifmLUEI7UNDFCz7WsRVC1wOsgBA" alt="video image"/>
-        <span class="video-item__link-time">1:00:12</span>
-    </a>
-    <a class="video-grid-item__wrapper">
-        <img class="video-grid-item__wrapper-icon" alt="channel icon" src="https://yt3.ggpht.com/ytc/AKedOLT-mZbgnI_--k4Z_ludc9fUwHxbfhdt4w5vxAVzCw=s68-c-k-c0x00ffffff-no-rj"/>
-        <div class="video-grid-item__wrapper__info">
-            <div class="video-grid-item__wrapper__info-header">Котики и милые котята ))) Милое видео</div>
-            <a class="video-grid-item__wrapper__info-name">FANVIDOS - Милые котики</a>
-            <div class="video-grid-item__wrapper__info-views">7,3 млн просмотров - 4 года назад</div>
+    <a [ngClass]="{
+            'video-item__info': !isGrid,
+            'video-grid-item__wrapper__info': isGrid}">
+        <div [ngClass]="{
+                'video-item__info-header': !isGrid,
+                'video-grid-item__wrapper__info-header': isGrid
+            }">{{ item.snippet.title }}</div>
+        <div *ngIf="!isGrid">
+            <div class="video-item__info-views">{{ item.statistics.viewCount }} views</div>
+            <a class="video-item__info__channel-name">{{ item.snippet.channelTitle }}</a>
         </div>
+        <div *ngIf="isGrid">
+            <a class="video-grid-item__wrapper__info-name">{{ item.snippet.channelTitle }}</a>
+            <div class="video-grid-item__wrapper__info-views">{{ item.statistics.viewCount }}</div>
+        </div>
+        <div *ngIf="!isGrid" class="video-item__info-description">{{ item.snippet.description }}</div>
     </a>
 </div>
 

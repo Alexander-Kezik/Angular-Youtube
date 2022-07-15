@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ChannelService} from "../channel-services/channel.service";
+import { Component } from '@angular/core';
+import {ChannelService} from '../channel-services/channel.service';
 
 @Component({
   selector: 'channel-channels',
@@ -8,7 +8,7 @@ import {ChannelService} from "../channel-services/channel.service";
 })
 
 export class ChannelChannelsComponent {
-    public channelMultipleChannels$ = this._channelService.channelMultipleChannels$;
+    public channelMultipleChannels$ = this._channelService.getChannelMultipleChannels();
 
     constructor(
        private _channelService: ChannelService
