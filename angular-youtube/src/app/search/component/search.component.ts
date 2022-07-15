@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ICategory } from 'src/app/models/ICategory.interface';
@@ -33,7 +32,9 @@ export class SearchComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.videos$ = this._searchService.getPopularVideos();
+        this.videos$ = this._searchService.getVideos({
+            searchType: 'videos',
+        });
         this.categories$ = this._searchService.getVideoCategories();
         this._showVideosByQuery();
     }
@@ -42,34 +43,43 @@ export class SearchComponent implements OnInit {
         this.videoListView = !this.videoListView;
     }
 
-    public showVideosByFilter(value: string) {
-        if (!value) {
-            this.videos$ = this._searchService.getPopularVideos();
+    public showVideosByFilter(categoryId: string) {
+        if (!categoryId) {
+            this.videos$ = this._searchService.getVideos({
+                searchType: 'videos',
+            });
         } else {
-            this.videos$ = this._searchService.getVideosByFilter(value);
+            this.videos$ = this._searchService.getVideos({
+                searchType: 'search',
+                videoCategoryId: `${categoryId}`,
+            });
         }
     }
 
     public showVideosBySortCondition(sortCondition: string) {
         if (this.query) {
-            this.videos$ = this._searchService.getVideosBySortingCondition(
-                sortCondition,
-                this.query
-            );
+            this.videos$ = this._searchService.getVideos({
+                searchType: 'search',
+                order: `${sortCondition}`,
+                q: `${this.query}`,
+            });
         }
     }
 
-    private _showVideosByQuery() {
+    private _showVideosByQuery(): void {
         this._router.events.subscribe(() => {
             this.query =
                 this._activatedRoute.snapshot.queryParamMap.get('search_query');
             if (this.query) {
-                this.videos$ = this._searchService.getVideosByQuery(
-                    String(this.query)
-                );
+                this.videos$ = this._searchService.getVideos({
+                    searchType: 'search',
+                    q: `${this.query}`,
+                });
                 this.showFilter = false;
             } else {
-                this.videos$ = this._searchService.getPopularVideos();
+                this.videos$ = this._searchService.getVideos({
+                    searchType: 'videos',
+                });
                 this.showFilter = true;
             }
         });

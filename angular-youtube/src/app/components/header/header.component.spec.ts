@@ -4,6 +4,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { HeaderComponent } from './header.component';
+import {NO_ERRORS_SCHEMA} from "@angular/core";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -15,8 +17,9 @@ describe('HeaderComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [HeaderComponent],
-            imports: [FormsModule, MatSnackBarModule, BrowserAnimationsModule],
+            imports: [FormsModule, MatSnackBarModule, BrowserAnimationsModule, MatAutocompleteModule],
             providers: [{ provide: Router, useValue: mockRouter }],
+            schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
 
         fixture = TestBed.createComponent(HeaderComponent);

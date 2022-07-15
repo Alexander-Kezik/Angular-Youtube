@@ -2,7 +2,7 @@
     <div class="header__left">
         <mat-icon class="header__sidebar-icon">menu</mat-icon>
         <img
-            routerLink="/search-page"
+            [routerLink]="['/search-page']"
             class="header__logo"
             src="/assets/logo.svg"
             alt="youtube logo"
@@ -25,7 +25,19 @@
                 class="header__input"
                 type="search"
                 required
+                [matAutocomplete]="auto"
             />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option
+                    *ngFor="let option of searchHistory"
+                    [value]="option"
+                >
+                    <span style="margin-right: 5px" class="material-icons"
+                        >history</span
+                    >
+                    {{ option }}
+                </mat-option>
+            </mat-autocomplete>
         </mat-form-field>
         <button
             class="header__search-button"
@@ -35,4 +47,5 @@
             <mat-icon class="header__icon">search</mat-icon>
         </button>
     </form>
+    <p class="header__history-link" [routerLink]="['/history']">History</p>
 </div>

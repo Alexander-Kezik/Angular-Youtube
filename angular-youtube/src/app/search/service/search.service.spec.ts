@@ -13,8 +13,20 @@ describe('SearchService', () => {
             snippet: {
                 title: 'title',
                 description: 'description',
-                imageUrl: 'url',
+                channelTitle: 'channelTitle',
+                channelId: 'channelId',
+                publishedAt: 'publishedAt',
+                thumbnails: {
+                    high: {
+                        url: 'url',
+                    },
+                },
             },
+            statistics: {
+                viewCount: 78,
+                likeCount: 4,
+                commentCount: 5,
+            }
         },
     ];
 
@@ -29,28 +41,16 @@ describe('SearchService', () => {
     ];
 
     let API_CATEGORIES: any = {
-        items: {
-            id: '1',
-            snippet: {
-                title: 'category',
-                assignable: true,
-            },
-        },
+        items: CATEGORIES,
     };
 
     let API_VIDEOS: any = {
-        items: {
-            id: '1',
-            snippet: {
-                title: 'title',
-                description: 'description',
-                thumbnails: {
-                    high: {
-                        url: 'url',
-                    },
-                },
-            },
-        },
+        items: VIDEOS,
+    };
+
+    let mockHttpErrorResponse: any = {
+        status: 404,
+        message: 'some message about error',
     };
 
     beforeEach(() => {
@@ -64,21 +64,54 @@ describe('SearchService', () => {
 
     it('should get popular videos', () => {
         httpClientSpy.get.and.returnValue(of(API_VIDEOS));
-        service.getPopularVideos().subscribe({
+        service.getVideos({ searchType: 'videos' }).subscribe({
             next: (videos) => {
                 expect(videos).toEqual(VIDEOS);
+            },
+            error: (err: any) => {
+                expect(err).toBeInstanceOf(String);
             },
         });
         expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
     });
 
+    it('should get videos by some condition', () => {
+        httpClientSpy.get.and.returnValue(of(API_VIDEOS));
+        service.getVideos({ searchType: 'search' }).subscribe({
+            next: (videos) => {
+                expect(videos).toEqual(VIDEOS);
+            },
+            error: (err: any) => {
+                expect(err).toBeInstanceOf(String);
+            },
+        });
+        expect(httpClientSpy.get).toHaveBeenCalledTimes(2);
+    });
+
     it('should get categories', () => {
         httpClientSpy.get.and.returnValue(of(API_CATEGORIES));
         service.getVideoCategories().subscribe({
-            next: (videos) => {
-                expect(videos).toEqual(CATEGORIES);
+            next: (categories) => {
+                expect(categories).toEqual(CATEGORIES);
+            },
+            error: (err: any) => {
+                expect(err).toBeInstanceOf(String);
             },
         });
         expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
+    });
+
+    it('should get string url when _formUrl', () => {
+        expect((service as any)._formUrl({ searchType: 'videos' })).toBeInstanceOf(String);
+    });
+
+    it('should return error with message when _handleError', () => {
+        (service as any)._handleError(mockHttpErrorResponse).subscribe({
+            next: () => {},
+            error: (error: any) => {
+                expect(error).toBeTruthy();
+                expect(error).toEqual(`Error with ${mockHttpErrorResponse.status} code: ${mockHttpErrorResponse.message}`);
+            },
+        });
     });
 });
