@@ -1,4 +1,4 @@
-<section *ngIf="channel$ | async as channel" class="channel-about">
+<section *ngIf="channel" class="channel-about">
     <div class="channel-about__info">
         <div class="channel-about__info__title">Description</div>
         <div class="channel-about__info__description">{{ channel.snippet.description }}</div>

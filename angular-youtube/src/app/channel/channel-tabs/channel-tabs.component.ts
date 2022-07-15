@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { ChannelService } from '../channel-services/channel.service';
 
 import { IVideo } from '../../models/IVideo.interface';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'channel-tabs',
@@ -15,9 +17,10 @@ export class ChannelTabsComponent {
     public isSearching: boolean = false;
     public selectedTab = new FormControl(0);
 
-    public videosByKeyword$ = this._channelService.getChannelVideosByKeyword('');
+    public videosByKeyword$!: Observable<IVideo[]>;
 
     constructor(
+        private _route: ActivatedRoute,
         private _channelService: ChannelService
     ) { }
 
@@ -46,7 +49,8 @@ export class ChannelTabsComponent {
                 this.selectedTab.setValue(6);
             }
 
-            this.videosByKeyword$ = this._channelService.getChannelVideosByKeyword(this.searchVideo);
+            this.videosByKeyword$ = this._channelService
+                .getChannelVideosByKeyword(this.searchVideo, this._route.snapshot.paramMap.get('id'));
         }
     }
 }

@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { VideoListItemComponent } from './video-list-item/video-list-item.component';
 import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
     ],
     imports: [
         CommonModule,
-        MatIconModule
+        MatIconModule,
+        RouterModule
     ],
     exports: [
         CommonModule,

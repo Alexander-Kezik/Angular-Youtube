@@ -11,14 +11,15 @@ export interface ISnippet {
 }
 
 export interface IChannel {
-    snippet: ISnippet
+    snippet: ISnippet;
+    id: string;
     statistics: {
         subscriberCount: number,
         viewCount: number
-    },
+    };
     brandingSettings: {
         image: {
             bannerExternalUrl: string
         }
-    }
+    };
 }

@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatIconModule } from '@angular/material/icon';
+import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { ChannelAboutComponent } from './channel-about.component';
+import { ChannelComponent } from './channel.component';
 
-import { ChannelService } from '../channel-services/channel.service';
+import { ChannelService } from './channel-services/channel.service';
 
-describe('ChannelAboutComponent', () => {
-    let component: ChannelAboutComponent;
-    let fixture: ComponentFixture<ChannelAboutComponent>;
+describe('ChannelComponent', () => {
+    let component: ChannelComponent;
+    let fixture: ComponentFixture<ChannelComponent>;
     let mockChannelService;
     let CHANNEL;
 
-    beforeEach( () => {
+    beforeEach(() => {
         mockChannelService = jasmine.createSpyObj(['getChannel']);
         CHANNEL = {
             snippet: {
@@ -42,7 +41,7 @@ describe('ChannelAboutComponent', () => {
 
         TestBed.configureTestingModule({
             declarations: [
-                ChannelAboutComponent
+                ChannelComponent
             ],
             providers: [
                 {
@@ -51,13 +50,12 @@ describe('ChannelAboutComponent', () => {
                 }
             ],
             imports: [
-                RouterTestingModule,
-                MatIconModule
+                RouterTestingModule
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })
 
-        fixture = TestBed.createComponent(ChannelAboutComponent);
+        fixture = TestBed.createComponent(ChannelComponent);
         component = fixture.componentInstance;
 
         mockChannelService.getChannel.and.returnValue(of(CHANNEL));
@@ -68,10 +66,4 @@ describe('ChannelAboutComponent', () => {
 
         expect(component).toBeTruthy();
     });
-
-    it('should get channel with correct data', () => {
-        fixture.detectChanges();
-
-        expect(component?.channel?.id).toBe('UC_x5XG1OV2P6uZZ5FSM9Ttw');
-    });
-});
+})

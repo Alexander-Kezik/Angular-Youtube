@@ -5,6 +5,7 @@ import { Component, Input } from '@angular/core';
     templateUrl: './channel-data.component.html',
     styleUrls: ['./channel-data.component.scss']
 })
+
 export class ChannelDataComponent {
     @Input() public title: string = '';
     @Input() public thumbnail: string = '';

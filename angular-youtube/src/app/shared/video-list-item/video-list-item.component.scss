@@ -3,7 +3,6 @@
     grid-template-rows: 100%;
     display: grid;
     column-gap: calc(2%);
-
     &__link {
         cursor: pointer;
         background: black;
@@ -19,7 +18,6 @@
     &__info {
         color: #030303;
         text-decoration: none;
-        cursor: pointer;
 
         &-header {
             font-size: 18px;
@@ -28,6 +26,8 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+            color: #030303;
+            text-decoration: none;
         }
 
         &-views {
@@ -47,6 +47,7 @@
                 color: #606060;
                 font-size: 12px;
                 font-family: sans-serif;
+                text-decoration: none;
             }
         }
 

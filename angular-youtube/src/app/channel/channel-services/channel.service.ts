@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {combineLatest, from, map, mergeMap, Observable, scan, tap} from 'rxjs';
+import { combineLatest, map, mergeMap, Observable, scan } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
@@ -8,51 +8,103 @@ import { IChannel } from '../../models/IChannel';
 import { IPlaylist } from '../../models/IPlaylist';
 import { IPlaylistItem } from '../../models/IPlaylistItem';
 import { IChannelSection } from '../../models/IChannelSection';
-import {IVideo} from "../../models/IVideo.interface";
+import { IVideo } from '../../models/IVideo.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 
+// UC_x5XG1OV2P6uZZ5FSM9Ttw
+
 export class ChannelService {
     private _API_KEY = '&key=AIzaSyA2JLgY0v-AxXur_bjEHoQoHFRVARux8wM';
+
     private _channelUrl = `${environment.endpoints.channel.getChannel + this._API_KEY}`;
     private _playlistsUrl = `${environment.endpoints.playlists.getPlaylists + this._API_KEY}`;
     private _channelSectionsUrl = `${environment.endpoints.channelSections.getChannelSections + this._API_KEY}`;
     private _playlistItemsUrl = `${environment.endpoints.playlists.getPlaylistItems + this._API_KEY}`;
     private _searchingByKeyWordUrl = `${environment.endpoints.search.getVideoBySearchingByKeyword + this._API_KEY}`;
-    private _videosUrl = `${environment.endpoints.videos.getVideo + this._API_KEY}`
+    private _videosUrl = `${environment.endpoints.videos.getVideo + this._API_KEY}`;
 
+    private _SINGLE_PLAYLIST_TYPE = 'singleplaylist';
+    private _MULTIPLE_PLAYLISTS_TYPE = 'multipleplaylists';
+    private _MULTIPLE_CHANNELS_TYPE = 'multiplechannels';
 
-    constructor(private _http: HttpClient) { }
+    constructor(
+        private _http: HttpClient
+    ) { }
 
-    public getChannel(): Observable<IChannel> {
-        return this._http.get<{ items: IChannel[] }>(`${this._channelUrl}&id=UC_x5XG1OV2P6uZZ5FSM9Ttw`)
+    public getChannel(id: string | null): Observable<IChannel> {
+        return this._http.get<{ items: IChannel[] }>(`${this._channelUrl}&id=${id}`)
             .pipe(
                 map((item) => item.items[0])
             );
     }
 
-    public getChannelSections(): Observable<{type: string, items: string[], title: string}[]> {
-        return this._http.get<{ items: IChannelSection[] }>(`${this._channelSectionsUrl}&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw`)
+    public getChannelMultiplePlaylists(channelId: string | null): Observable<{ items: IPlaylist[], title: string }> {
+        return this._getChannelMultiplePlaylistsIds(channelId)
+            .pipe(
+                mergeMap(multiplePlaylists => this._getMappedMultiplePlaylists(multiplePlaylists))
+            )
+    }
+
+    public getChannelMultipleChannels(channelId: string | null): Observable<IChannel[]> {
+        return this._getChannelSections(channelId)
+            .pipe(
+                map(value => value.filter(item => item.type === this._MULTIPLE_CHANNELS_TYPE)),
+                map(sortedItems => sortedItems.map(item => item.items.join(','))),
+                mergeMap(ids =>
+                    this._http.get<{ items: IChannel[] }>(`${this._channelUrl}&id=${ids + this._API_KEY}`)
+                ),
+                map(channels => channels.items)
+            )
+    }
+
+    public getPlaylistItemsWithPlaylist (channelId: string | null): Observable<{ playlist: IPlaylist, playlistItems: IPlaylistItem[] }[]> {
+        return combineLatest<[IPlaylist[], IPlaylistItem[]]>([
+            this._getChannelSinglePlaylists(channelId),
+            this._getChannelPlaylistItems(channelId)
+        ])
+            .pipe(
+                map(([channelSinglePlaylists, channelPlaylistItems]) =>
+                    channelSinglePlaylists.map(playlist => ({
+                        playlist: playlist,
+                        playlistItems: channelPlaylistItems.filter(item => item.snippet.playlistId === playlist.id)
+                    }))
+                )
+            )
+    }
+
+    public getChannelVideosByKeyword(keyword: string, channelId: string | null): Observable<IVideo[]> {
+        return this._http.get<{ items: [{ id: { videoId: string } }] }>(`${this._searchingByKeyWordUrl}&q=${keyword}&channelId=${channelId}`)
+            .pipe(
+                mergeMap(id =>
+                    this._http.get<{ items: IVideo[] }>(`${this._videosUrl}&id=${id.items.map(item => item.id.videoId).join(',')}`)
+                ),
+                map(videos => videos.items)
+            )
+    }
+
+    private _getChannelSections(channelId: string | null): Observable<{ type: string, items: string[], title: string }[]> {
+        return this._http.get<{ items: IChannelSection[] }>(`${this._channelSectionsUrl}&channelId=${channelId}`)
             .pipe(
                 map(section => section.items.map(item => {
                     switch (item.snippet.type) {
-                        case 'singleplaylist':
+                        case this._SINGLE_PLAYLIST_TYPE:
                             return {
-                                type: 'singleplaylist',
+                                type: this._SINGLE_PLAYLIST_TYPE,
                                 items: item.contentDetails.playlists,
                                 title: ''
                             }
-                        case 'multipleplaylists':
+                        case this._MULTIPLE_PLAYLISTS_TYPE:
                             return {
-                                type: 'multipleplaylists',
+                                type: this._MULTIPLE_PLAYLISTS_TYPE,
                                 items: item.contentDetails.playlists,
                                 title: item.snippet.title
                             }
-                        case 'multiplechannels':
+                        case this._MULTIPLE_CHANNELS_TYPE:
                             return {
-                                type: 'multiplechannels',
+                                type: this._MULTIPLE_CHANNELS_TYPE,
                                 items: item.contentDetails.channels,
                                 title: item.snippet.title
                             }
@@ -67,81 +119,49 @@ export class ChannelService {
             )
     }
 
-    public getChannelSinglePlaylists(): Observable<IPlaylist[]> {
-        return this.getChannelSections()
-            .pipe(
-                map(value => value.filter(item => item.type === 'singleplaylist').map(item => item.items.join(''))),
-                mergeMap(ids => this._http.get<{ items: IPlaylist[] }>(`${this._playlistsUrl}&id=${ids.join(',')}`)),
-                map(playlist => playlist.items),
-            )
-    }
-
-    public getDividedSinglePlaylists(): Observable<IPlaylist> {
-        return this.getChannelSinglePlaylists()
+    private _getDividedSinglePlaylists(channelId: string | null): Observable<IPlaylist> {
+        return this._getChannelSinglePlaylists(channelId)
             .pipe(
                 mergeMap(playlist => playlist)
             )
     }
 
-    public getChannelPlaylistItems(): Observable<IPlaylistItem[]> {
-        return this.getDividedSinglePlaylists()
+    private _getChannelMultiplePlaylistsIds(channelId: string | null): Observable<{ type: string, items: string[], title: string }> {
+        return this._getChannelSections(channelId)
             .pipe(
-                mergeMap(playlist => this._http.get<{ items: IPlaylistItem[] }>(`${this._playlistItemsUrl}&playlistId=${playlist.id}`)),
+                map(value => value.filter(item => item.type === this._MULTIPLE_PLAYLISTS_TYPE)),
+                mergeMap(ids => ids)
+            )
+    }
+
+    private _getMappedMultiplePlaylists (multiplePlaylists: { type: string, items: string[], title: string }): Observable<{ items: IPlaylist[], title: string }> {
+        return this._http.get<{ items: IPlaylist[] }>(`${this._playlistsUrl}&id=${multiplePlaylists.items.join(',')}`)
+            .pipe(
+                map(playlists => ({
+                    items: [...playlists.items],
+                    title: multiplePlaylists.title
+                }))
+            )
+    }
+
+    private _getChannelPlaylistItems(channelId: string | null): Observable<IPlaylistItem[]> {
+        return this._getDividedSinglePlaylists(channelId)
+            .pipe(
+                mergeMap(playlist =>
+                    this._http.get<{ items: IPlaylistItem[] }>(`${this._playlistItemsUrl}&playlistId=${playlist.id}`)
+                ),
                 map(playlistItem => playlistItem.items),
                 scan((acc, value) => [...acc, ...value], [] as IPlaylistItem[]),
             )
     }
 
-    public getChannelMultiplePlaylistsIds(): Observable<{type: string, items: string[], title: string}> {
-        return this.getChannelSections()
+    private _getChannelSinglePlaylists(channelId: string | null): Observable<IPlaylist[]> {
+        return this._getChannelSections(channelId)
             .pipe(
-                map(value => value.filter(item => item.type === 'multipleplaylists')),
-                mergeMap(ids => ids)
-            )
-    }
-
-    public getChannelMultiplePlaylists(): Observable<{items: IPlaylist[], title: string}> {
-        return  this.getChannelMultiplePlaylistsIds()
-            .pipe(
-                mergeMap(multiplePlaylists => this._http.get<{ items: IPlaylist[] }>(`${this._playlistsUrl}&id=${multiplePlaylists.items.join(',')}`)
-                    .pipe(
-                        map(playlists => ({
-                            items: [...playlists.items],
-                            title: multiplePlaylists.title
-                        }))
-                    )
-                )
-            )
-    }
-
-
-    public getChannelMultipleChannels(): Observable<IChannel[]> {
-        return this.getChannelSections()
-            .pipe(
-                map(value => value.filter(item => item.type === 'multiplechannels').map(item => item.items.join(','))),
-                mergeMap(ids => this._http.get<{ items: IChannel[] }>(`${this._channelUrl}&id=${ids + this._API_KEY}`)),
-                map(channels => channels.items)
-            )
-    }
-
-    public getPlaylistItemsWithPlaylist(): Observable<{playlist: IPlaylist, playlistItems: IPlaylistItem[]}[]> {
-        return combineLatest<[IPlaylist[], IPlaylistItem[]]>([
-            this.getChannelSinglePlaylists(),
-            this.getChannelPlaylistItems()
-        ])
-            .pipe(
-                map(([channelSinglePlaylists, channelPlaylistItems]) => channelSinglePlaylists.map(playlist => ({
-                    playlist: playlist,
-                    playlistItems: channelPlaylistItems.filter(item => item.snippet.playlistId === playlist.id)
-                })))
-            )
-    }
-
-    public getChannelVideosByKeyword(keyword: string): Observable<IVideo[]> {
-        return this._http.get<{ items: [{ id: { videoId: string } }] }>(`${this._searchingByKeyWordUrl}&q=${keyword}&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw`)
-            .pipe(
-                mergeMap(id => this._http.get<{ items: IVideo[] }>(`${this._videosUrl}&id=${id.items.map(item => item.id.videoId).join(',')}`)),
-                map(videos => videos.items)
+                map(value => value.filter(item => item.type === this._SINGLE_PLAYLIST_TYPE)),
+                map(sortedItems => sortedItems.map(item => item.items.join(''))),
+                mergeMap(ids => this._http.get<{ items: IPlaylist[] }>(`${this._playlistsUrl}&id=${ids.join(',')}`)),
+                map(playlist => playlist.items),
             )
     }
 }

@@ -4,6 +4,9 @@ export interface IPlaylistItem {
         title: string,
         channelTitle: string,
         playlistId: string,
+        resourceId: {
+            videoId: string
+        }
         thumbnails: {
             high: {
                 url: string

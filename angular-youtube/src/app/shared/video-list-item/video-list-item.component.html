@@ -2,7 +2,7 @@
         'video-item': !isGrid,
         'video-grid-item': isGrid
         }">
-    <a [ngClass]="{
+    <a routerLink="/video-page/{{ item.id }}" [ngClass]="{
             'video-item__link': !isGrid,
             'video-grid-item__link': isGrid
             }">
@@ -12,22 +12,22 @@
             }"
             src="{{ item.snippet.thumbnails.high.url }}" alt="video image"/>
     </a>
-    <a [ngClass]="{
+    <div [ngClass]="{
             'video-item__info': !isGrid,
             'video-grid-item__wrapper__info': isGrid}">
-        <div [ngClass]="{
+        <a routerLink="/video-page/{{ item.id }}" [ngClass]="{
                 'video-item__info-header': !isGrid,
                 'video-grid-item__wrapper__info-header': isGrid
-            }">{{ item.snippet.title }}</div>
+            }">{{ item.snippet.title }}</a>
         <div *ngIf="!isGrid">
             <div class="video-item__info-views">{{ item.statistics.viewCount }} views</div>
-            <a class="video-item__info__channel-name">{{ item.snippet.channelTitle }}</a>
+            <a routerLink="/channel-page/{{ item.snippet.channelId }}" class="video-item__info__channel-name">{{ item.snippet.channelTitle }}</a>
         </div>
         <div *ngIf="isGrid">
-            <a class="video-grid-item__wrapper__info-name">{{ item.snippet.channelTitle }}</a>
+            <a routerLink="/channel-page/{{ item.snippet.channelId }}" class="video-grid-item__wrapper__info-name">{{ item.snippet.channelTitle }}</a>
             <div class="video-grid-item__wrapper__info-views">{{ item.statistics.viewCount }}</div>
         </div>
         <div *ngIf="!isGrid" class="video-item__info-description">{{ item.snippet.description }}</div>
-    </a>
+    </div>
 </div>
 

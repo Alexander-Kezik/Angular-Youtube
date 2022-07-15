@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ChannelService } from '../channel-services/channel.service';
 
 import { IPlaylist } from '../../models/IPlaylist';
+import { IPlaylistItem } from '../../models/IPlaylistItem';
 
 @Component({
     selector: 'channel-playlists',
@@ -10,14 +12,20 @@ import { IPlaylist } from '../../models/IPlaylist';
     styleUrls: ['./channel-playlists.component.scss']
 })
 
-export class ChannelPlaylistsComponent {
+export class ChannelPlaylistsComponent implements OnInit {
     public channelMultiplePlaylists: { items: IPlaylist[], title: string }[] = [];
-    public channelMultiplePlaylists$ = this._channelService.getChannelMultiplePlaylists().subscribe(playlists => {
-        this.channelMultiplePlaylists = [...this.channelMultiplePlaylists, playlists]
-    });
-    public playlistItemsWithPlaylist$ = this._channelService.getPlaylistItemsWithPlaylist();
+    public playlistItemsWithPlaylist: { playlist: IPlaylist, playlistItems: IPlaylistItem[] }[] = [];
+
+    ngOnInit(): void {
+        this._channelService.getChannelMultiplePlaylists(this._route.snapshot.paramMap.get('id'))
+            .subscribe(playlists => this.channelMultiplePlaylists.push(playlists));
+
+        this._channelService.getPlaylistItemsWithPlaylist(this._route.snapshot.paramMap.get('id'))
+            .subscribe(items => this.playlistItemsWithPlaylist = items)
+    }
 
     constructor(
+        private _route: ActivatedRoute,
         private _channelService: ChannelService
     ) { }
 }

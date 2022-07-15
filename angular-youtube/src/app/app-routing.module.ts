@@ -7,7 +7,7 @@ const routes: Routes = [
     //     path: 'search-page',
     // },
     {
-        path: 'channel-page',
+        path: 'channel-page/:id',
         component: ChannelComponent,
         pathMatch: 'full',
         loadChildren: () => import('./channel/channel.module').then(m => m.ChannelModule)
