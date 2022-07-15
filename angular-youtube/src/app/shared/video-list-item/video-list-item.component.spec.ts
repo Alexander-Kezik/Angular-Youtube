@@ -6,47 +6,50 @@ describe('VideoListItemComponent', () => {
     let component: VideoListItemComponent;
     let fixture: ComponentFixture<VideoListItemComponent>;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [ VideoListItemComponent ]
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [VideoListItemComponent],
         }).compileComponents();
 
         fixture = TestBed.createComponent(VideoListItemComponent);
         component = fixture.componentInstance;
-
-        component.item = {
-            id: '1',
-            snippet: {
-                title: 'some title',
-                description: 'some descr',
-                channelTitle: 'channel title',
-                publishedAt: '2022-12-12',
-                channelId: '1',
-                thumbnails: {
-                    high: {
-                        url: 'https://someURL'
-                    }
-                }
-            },
-            statistics: {
-                viewCount: 100,
-                likeCount: 50,
-                commentCount: 10
-            }
-        }
-        component.isGrid = true;
+        fixture.detectChanges();
     });
 
-    it('should create component', () => {
-        fixture.detectChanges();
-
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should get correct data', () => {
-        fixture.detectChanges();
+    it('should change value isWatched if video was watched previously', () => {
+        component.isWatched = false;
+        component.item = {
+            id: 'TmaAOV4SJNQ',
+            snippet: {
+                title: 'title',
+                description: 'description',
+                channelTitle: 'channelTitle',
+                channelId: 'channelId',
+                publishedAt: 'publishedAt',
+                thumbnails: {
+                    high: {
+                        url: 'url',
+                    },
+                },
+            },
+            statistics: {
+                viewCount: 78,
+                likeCount: 4,
+                commentCount: 5,
+            },
+        };
 
-        expect(component.isGrid).toBe(true);
-        expect(component.item?.id).toBe('1');
+        const watchedVideo = JSON.stringify({
+            TmaAOV4SJNQ: '11:58',
+        });
+        localStorage.setItem('watchedVideos', watchedVideo);
+
+        component.ngOnInit();
+
+        expect(component.isWatched).toBe(true);
     });
 });

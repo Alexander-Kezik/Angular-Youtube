@@ -3,14 +3,16 @@
     grid-template-rows: 100%;
     display: grid;
     column-gap: calc(2%);
+    height: inherit;
+
     &__link {
         cursor: pointer;
         background: black;
         display: flex;
+        flex-direction: column;
         justify-content: center;
 
         &-image {
-            width: 100%;
             justify-content: center;
         }
     }
@@ -64,16 +66,18 @@
 
 .video-grid-item {
     display: grid;
-    grid-template-rows: 165px auto;
+    grid-template-rows: 220px auto;
     grid-template-columns: 295px;
 
     &__link {
         position: relative;
         cursor: pointer;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
 
         &-image {
-            height: 165px;
+            height: 98%;
         }
 
         &-time {
